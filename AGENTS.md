@@ -21,9 +21,20 @@
 
 ## 테스트
 
+L1 Inspector = stdio subprocess + JSON-RPC wire. Inspector로 할 수 있는 것은 전부 L1.
+L2 pytest = Inspector로 검증 불가한 비즈니스 로직 (키워드 추출, 파싱, 캐시, concurrency 등).
+
 ```bash
-.venv/bin/pytest
+bash scripts/ci.sh          # L1 Inspector → L2 pytest (Node.js >= 22)
+bash scripts/inspector.sh   # Web UI (수동 wire 디버깅)
+.venv/bin/pytest            # L2 only
+
+# Inspector 직접 호출 (래퍼 없이)
+npx @modelcontextprotocol/inspector --cli .venv/bin/kosis-mcp --method tools/list
 ```
+
+L1 (`scripts/ci.sh`): initialize, tools/list(14개·annotation·schema), resources/list·read, prompts/list.
+L2 (pytest): `test_extract_keyword.py`, `test_utils.py` — 순수 Python 로직만.
 
 ## 배포 (Docker Compose)
 

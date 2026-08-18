@@ -1,15 +1,7 @@
 """extractKeyword regression tests — compound-word false-positive guard."""
 
-from kosis_mcp.data.quick_stats_params import (
-    MISLEADING_KEYWORD_HINTS,
-    get_quick_stats_param,
-    normalize_keyword_key,
-)
-from kosis_mcp.tools.quick_stats import (
-    extract_district_name,
-    extract_keyword,
-    extract_province_name,
-)
+from kosis_mcp.data.quick_stats_params import get_quick_stats_param, normalize_keyword_key
+from kosis_mcp.tools.quick_stats import extract_district_name, extract_keyword
 from kosis_mcp.tools.more_tools import extract_year_count
 
 
@@ -49,7 +41,7 @@ def test_compound_blocked():
 
 def test_youth_unemployment_not_silent():
     # should not map to 실업률 via partial match when compound
-    assert extract_keyword("청년실업률") != "실업률" or "청년" in extract_keyword("청년실업률")
+    assert extract_keyword("청년실업률") != "실업률"
 
 
 def test_get_param_alias():
@@ -63,6 +55,7 @@ def test_normalize_key():
 
 
 def test_extract_year_count():
+    assert extract_year_count("지난 10년") == 10
     assert extract_year_count("지난 5년 추세") == 5
     assert extract_year_count("민선 8기") == 4
     assert extract_year_count("작년 대비") == 2

@@ -8,7 +8,6 @@ from kosis_mcp.cache import CacheManager
 from kosis_mcp.utils.concurrency import map_with_concurrency
 from kosis_mcp.utils.data_formatter import parse_kosis_number
 from kosis_mcp.utils.regions import normalize_province_name
-from kosis_mcp.tools.more_tools import extract_year_count
 
 
 def test_parse_kosis_number():
@@ -87,7 +86,3 @@ def test_normalize_province():
     assert normalize_province_name("전라북도") == "전북"
     assert normalize_province_name("강원특별자치도") == "강원"
     assert normalize_province_name("서울") == "서울"
-
-
-def test_extract_year_count_basic():
-    assert extract_year_count("지난 10년") == 10
