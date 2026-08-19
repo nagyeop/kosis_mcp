@@ -1,24 +1,60 @@
-# 🎯 KOSIS MCP 사용성 개선 리포트
+# KOSIS MCP 사용성 개선 리포트
 
-## 📋 테스트 개요
+> **원본**: 2026-01-05, TypeScript MCP 기준 자연어 사용성 테스트  
+> **Python v2.0 검증**: 2026-08-19 — 코드·테스트 정적 분석 (KOSIS API 라이브 호출 **미실시**, `KOSIS_API_KEY` 없음)
+
+TypeScript 시절의 정성적 분석이지만, **도구별 UX 문제는 FastMCP 포팅 후에도 그대로 남을 수 있습니다.**  
+아래 「Python v2.0 검증 상태」표를 먼저 보고, 원본 이슈 설명은 참고용으로 유지합니다.
+
+---
+
+## Python v2.0 검증 상태 (2026-08-19)
+
+| # | 원본 이슈 | 검증 방법 | 상태 | 비고 |
+|---|----------|----------|------|------|
+| 1 | `search_statistics` — 「인구」「집값」 검색 시 핵심 통계가 상위에 안 나옴 | `more_tools.py:search_statistics` 정적 분석 | **미해결 (추정)** | KOSIS 결과를 그대로 반환. `PRIORITY_TABLES`·재정렬 로직 없음. `parse_query`/`generate_search_terms`로 검색어 확장만 함 |
+| 2 | `get_table_info` — usageHint 지역코드 하드코딩 | `get_table_info.py` + `meta_lookup.summarize_table_meta` | **해결됨** | 메타 API에서 동적 추출. 하드코딩된 「00=전국, 11=서울…」 예시 없음 |
+| 3 | 추천 통계 — population 토픽에 핵심 인구표 누락 | `more_tools.py:TOPIC_RECOMMENDATIONS` | **부분 해결** | `DT_1B040A3`(주민등록인구), `DT_1B81A17`(합계출산율) 2개만. 원본이 기대한 `DT_1IN1503`·`DT_1B8000H` 등은 미포함 |
+| 4 | `compare_statistics` — `objL1: "11+21"` 다중 지역 비교 실패 | `stats_query.py:compare_statistics` | **미해결 (추정)** | `+` 구분 파싱·다중 objL1 처리 없음. 실패 시 `insights: [str(error)]`만 반환, usageHint 가이드 없음 |
+| 5 | LLM 5~6단계 플로우 — 간단 질문에 도구 연속 호출 | `quick_stats`·chain 도구 존재 확인 | **우회 해결** | `quick_stats`/`quick_trend`/`chain_*`로 원스텝 가능. **단, AI가 여전히 search→table_info→data 경로를 택하면 동일 통증 재발** |
+| 6 | 동의어·별칭 (`집값`, `총인구`, `주민등록인구` 등) | `quick_stats_params.py:KEYWORD_ALIASES` | **해결됨 (quick_stats 한정)** | 88+ 별칭. `집값`→`주택가격`, `주민등록인구`→`인구` 등 |
+| 7 | 인기 질의 캐싱·스마트 기본값 | `cache.py` + `quick_stats` 기본값 | **부분 해결** | 6시간 캐시·연도 미지정 시 최근값 등은 있음. 검색어→고정 테이블 `POPULAR_QUERIES` 맵은 없음 |
+
+### 검증 한계
+
+- **라이브 KOSIS 호출 없음** — #1, #4는 코드상 미구현이 확인됐지만, 실제 API 응답 순위·`11+21` 동작은 재현 테스트 필요
+- **pytest 22건** — 키워드 추출·MCP 메타데이터 위주. `search_statistics` 순위·`compare_statistics` 다중 지역·추천 토픽 품질 **미검증**
+- **미해결 과제 plan** — [docs/plans/usability-open-items.md](plans/usability-open-items.md) (U1~U4, TypeScript 리포트 잔여만)
+
+### 우선순위 (현재 코드 기준, 미착수)
+
+| 우선순위 | 항목 | 근거 |
+|---------|------|------|
+| P1 | `search_statistics` 결과 후처리 (키워드별 대표 테이블 상위 고정) | `quick_stats`를 쓰지 않는 탐색 경로에서 원본 #1 그대로 |
+| P2 | `compare_statistics` 다중 지역 UX — `regionName` 복수 입력 또는 `objL1` `+` 파싱 + 실패 시 usageHint | 원본 #4 + `chain_compare_regions`와 역할 중복 정리 필요 |
+| P3 | `TOPIC_RECOMMENDATIONS` population 확장 | 원본 #3 — 2개→5개 수준 |
+| — | 라이브 회귀 테스트 스크립트 | `KOSIS_API_KEY`로 원본 11개 검색어 + compare 2건 재현 |
+
+---
+
+## 원본 테스트 개요 (2026-01-05, TypeScript)
 
 **테스트 관점**: 일반인/LLM이 처음 MCP를 사용할 때  
-**테스트 날짜**: 2026-01-05  
 **테스트 방법**: 자연스러운 질문으로 전체 플로우 테스트
 
 ---
 
-## 🔴 발견된 주요 문제점
+## 발견된 주요 문제점 (원본)
 
-### 1. search_statistics - 자연어 검색 실패 ⚠️ Critical
+### 1. search_statistics - 자연어 검색 실패
 
-| 검색어 | 기대 결과 | 실제 결과 | 상태 |
-|--------|----------|----------|------|
+| 검색어 | 기대 결과 | 실제 결과 (당시) | 상태 |
+|--------|----------|-----------------|------|
 | "한국 인구" | 총인구/인구수 통계 | 부양비 및 노령화지수 | ❌ |
 | "총인구" | 인구수 통계 | 부양비 및 노령화지수 | ❌ |
 | "인구수" | 인구수 통계 | 부양비 및 노령화지수 | ❌ |
 | "주민등록인구" | 주민등록인구 | 부양비 및 노령화지수 | ❌ |
-| "집값" | 주택가격 통계 | 귀촌의 이유(!) | ❌ |
+| "집값" | 주택가격 통계 | 귀촌의 이유 | ❌ |
 | "주택가격" | 주택가격 통계 | 주택소유통계(주택수) | ⚠️ |
 | "실업률" | 실업률 통계 | 성/연령별 실업률 | ✅ |
 | "GDP" | GDP 통계 | 국내총생산 | ✅ |
@@ -26,256 +62,49 @@
 | "출산율" | 출산율 통계 | 합계출산율 | ✅ |
 | "서울 실업률" | 지역별 실업률 | 행정구역별 실업률 | ✅ |
 
-**원인 분석**:
-- KOSIS API의 검색 알고리즘이 "인구" 키워드에 대해 부양비/노령화 통계를 상위에 반환
-- "집값"이 TOPIC_MAPPINGS에 없음 (→ 이미 추가됨)
+**원인 (당시)**:
+- KOSIS API 검색 알고리즘이 "인구" 키워드에 부양비/노령화 통계를 상위 반환
 - 검색 결과 후처리에서 통계명 우선순위 조정 필요
 
-**개선안**:
-```typescript
-// searchStatistics.ts - 검색 결과 후처리 추가
-const PRIORITY_TABLES = {
-  '인구': ['DT_1B04005', 'DT_1IN1503', 'DT_1YL20001'], // 총인구, 주민등록인구
-  '집값': ['DT_1YL21101'], // 주택가격
-  '주택가격': ['DT_1YL21101'],
-};
-
-// 검색 후 특정 키워드에 대해 우선 테이블 상위 배치
-```
+**개선안 (아직 search_statistics 경로에 미적용)**:
+- 키워드별 `PRIORITY_TABLES`로 검색 후 대표 테이블 상위 배치
+- Python v2.0: `quick_stats` 별칭으로 **즉답 경로**는 우회됨. **탐색 경로는 미적용**
 
 ---
 
-### 2. get_table_info - usageHint 지역코드 오류 ⚠️ Medium
+### 2. get_table_info - usageHint 지역코드 오류
 
-**문제**:
-usageHint 하단에 잘못된 지역코드 예시가 하드코딩되어 있음
+**당시 문제**: usageHint에 통계표마다 다른 지역코드 체계가 하드코딩됨.
 
-```
-현재 (잘못됨):
-"지역 코드: 00=전국, 11=서울, 26=부산, 27=대구, 28=인천..."
-
-실제 (경활 통계 기준):
-"지역 코드: 00=계, 11=서울, 21=부산, 22=대구, 23=인천..."
-
-실제 (인구동향 통계 기준):  
-"지역 코드: 00=전국, 11=서울, 26=부산, 27=대구, 28=인천..."
-```
-
-**원인**:
-- 통계표마다 지역코드 체계가 다름 (경활조사 vs 인구동향조사)
-- usageHint에 하드코딩된 예시가 특정 통계표 기준임
-
-**개선안**:
-```typescript
-// getTableInfo.ts - 하드코딩된 지역코드 예시 제거
-// 대신 rawData에서 추출한 실제 코드만 표시
-
-usageHint = `
-### 사용 가능한 분류1(objL1) 코드
-${actualC1Codes.map(c => `    - "${c.id}" (${c.name})`).join('\n')}
-
-// 하드코딩된 "지역 코드: 00=전국, 11=서울..." 부분 삭제
-`;
-```
+**Python v2.0**: ✅ 메타 API 동적 추출로 해결.
 
 ---
 
-### 3. get_recommended_statistics - 핵심 통계 누락 ⚠️ Medium
+### 3. 추천 통계 - population 토픽 핵심 누락
 
-**문제**:
-"population" 토픽 추천에 기본 인구수 통계가 없음
+**당시 기대**: 주민등록인구현황, 시도별 총인구, 인구동태건수, 합계출산율, 고령인구비율
 
-**현재 추천 결과**:
-1. 부양비 및 노령화지수
-2. 부양인구비 및 노령화지수 - 남부·동남아시아
-3. 부양인구비 및 노령화지수 - 동북·중앙아시아
-4. 시군구/인구동태건수...
-5. 시도/인구동태건수...
-
-**기대 추천 결과**:
-1. 주민등록인구현황 ⭐
-2. 시도별 총인구 ⭐
-3. 인구동태건수
-4. 합계출산율
-5. 고령인구비율
-
-**개선안**:
-```typescript
-// getRecommendedStatistics.ts - 토픽별 추천 테이블 정의
-const RECOMMENDED_TABLES: Record<string, string[]> = {
-  population: [
-    'DT_1B04005',    // 시도/성/연령별 주민등록인구
-    'DT_1IN1503',    // 주민등록인구현황
-    'DT_1B8000H',    // 인구동태건수
-    'DT_1B81A17',    // 합계출산율
-    'DT_1BPA002',    // 주요인구지표
-  ],
-  housing: [
-    'DT_1YL21101',   // 아파트 매매/전세 가격
-    // ...
-  ],
-};
-```
+**Python v2.0**: `get_statistics_list(recommendedTopic="population")` — 주민등록인구·합계출산율 2개. ⚠️ 부분 해결.
 
 ---
 
-### 4. compare_statistics - 다중 지역 비교 실패 ⚠️ Medium
+### 4. compare_statistics - 다중 지역 비교 실패
 
-**문제**:
-`objL1: "11+21"` (서울+부산) 형식의 비교가 실패함
+**당시**: `objL1: "11+21"` (서울+부산) 형식 실패, 에러 메시지 불친절.
 
-**테스트 결과**:
-```json
-{
-  "success": false,
-  "compareType": "item",
-  "items": [],
-  "summary": "비교 중 오류가 발생했습니다."
-}
-```
-
-**개선안**:
-```typescript
-// compareStatistics.ts - 에러 시 상세 원인 제공
-return {
-  success: false,
-  compareType: input.compareType,
-  items: [],
-  summary: "비교 중 오류가 발생했습니다.",
-  error: errorMessage, // 추가
-  usageHint: `
-    다중 지역 비교 시 올바른 형식:
-    - objL1: "11+21" (서울+부산)
-    
-    먼저 get_table_info로 유효한 코드를 확인하세요.
-  `,
-};
-```
+**Python v2.0**: ⚠️ 동일 패턴 미구현. 대신 `chain_compare_regions`로 자연어 다지역 비교는 별도 제공.
 
 ---
 
-### 5. LLM 사용 플로우 - 단계가 너무 많음 ⚠️ High
+### 5. LLM 사용 플로우 - 단계가 너무 많음
 
-**현재 플로우** (일반인 질문 → 답변까지):
+**당시**: search → table_info → get_statistics_data 등 5~6단계.
 
-```
-사용자: "한국 실업률 알려줘"
-    ↓
-1. search_statistics("실업률")
-    ↓
-2. 테이블 목록 확인 → DT_1DA7102S 선택
-    ↓
-3. get_table_info("DT_1DA7102S")
-    ↓
-4. 분류 코드 확인 → objL1, itemId 파악
-    ↓
-5. get_statistics_data(objL1="0", objL2="00", itemId="T80")
-    ↓
-6. 결과 해석 및 응답
-```
-
-**문제점**:
-- 6단계나 필요 (LLM 호출 5회)
-- 일반 사용자 입장에서 복잡함
-- LLM이 중간 단계에서 실수할 가능성 높음
-
-**개선안 - quick_stats 도구 추가**:
-```typescript
-// 새 도구: quick_stats
-export const quickStatsSchema = {
-  name: 'quick_stats',
-  description: '자주 묻는 통계를 한 번에 조회합니다. 내부적으로 검색, 테이블 정보 조회, 데이터 조회를 자동으로 수행합니다.',
-  inputSchema: z.object({
-    query: z.string().describe('자연어 질문. 예: "한국 실업률", "서울 인구", "2024년 출산율"'),
-    region: z.string().optional().describe('지역명 (선택)'),
-    year: z.number().optional().describe('연도 (선택, 미지정시 최근)'),
-  }),
-};
-
-// 구현 로직
-async function quickStats(input) {
-  // 1. 키워드 → 추천 테이블 매핑
-  const tableId = QUICK_STATS_MAPPING[extractKeyword(input.query)];
-  
-  // 2. 테이블 정보 자동 조회
-  const tableInfo = await getTableInfo(tableId);
-  
-  // 3. 지역/연도 파라미터 자동 매핑
-  const params = mapQueryToParams(input, tableInfo);
-  
-  // 4. 데이터 조회 및 자연어 응답 생성
-  const data = await getStatisticsData(params);
-  
-  return {
-    answer: formatNaturalLanguage(data), // "한국의 2024년 실업률은 2.8%입니다."
-    source: { tableId, tableName, ... },
-    rawData: data,
-  };
-}
-```
+**Python v2.0**: `quick_stats`·`quick_trend`·chain 3종으로 ✅ 우회. 프롬프트/도구 설명이 search 경로를 유도하면 ⚠️ 재발 가능.
 
 ---
 
-## 📊 우선순위별 개선 로드맵
-
-### 🔴 Priority 1 - 즉시 수정 필요
-
-| 항목 | 설명 | 예상 작업량 |
-|------|------|------------|
-| search_statistics 결과 개선 | 인구/집값 검색 시 핵심 통계 상위 배치 | 2시간 |
-| usageHint 지역코드 수정 | 하드코딩된 잘못된 코드 제거 | 30분 |
-
-### 🟡 Priority 2 - 사용성 향상
-
-| 항목 | 설명 | 예상 작업량 |
-|------|------|------------|
-| get_recommended_statistics 개선 | 토픽별 핵심 통계 정의 | 1시간 |
-| compare_statistics 에러 개선 | 상세 에러 메시지 및 가이드 | 1시간 |
-
-### 🟢 Priority 3 - 신규 기능
-
-| 항목 | 설명 | 예상 작업량 |
-|------|------|------------|
-| quick_stats 도구 추가 | 원스텝 통계 조회 | 4시간 |
-| 자연어 응답 생성기 | 데이터 → 문장 변환 | 2시간 |
-
----
-
-## 💡 추가 개선 아이디어
-
-### 1. 인기 검색어 기반 캐싱
-
-```typescript
-const POPULAR_QUERIES = {
-  '실업률': { tableId: 'DT_1DA7102S', objL1: '0', objL2: '00', itemId: 'T80' },
-  '출산율': { tableId: 'DT_1B8000H', objL1: '00', itemId: 'T12' },
-  '인구': { tableId: 'DT_1B04005', objL1: '00', itemId: 'T2' },
-  // ...
-};
-```
-
-### 2. 검색 동의어 사전
-
-```typescript
-const SYNONYMS = {
-  '인구': ['인구수', '총인구', '주민등록인구', '인구현황'],
-  '집값': ['주택가격', '아파트값', '부동산가격', '집가격'],
-  '월급': ['임금', '급여', '소득', '평균임금'],
-  '범죄': ['범죄율', '치안', '범죄발생'],
-};
-```
-
-### 3. 스마트 기본값
-
-```typescript
-// 지역 미지정 시 → 전국 데이터
-// 연도 미지정 시 → 최근 5개년
-// 항목 미지정 시 → 대표 항목 (예: 인구수, 합계출산율)
-```
-
----
-
-## ✅ 테스트 결과 요약
+## 원본 테스트 결과 요약
 
 | 카테고리 | 테스트 수 | 성공 | 실패 | 성공률 |
 |----------|----------|------|------|--------|
@@ -285,24 +114,12 @@ const SYNONYMS = {
 | 비교 분석 | 2 | 1 | 1 | 50% |
 | **전체** | **20** | **14** | **6** | **70%** |
 
+→ Python v2.0에서 **라이브 재측정 없음**. 위 수치는 TypeScript 당시 기준.
+
 ---
 
-## 🎯 결론
+## 결론
 
-현재 kosis-mcp는 **기술적으로는 잘 동작**하지만, **일반 사용자 관점에서는 개선이 필요**합니다.
-
-가장 큰 문제는:
-1. **"인구" 검색 시 인구수 통계가 안 나옴** - 가장 기본적인 질문인데 실패
-2. **단계가 너무 많음** - 간단한 질문에 5번의 API 호출 필요
-
-권장 조치:
-1. **즉시**: search_statistics 결과 후처리 추가
-2. **단기**: quick_stats 도구 추가로 원스텝 조회 지원
-3. **중기**: 자연어 응답 생성기 추가
-
-이 개선들이 적용되면 **일반인도 "한국 실업률"이라고 물어보면 바로 "2024년 한국 실업률은 2.8%입니다"라는 답변**을 받을 수 있게 됩니다.
-
-
-
-
-
+- **quick_stats 중심 UX**는 TypeScript 대비 크게 개선됨 (별칭, 자치구 라우팅, chain 도구).
+- **search_statistics 탐색 경로·compare_statistics 다중 objL1·추천 토픽 품질**은 코드상 **아직 미해결 또는 부분 해결**.
+- 삭제 전 「다 해결됐다」고 단정한 것은 **잘못**이었음. 본 문서는 검증 상태를 명시해 유지.
