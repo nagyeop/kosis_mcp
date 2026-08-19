@@ -1,14 +1,12 @@
-# Korean Stats MCP
+# KOSIS MCP
 
 **국가데이터처 KOSIS, 이제 사이트에 들어가지 않습니다.**
 AI 어시스턴트에게 한국어로 물어보면 국가데이터처 공식 수치가 출처와 함께 바로 나옵니다.
 
-[![npm version](https://img.shields.io/npm/v/korean-stats-mcp.svg)](https://www.npmjs.com/package/korean-stats-mcp)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![MCP](https://img.shields.io/badge/MCP-Compatible-blue)](https://modelcontextprotocol.io/)
 [![KOSIS](https://img.shields.io/badge/KOSIS-OpenAPI-green)](https://kosis.kr/openapi/)
 
-> 국가데이터처 KOSIS OpenAPI 기반 MCP 서버. Claude Desktop·Cursor·Claude.ai 등에서 바로 사용. 설치 없이 웹 커넥터로도 가능.
+> 국가데이터처 KOSIS OpenAPI 기반 MCP 서버 (Python FastMCP). Claude Desktop·Cursor 등에서 stdio 또는 HTTP로 사용.
 
 ---
 
@@ -116,7 +114,7 @@ AI: 2025년 하반기 광진구의 고용률은 61.6%입니다.
     2024년 광진구의 65세 이상 고령인구는 ○○,○○○명입니다.
 ```
 
-전국 **226개 시군구**(자치구·시·군)를 KOSIS 자치구 단위 통계표로 직접 조회합니다. 시군구가 동일 구조로 수록된 **KOSIS 표준 통계표(자치구 코드 라우팅)를 우선** 쓰고, 표준표에 없는 분야만 자치구 통계연보(`.xlsx`)로 보완합니다. `중구`·`남구`처럼 여러 시에 있는 이름도 "부산 중구"처럼 광역시를 같이 말하면 정확히 구분합니다.
+전국 **230개 이상의 자치구·시군**을 KOSIS 자치구 단위 통계표로 직접 조회합니다. 전국 226개 시군구가 동일 구조로 수록된 **KOSIS 표준 통계표(자치구 코드 라우팅)를 우선** 쓰고, 표준표에 없는 분야만 자치구 통계연보(`.xlsx`)로 보완합니다. `중구`·`남구`처럼 여러 시에 있는 이름도 "부산 중구"처럼 광역시를 같이 말하면 정확히 구분합니다.
 
 ---
 
@@ -177,101 +175,83 @@ AI: 2025년 하반기 광진구의 고용률은 61.6%입니다.
 
 ---
 
-## 설치 (3가지 방법)
+## 설치
 
-### 방법 1 — Claude.ai 웹 커넥터 (설치 없음) ⭐ 가장 쉬움
+### 방법 1 — 로컬 stdio (Claude Desktop / Cursor)
 
-Claude Pro/Max/Team/Enterprise 요금제에서 동작합니다.
-
-1. [claude.ai](https://claude.ai) 로그인 → 좌측 본인 이름 → **설정** → **커넥터**
-2. **커스텀 커넥터 추가**
-3. 입력 — 이름: `korean-stats` / URL: `https://mcp.gomdori.app/stats`
-4. **추가** → 추가된 커넥터 **구성** → 모든 도구를 **"항상 사용"**으로
-5. 채팅창에 `"광진구 고용률 알려줘"` 처럼 한국어로 질문하면 끝
-
-### 방법 2 — AI 데스크톱 앱 (설치 없음)
-
-Claude Desktop / Cursor / Windsurf에 원격 MCP 서버를 등록합니다.
-
-#### 원클릭 자동 설치 ⭐
-
-설치 스크립트가 클라이언트 설정 파일을 자동으로 찾아 `korean-stats` 항목을 등록합니다. 기존 설정은 백업(`*.bak.*`) 후 보존되고, 다른 MCP 서버 항목은 그대로 둡니다.
-
-**macOS / Linux** (`jq` 또는 `python3` 필요)
+**준비물**: Python 3.11+ · [KOSIS OpenAPI 키](https://kosis.kr/openapi/) (무료)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/chrisryugj/korean-stats-mcp/main/install.sh | bash
+git clone https://github.com/chrisryugj/kosis-mcp.git
+cd kosis-mcp
+python3 -m venv .venv
+.venv/bin/pip install -e .
 ```
-
-**Windows (PowerShell)**
-
-```powershell
-irm https://raw.githubusercontent.com/chrisryugj/korean-stats-mcp/main/install.ps1 | iex
-```
-
-기본값은 세 클라이언트 모두 등록(`all`)입니다. 특정 클라이언트만 설치하려면 `--client`(`claude`·`cursor`·`windsurf`·`all`) 옵션을 씁니다.
-
-```bash
-# macOS / Linux — Cursor만
-curl -fsSL https://raw.githubusercontent.com/chrisryugj/korean-stats-mcp/main/install.sh | bash -s -- --client cursor
-```
-
-```powershell
-# Windows — Cursor만
-& ([scriptblock]::Create((irm https://raw.githubusercontent.com/chrisryugj/korean-stats-mcp/main/install.ps1))) -Client cursor
-```
-
-스크립트는 등록 전 원격 서버 헬스 체크를 수행합니다. 설치 후 해당 앱을 재시작하세요.
-
-#### 수동 등록
-
-설정 파일을 직접 편집해도 됩니다.
-
-| 앱 | 설정 파일 위치 |
-|----|---------------|
-| Claude Desktop | Windows `%APPDATA%\Claude\claude_desktop_config.json` · macOS `~/Library/Application Support/Claude/claude_desktop_config.json` |
-| Cursor | 프로젝트 `.cursor/mcp.json` |
-| Windsurf | 프로젝트 `.windsurf/mcp.json` |
 
 ```json
 {
   "mcpServers": {
-    "korean-stats": {
-      "command": "npx",
-      "args": ["-y", "mcp-remote", "https://mcp.gomdori.app/stats"]
-    }
-  }
-}
-```
-
-저장 후 앱을 재시작합니다.
-
-### 방법 3 — 로컬 설치 (오프라인 가능)
-
-**준비물**: [Node.js](https://nodejs.org) 20 이상 · [KOSIS OpenAPI 키](https://kosis.kr/openapi/) (무료 발급)
-
-```bash
-git clone https://github.com/chrisryugj/korean-stats-mcp.git
-cd korean-stats-mcp
-pnpm install
-pnpm run build
-```
-
-AI 앱 설정에 발급받은 키를 넣습니다.
-
-```json
-{
-  "mcpServers": {
-    "korean-stats": {
-      "command": "node",
-      "args": ["/절대경로/korean-stats-mcp/dist/index.js"],
+    "kosis-mcp": {
+      "command": "/절대경로/kosis-mcp/.venv/bin/kosis-mcp",
+      "args": [],
       "env": { "KOSIS_API_KEY": "발급받은_키" }
     }
   }
 }
 ```
 
-> 로컬에서 직접 실행할 때는 프로젝트 루트에 `.env` 파일을 만들어 `KOSIS_API_KEY=...`를 넣어도 됩니다. (`.env.example` 참고)
+원클릭 등록:
+
+```bash
+export KOSIS_API_KEY=발급받은_키
+# PATH에 kosis-mcp 가 있어야 함 (.venv/bin 활성화 후)
+bash install.sh --client cursor
+```
+
+프로젝트 루트 `.env`에 `KOSIS_API_KEY=...`를 넣어도 됩니다 (`.env.example` 참고).
+
+### 방법 2 — Docker Compose (서버 배포)
+
+```bash
+cp .env.example .env   # KOSIS_API_KEY 설정
+docker compose up -d --build
+```
+
+- MCP: `POST /mcp` (기본 `:3000`)
+- 헬스: `GET /health`
+- Redis: compose 내부 네트워크 (`REDIS_URL=redis://redis:6379/0`)
+
+### 방법 3 — Vercel (서버리스 HTTP)
+
+```bash
+cp .env.example .env   # 로컬 vercel dev용
+npx vercel login
+npx vercel env add KOSIS_API_KEY      # production + preview
+npx vercel env add MCP_AUTH_TOKEN     # (권장) Bearer 인증
+npx vercel --prod
+```
+
+- MCP: `POST https://<your-project>.vercel.app/mcp`
+- 헬스: `GET /health`
+- Redis: [Upstash Redis](https://vercel.com/marketplace/upstash) 연동 후 `REDIS_URL` 설정 (미설정 시 인메모리 캐시)
+- Cursor 연결:
+
+```json
+{
+  "mcpServers": {
+    "kosis-mcp": {
+      "url": "https://<your-project>.vercel.app/mcp",
+      "headers": { "Authorization": "Bearer YOUR_MCP_AUTH_TOKEN" }
+    }
+  }
+}
+```
+
+로컬에서 HTTP만 띄울 때:
+
+```bash
+KOSIS_API_KEY=... kosis-mcp --http --port 3000
+```
 
 ---
 
@@ -281,16 +261,6 @@ AI 앱 설정에 발급받은 키를 넣습니다.
 - **추계 데이터 구분** — 장래추계가 포함된 통계는 "추계" 안내가 자동으로 붙습니다.
 - **자치구 데이터 무결성** — 자치구 단위 데이터가 KOSIS에 없으면 임의로 광역시도 값을 자치구 값인 척 답하지 않고, "광역시도 데이터로 대체했다"고 명시합니다.
 - **캐시** — 동일 질의는 6시간 캐싱하여 빠르게 응답하되, 통계 갱신 주기를 해치지 않습니다.
-
----
-
-## 원격 엔드포인트
-
-공식 주소는 통합 호스트 경로 하나입니다.
-
-- 엔드포인트: `https://mcp.gomdori.app/stats` (14개 도구 전체 동작)
-- 헬스체크: `https://mcp.gomdori.app/stats/health` → 배포 중인 버전과 도구 수(`{"status":"ok","name":…,"version":…,"tools":14}`)를 그대로 반환합니다
-- 구 개별 주소 `korean-stats-mcp.fly.dev` 는 통합 호스트로 옮기면서 중단됐습니다. 예전 설정에 남아 있다면 위 주소로 바꿔주세요.
 
 ---
 
@@ -306,49 +276,17 @@ AI 앱 설정에 발급받은 키를 넣습니다.
 - 견고성 — 동일 키 in-flight 요청 병합(캐시 stampede 방지), 체인 도구 동시성 캡 8(17×8=136 동시 KOSIS 호출 방지), vitest 단위 테스트 도입
 - v1.8.1 — 통계설명을 정식 엔드포인트(`statisticsExplData.do`)로 교체 + 자치구 코드 lookup 검증 강화
 - v1.8.2 ~ v1.8.5 — MCP 도구 annotations(read-only·비파괴·멱등·openWorld) 부여, 도구명을 영문 그대로 노출(비-ASCII title이 붙으면 claude.ai 웹이 도구 목록을 인식하지 못함), 과대했던 도구 description 축소
-- **배포를 통합 호스트로 이전** — 공식 주소 `mcp.gomdori.app/stats` (구 `korean-stats-mcp.fly.dev` 중단)
+- **배포를 통합 호스트로 이전** — 공식 주소 `mcp.gomdori.app/stats` (구 `kosis-mcp.fly.dev` 중단)
 
 </details>
 
 <details>
-<summary>v1.7 — 자치구 데이터 소스 우선순위 재정립 + HTTP 서버 안정화</summary>
+<summary>v2.0 — Python FastMCP 전면 교체</summary>
 
-- 자치구 조회 우선순위 전환 — KOSIS **표준 OpenAPI(자치구 코드 라우팅)를 1순위**로, 통계연보(`.xlsx`)는 표준표에 없는 분야의 보조 경로로. 표준표는 전국 226개 시군구가 동일 구조라 일관성·다지역 비교가능성이 보장됨
-- 통계연보 `.xlsx`의 `file_sn`을 분야명 매칭으로 **자치구별 동적 도출** — 자치구마다 다른 통계연보 분야 순서 때문에 엉뚱한 분야 파일을 읽던 문제 차단
-- 자치구 데이터 미수록 시 광역값을 자치구 값인 척 답하지 않도록 **응답 격하 강화** — "○○구 단위 미수록, 참고로 상위 지역 □□는 X" 형태로 첫 문장부터 명시
-- `chain_compare_regions` **소스 혼합 감지** — 같은 지표가 지역별로 다른 KOSIS 통계표에서 조회되면 비교가능성 경고 자동 부착
-- HTTP 서버 메모리 누수 차단 (v1.7.1) — rate-limit IP 버킷 주기적 정리, 매 요청 생성되는 MCP Server 인스턴스 명시적 종료, SIGTERM graceful shutdown (korean-law-mcp 안정화 패턴 적용)
-
-</details>
-
-<details>
-<summary>v1.6 — 자치구 고용·인구동태 정밀 라우팅 확장</summary>
-
-- 자치구 단위 OpenAPI 라우팅을 14개 분야로 확장 — 고용(`DT_1ES3A03_A01S`)·실업(`DT_1ES3A01S`)·인구동태(`INH_*` 사망·혼인·이혼)
-- 고용·실업 통계표의 반기(`prdSe='S'`) 주기를 응답의 `PRD_SE` 필드 기준으로 라벨링 — "2025년 하반기"처럼 정확 표기
-- `getDistrictKscdCodeFor` — `UP_ITM_ID` 없는 메타 대응("서울 광진구" 결합형 / "수원시" 단일형), 동명 시군 ambiguous 처리
-- 자치구 통계연보(`.xlsx`) value 추출 실패 시 OpenAPI 라우팅으로 자동 fall-through
-- 배포를 Fly.io 컨테이너로 전환 — 자치구 `.xlsx` 파싱(kordoc) 엔진 포함
-
-</details>
-
-<details>
-<summary>v1.4 — 자연어 정규화 + 체인 도구</summary>
-
-- 약어·오타·공백 변형 자동 정규화 (`KEYWORD_ALIASES` 100개 이상, 률/율 오타 교정)
-- 체인 도구 3종 — `chain_region_brief`(연설용 한 줄 모드 포함)·`chain_compare_regions`(전국 17개 동시)·`chain_policy_indicator`
-- `quick_trend` 자연어 기간 추출 — "민선 N기", "임기 N년차", "작년 대비", "역대"
-- 도구 13개 → 12개 통폐합
-
-</details>
-
-<details>
-<summary>v1.2 ~ v1.3 — 자치구 라우팅 도입</summary>
-
-- `DISTRICT_TO_PROVINCE` 자치구·시군 매핑 200개 이상으로 확장
-- 동명 자치구를 광역시도 컨텍스트로 구분 (`AMBIGUOUS_DISTRICTS`)
-- "해운대구"의 "대구" 부분매칭 등 부분매칭 버그 차단
-- 자치구 정밀 조회 경로(`fetch_kosis_excel`) 도입
+- TypeScript/Node MCP → **Python FastMCP 3.4.7** 전면 포팅
+- npm / gomdori 통합 호스트 의존 제거 — 독립 stdio + Streamable HTTP
+- 엑셀 파싱: kordoc → **openpyxl** 마크다운 변환
+- 14개 도구·2개 리소스·1개 프롬프트 유지
 
 </details>
 
@@ -356,12 +294,11 @@ AI 앱 설정에 발급받은 키를 넣습니다.
 
 ## 라이선스
 
-[MIT](./LICENSE)
+MIT
 
 ---
 
 ## 참고한 프로젝트
 
-- **[Dayoooun/korea-stats-mcp](https://github.com/Dayoooun/korea-stats-mcp)** — 이 프로젝트의 포크 시작점. 원본에 깊은 감사를 표합니다. 라이선스는 원본과 동일한 MIT.
-- **[kordoc](https://github.com/chrisryugj/kordoc)** — KOSIS 파일통계표(`.xlsx`)를 다운로드·파싱하는 엔진. `fetch_kosis_excel` 도구가 이 엔진을 사용합니다.
-- **[korean-law-mcp](https://github.com/chrisryugj/korean-law-mcp)** — HTTP 서버 안정화 패턴(rate-limit 버킷 정리, MCP 인스턴스 명시적 종료, SIGTERM graceful shutdown)을 v1.7.1에 적용했습니다.
+- **[Dayoooun/kosis-mcp](https://github.com/Dayoooun/kosis-mcp)** — 이 프로젝트의 포크 시작점. 원본에 깊은 감사를 표합니다. 라이선스는 원본과 동일한 MIT.
+- **[FastMCP](https://gofastmcp.com)** — Python MCP 서버 프레임워크.

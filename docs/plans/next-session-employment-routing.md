@@ -203,7 +203,7 @@ inspect 101 DT_1B82A04         # 시군구별 혼인 (확인 필요)
 
 ### 자치구 OpenAPI 정밀 조회 라이브 probe
 ```bash
-URL="https://korean-stats-mcp.fly.dev/mcp"
+URL="https://kosis-mcp.fly.dev/mcp"
 node -e "
 fetch('${URL}', {
   method:'POST',
@@ -230,7 +230,7 @@ npx tsc && node scripts/simulate-district-routing.mjs
 ## 9. 시작 멘트 예시
 
 ```
-korean-stats-mcp v1.6.0 자치구 고용·인구동태 라우팅 확장 시작.
+kosis-mcp v1.6.0 자치구 고용·인구동태 라우팅 확장 시작.
 
 먼저 P0-1 — DT_1ES3A03_A01S (시군구/연령별 취업자 및 고용률) 메타 분석.
 자치구 ITM_ID 4자리 패턴 + objL2=YRE 연령 코드 매핑 확인.

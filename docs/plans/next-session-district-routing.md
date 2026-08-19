@@ -9,7 +9,7 @@
 ### 직전 세션이 끝낸 것
 - v1.4.0: 자연어 약어/오타 정규화 + 체인 강화 + 통폐합(13→12) + isProjection
 - v1.4.1: README 표현 정정
-- npm 게시 `korean-stats-mcp@1.4.1`, Fly `korean-stats-mcp.fly.dev` 배포 완료
+- npm 게시 `kosis-mcp@1.4.1`, Fly `kosis-mcp.fly.dev` 배포 완료
 
 ### 직전 세션 실증으로 드러난 미해결 통증 (광진구 인구 조회 사례)
 
@@ -183,7 +183,7 @@ CLAUDE.md 글로벌 원칙: **외과적 수정, 인접 코드 X, 동일 접근 3
 ```bash
 # 라이브
 cat > /tmp/probe.mjs <<'EOF'
-const r = await fetch('https://korean-stats-mcp.fly.dev/mcp', {
+const r = await fetch('https://kosis-mcp.fly.dev/mcp', {
   method:'POST',
   headers:{'Content-Type':'application/json','Accept':'application/json, text/event-stream'},
   body: JSON.stringify({jsonrpc:'2.0',method:'tools/call',id:1,params:{name:'fetch_kosis_excel',arguments:{districtName:'광진구', fileSn:2, year:2024}}})
@@ -213,7 +213,7 @@ node /tmp/probe.mjs
 
 ### Fly 재배포
 ```bash
-cd ~/workspace/korean-stats-mcp
+cd ~/workspace/kosis-mcp
 npx tsc
 export FLY_ACCESS_TOKEN=$(grep "access_token:" ~/.fly/config.yml | sed 's/access_token: //')
 fly deploy --remote-only
@@ -241,7 +241,7 @@ npm publish --access public
 ## 9. 시작 멘트 예시
 
 ```
-korean-stats-mcp v1.5.0 자치구 정밀 조회 일소 시작.
+kosis-mcp v1.5.0 자치구 정밀 조회 일소 시작.
 
 먼저 P0-1 — fetch_kosis_excel 3개 fetch 호출에 timeout(15s) + 지수 백오프 retry
 wrapper 적용. 광진구 fileSn=2 콜드 호출이 첫 시도부터 성공해야 함.

@@ -1,4 +1,4 @@
-# 다음 세션: korean-stats-mcp v1.6.0 출시 전 프로덕션 리뷰 + 최종 성능 검증
+# 다음 세션: kosis-mcp v1.6.0 출시 전 프로덕션 리뷰 + 최종 성능 검증
 
 > 새 세션 첫 메시지에 통째 붙여넣거나 `cat docs/plans/next-session-prod-review.md`로 흡수 후 시작.
 
@@ -8,9 +8,9 @@
 
 | 항목 | 값 |
 |---|---|
-| 프로젝트 | `~/workspace/korean-stats-mcp` |
-| GitHub | `chrisryugj/korean-stats-mcp` (main) |
-| 라이브 | `https://korean-stats-mcp.fly.dev/mcp` (Fly sin region) — **현재 v1.5.0 배포본** |
+| 프로젝트 | `~/workspace/kosis-mcp` |
+| GitHub | `chrisryugj/kosis-mcp` (main) |
+| 라이브 | `https://kosis-mcp.fly.dev/mcp` (Fly sin region) — **현재 v1.5.0 배포본** |
 | 로컬 상태 | v1.6.0 코드 완료, **로컬 커밋 3개 미푸시** |
 | npm | 게시본 1.5.0 — v1.6.0 미게시 |
 | MCP 도구 | 12개 (search/list/data/compare/analyze/tableInfo/quickStats/quickTrend/fetchKosisExcel/chain×3) |
@@ -99,7 +99,7 @@ rm -rf dist && npx tsc
 
 ### 시뮬 3종
 ```bash
-cd ~/workspace/korean-stats-mcp && rm -rf dist && npx tsc
+cd ~/workspace/kosis-mcp && rm -rf dist && npx tsc
 node scripts/simulate-district-routing.mjs
 node scripts/simulate-realworld-100.mjs
 node scripts/simulate-nationwide.mjs
@@ -108,7 +108,7 @@ node scripts/simulate-nationwide.mjs
 ### 라이브 스모크 테스트 (배포 후)
 ```bash
 node -e "
-fetch('https://korean-stats-mcp.fly.dev/mcp', {
+fetch('https://kosis-mcp.fly.dev/mcp', {
   method:'POST',
   headers:{'Content-Type':'application/json','Accept':'application/json, text/event-stream'},
   body: JSON.stringify({jsonrpc:'2.0',method:'tools/call',id:1,params:{name:'quick_stats',arguments:{query:'광진구 고용률'}}})
@@ -123,7 +123,7 @@ node -e "import('./dist/tools/quickStats.js').then(async({quickStats})=>{console
 ### Fly 로그·배포
 ```bash
 export FLY_ACCESS_TOKEN=$(grep "access_token:" ~/.fly/config.yml | sed 's/access_token: //')
-fly logs --app korean-stats-mcp --no-tail | tail -80
+fly logs --app kosis-mcp --no-tail | tail -80
 fly deploy --remote-only
 ```
 
@@ -148,7 +148,7 @@ fly deploy --remote-only
 ## 8. 시작 멘트 예시
 
 ```
-korean-stats-mcp v1.6.0 출시 전 프로덕션 리뷰 + 성능 검증 시작.
+kosis-mcp v1.6.0 출시 전 프로덕션 리뷰 + 성능 검증 시작.
 
 먼저 P0 — 클린 빌드 후 시뮬 3종(897 케이스) 회귀 확인.
 이어서 버전 정합성 + DEFAULT_KOSIS_KEY 노출 평가 + 에러 핸들링 점검.

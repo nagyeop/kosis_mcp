@@ -1,4 +1,4 @@
-# 다음 세션: korean-stats-mcp 실전 테스트 + 엣지케이스 추가 발굴
+# 다음 세션: kosis-mcp 실전 테스트 + 엣지케이스 추가 발굴
 
 > 이 파일을 새 세션 첫 메시지로 통째 붙여넣거나, 새 세션에서 `cat docs/plans/next-session-realworld-test.md` 후 컨텍스트로 흡수하고 실전 테스트 모드 시작.
 
@@ -8,10 +8,10 @@
 
 | 항목 | 값 |
 |---|---|
-| 프로젝트 디렉토리 | `~/workspace/korean-stats-mcp` |
-| GitHub | `chrisryugj/korean-stats-mcp` (main, v1.2.0, MIT) |
-| 원본 fork | `Dayoooun/korea-stats-mcp` (크레딧은 README에 명시) |
-| 라이브 원격 MCP | `https://korean-stats-mcp.fly.dev/mcp` (Fly.io, sin region, 512MB, 10 tools) |
+| 프로젝트 디렉토리 | `~/workspace/kosis-mcp` |
+| GitHub | `chrisryugj/kosis-mcp` (main, v1.2.0, MIT) |
+| 원본 fork | `Dayoooun/kosis-mcp` (크레딧은 README에 명시) |
+| 라이브 원격 MCP | `https://kosis-mcp.fly.dev/mcp` (Fly.io, sin region, 512MB, 10 tools) |
 | 직전 커밋 | `64c669f feat: v1.2.0 — 엣지케이스 일소 + Fly.io + install.sh` |
 | 자동설치 | `bash install.sh` (Mac/Linux), `iwr ... \| iex` (Windows) |
 | KOSIS API 키 | 코드 fallback + Fly secret(`KOSIS_API_KEY`) 양쪽 |
@@ -73,14 +73,14 @@ CLAUDE.md 원칙 준수: **추측 금지, 외과적 수정, 인접 코드 건드
 
 ### 로컬 시뮬레이션
 ```bash
-cd ~/workspace/korean-stats-mcp
+cd ~/workspace/kosis-mcp
 npx tsc && node scripts/simulate-edge-cases.mjs 2>&1 | grep -E "^(✅|⚠️|❌)"
 ```
 
 ### 라이브 호출 (⚠️ curl + bash tool은 응답 가공됨 → node fetch 필수)
 ```bash
 node -e "
-fetch('https://korean-stats-mcp.fly.dev/mcp', {
+fetch('https://kosis-mcp.fly.dev/mcp', {
   method:'POST',
   headers:{'Content-Type':'application/json','Accept':'application/json, text/event-stream'},
   body: JSON.stringify({jsonrpc:'2.0',method:'tools/call',id:1,params:{name:'quick_stats',arguments:{query:'<쿼리>'}}})
@@ -91,12 +91,12 @@ fetch('https://korean-stats-mcp.fly.dev/mcp', {
 ### Fly 로그
 ```bash
 export FLY_ACCESS_TOKEN=$(grep "access_token:" ~/.fly/config.yml | sed 's/access_token: //')
-fly logs --app korean-stats-mcp --no-tail | tail -50
+fly logs --app kosis-mcp --no-tail | tail -50
 ```
 
 ### Fly 재배포
 ```bash
-cd ~/workspace/korean-stats-mcp
+cd ~/workspace/kosis-mcp
 npx tsc
 export FLY_ACCESS_TOKEN=$(grep "access_token:" ~/.fly/config.yml | sed 's/access_token: //')
 fly deploy --remote-only
@@ -204,7 +204,7 @@ fly deploy --remote-only
 ## 8. 실제 시작 멘트 예시 (새 세션 첫 응답)
 
 ```
-korean-stats-mcp v1.2.0 실전 테스트 시작.
+kosis-mcp v1.2.0 실전 테스트 시작.
 
 먼저 우선순위 P0부터 — quick_trend가 자치구 input 처리 안 되는 거 확인.
 node fetch로 라이브에 "광진구 인구 추이" 던져보고 결과 확인 후 패치 진행.

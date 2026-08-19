@@ -1,4 +1,4 @@
-# 🇰🇷 Korea Stats MCP 사용 가이드
+# 🇰🇷 KOSIS MCP 사용 가이드
 
 > **AI에게 한국 통계를 물어보세요!**  
 > 복잡한 통계 사이트를 뒤지지 않아도, 자연스러운 질문만으로 원하는 통계를 얻을 수 있습니다.
@@ -17,7 +17,7 @@
 
 ## 🤔 이게 뭔가요?
 
-**Korea Stats MCP**는 AI 비서(Claude, ChatGPT 등)가 **대한민국 공식 통계**를 직접 조회할 수 있게 해주는 도구입니다.
+**KOSIS MCP**는 AI 비서(Claude, ChatGPT 등)가 **대한민국 공식 통계**를 직접 조회할 수 있게 해주는 도구입니다.
 
 ### 이런 질문을 할 수 있어요:
 
@@ -56,8 +56,8 @@
 
 ```bash
 # 1. 저장소 클론
-git clone https://github.com/your-repo/korea-stats-mcp.git
-cd korea-stats-mcp
+git clone https://github.com/your-repo/kosis-mcp.git
+cd kosis-mcp
 
 # 2. 의존성 설치
 npm install
@@ -77,9 +77,9 @@ Cursor 설정 파일 (`~/.cursor/mcp.json`)에 추가:
 ```json
 {
   "mcpServers": {
-    "korea-stats": {
+    "kosis-mcp": {
       "command": "node",
-      "args": ["경로/korea-stats-mcp/dist/index.js"]
+      "args": ["경로/kosis-mcp/dist/index.js"]
     }
   }
 }

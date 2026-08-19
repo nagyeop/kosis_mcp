@@ -2,7 +2,7 @@
 
 ## 컨텍스트 (이전 세션 결과)
 
-프로젝트: `d:/AI_Project/korea-stats-mcp-gj` (korea-stats-mcp, MCP 서버, TypeScript, Vercel deploy)
+프로젝트: `d:/AI_Project/kosis-mcp` (kosis-mcp, MCP 서버, TypeScript, Vercel deploy)
 
 이전 세션에서 광진구 통계 조회 기능 추가/검증 완료. 변경 파일:
 
@@ -128,7 +128,7 @@ await getStatisticsData({ orgId:'201', tableId:'DT_201004_O110054', regionName:'
 ## 빌드 / 실행
 
 ```bash
-cd d:/AI_Project/korea-stats-mcp-gj
+cd d:/AI_Project/kosis-mcp
 ./node_modules/.bin/tsc          # 빌드
 node .tmp_verify_*.mjs           # 검증 (ESM, dist/ 사용)
 ```
