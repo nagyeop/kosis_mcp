@@ -34,6 +34,7 @@ from kosis_mcp.utils.data_formatter import (
 )
 from kosis_mcp.utils.district_kosis_codes import get_district_kscd_candidates_for
 from kosis_mcp.utils.query_parser import generate_search_terms, parse_query
+from langfuse import get_client, observe
 from kosis_mcp.utils.regions import (
     AMBIGUOUS_DISTRICTS,
     PROVINCES,
@@ -492,20 +493,51 @@ async def search_statistics(
     sort: Literal["RANK", "DATE"] | None = "RANK",
     limit: int = 10,
 ) -> dict[str, Any]:
+    get_client().update_current_span(input={"query": query, "orgId": orgId, "sort": sort, "limit": limit})
     client = get_kosis_client()
     cache = get_cache_manager()
     parsed = parse_query(query)
     terms = generate_search_terms(parsed, query) or [query]
+    all_results, _per_term = await _merge_search_results(
+        cache, client, terms, orgId, sort, limit, parsed
+    )
+    return {
+        "success": True,
+        "query": query,
+        "totalCount": len(all_results),
+        "results": all_results[:limit],
+        "region": detect_region(query),
+    }
+
+
+@observe(name="search.merge", as_type="span")
+async def _merge_search_results(
+    cache: Any,
+    client: Any,
+    terms: list[str],
+    orgId: str | None,
+    sort: Literal["RANK", "DATE"] | None,
+    limit: int,
+    parsed: dict[str, Any],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     all_results: list[dict[str, Any]] = []
     seen: set[str] = set()
+    per_term: list[dict[str, Any]] = []
     for term in terms[:3]:
+        params = {"q": term, "orgId": orgId, "sort": sort}
+        cache_key = cache._generate_key("search", params)
+        cache_hit = (await cache._get(cache_key)) is not None
         rows = await cache.get_search_results(
-            {"q": term, "orgId": orgId, "sort": sort},
+            params,
             lambda t=term: client.search_statistics(
                 t, org_id=orgId, sort=sort or "RANK", result_count=limit
             ),
         )
+        term_table_ids: list[str] = []
         for r in rows:
+            tbl = r.get("TBL_ID")
+            if tbl:
+                term_table_ids.append(tbl)
             key = f"{r.get('ORG_ID')}:{r.get('TBL_ID')}"
             if key in seen:
                 continue
@@ -522,15 +554,30 @@ async def search_statistics(
             )
             if len(all_results) >= limit:
                 break
+        per_term.append(
+            {
+                "term": term,
+                "table_ids": term_table_ids[:limit],
+                "count": len(term_table_ids),
+                "cache_hit": cache_hit,
+            }
+        )
         if len(all_results) >= limit:
             break
-    return {
-        "success": True,
-        "query": query,
-        "totalCount": len(all_results),
-        "results": all_results[:limit],
-        "region": detect_region(query),
-    }
+    merged_table_ids = [r["tableId"] for r in all_results if r.get("tableId")]
+    get_client().update_current_span(
+        metadata={
+            "parsed": {
+                k: parsed[k]
+                for k in ("topics", "regions", "keywords", "timeRange", "intent")
+                if k in parsed
+            },
+            "terms": terms,
+            "per_term": per_term,
+            "merged_table_ids": merged_table_ids,
+        }
+    )
+    return all_results, per_term
 
 
 REGION_BRIEF_INDICATORS = [

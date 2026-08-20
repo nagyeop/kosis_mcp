@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from langfuse import get_client
 from kosis_mcp.utils.meta_lookup import summarize_table_meta
 
 
@@ -36,6 +37,13 @@ async def get_table_info(
                 lines.append(
                     f"  ... +{g['totalItems'] - len(g['sample'])}개 (filter로 좁히세요)"
                 )
+        get_client().update_current_span(
+            input={"orgId": orgId, "tableId": tableId, "filter": filter},
+            metadata={
+                "filter": filter,
+                "group_count": len(summary["groups"]),
+            },
+        )
         return {
             "success": True,
             "orgId": orgId,

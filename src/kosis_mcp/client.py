@@ -6,6 +6,7 @@ import asyncio
 from typing import Any
 
 import httpx
+from langfuse import get_client, observe
 
 from kosis_mcp.config import KOSIS_BASE_URL, KOSIS_ENDPOINTS, get_api_key
 
@@ -22,6 +23,7 @@ class KosisClient:
         self.base_url = KOSIS_BASE_URL
         self.api_key = api_key or get_api_key()
 
+    @observe(name="kosis.openapi.request", as_type="retriever")
     async def _request(
         self, endpoint: str, params: dict[str, Any]
     ) -> list[dict[str, Any]]:
@@ -35,6 +37,11 @@ class KosisClient:
         url = f"{self.base_url}{endpoint}"
         timeout = 15.0
         max_attempts = 3
+        trace_input = {
+            "url": url,
+            "endpoint": endpoint,
+            "params": {k: v for k, v in clean.items() if k != "apiKey"},
+        }
 
         last_err: Exception | None = None
         for attempt in range(max_attempts):
@@ -63,15 +70,40 @@ class KosisClient:
                     )
 
                 if isinstance(data, list):
-                    return data
-                if isinstance(data, dict):
+                    rows = data
+                elif isinstance(data, dict):
                     if isinstance(data.get("result"), list):
-                        return data["result"]
-                    if data:
-                        return [data]
-                return []
+                        rows = data["result"]
+                    elif data:
+                        rows = [data]
+                    else:
+                        rows = []
+                else:
+                    rows = []
+
+                get_client().update_current_span(
+                    input=trace_input,
+                    output={
+                        "row_count": len(rows),
+                        "rows": rows[:10],
+                        "truncated": len(rows) > 10,
+                    },
+                    metadata={
+                        "status_code": response.status_code,
+                        "attempt": attempt + 1,
+                    },
+                )
+                return rows
             except KosisApiError as e:
                 if not is_retryable:
+                    get_client().update_current_span(
+                        input=trace_input,
+                        metadata={
+                            "attempt": attempt + 1,
+                            "error": str(e)[:200],
+                        },
+                        level="ERROR",
+                    )
                     raise
                 last_err = e
             except httpx.TimeoutException as e:
@@ -82,6 +114,12 @@ class KosisClient:
                 is_retryable = True
 
             if attempt == max_attempts - 1:
+                err_msg = str(last_err)[:200] if last_err else "unknown"
+                get_client().update_current_span(
+                    input=trace_input,
+                    metadata={"attempt": attempt + 1, "error": err_msg},
+                    level="ERROR",
+                )
                 if isinstance(last_err, httpx.TimeoutException):
                     raise KosisApiError(
                         "TIMEOUT",
@@ -95,6 +133,11 @@ class KosisClient:
                 ) from last_err
             await asyncio.sleep(0.8 * (attempt + 1))
 
+        get_client().update_current_span(
+            input=trace_input,
+            metadata={"error": "UNEXPECTED"},
+            level="ERROR",
+        )
         raise KosisApiError("UNEXPECTED", "요청 처리 중 예기치 못한 종료")
 
     async def get_statistics_list(

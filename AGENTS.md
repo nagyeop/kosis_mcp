@@ -18,6 +18,14 @@
 | `MCP_AUTH_TOKEN` | 설정 시 `/mcp` Bearer 인증 |
 | `MCP_CORS_ORIGIN` | 기본 `*` |
 | `ACCESS_LOG` | `1`이면 path만 요청 로그 (쿼리스트링 미기록) |
+| `LANGFUSE_PUBLIC_KEY` | Langfuse tracing (미설정 시 observe no-op) |
+| `LANGFUSE_SECRET_KEY` | Langfuse tracing |
+| `LANGFUSE_BASE_URL` | Langfuse 호스트 (예: `https://langfuse.clabi.kr`) |
+| `LANGFUSE_TRACING_ENVIRONMENT` | trace environment tag (기본 `dev`) |
+
+## Langfuse tracing
+
+MCP tool 호출마다 Langfuse trace가 생성됩니다. `as_type="tool"` observe는 `server.py`의 `@mcp.tool` 래퍼에만 두고, HTTP는 `kosis.openapi.request`. client는 FastMCP lifespan에서 관리. UI: `LANGFUSE_BASE_URL`/project/traces.
 
 ## 테스트
 
