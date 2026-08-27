@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import os
 import time
 from typing import Any, Awaitable, Callable, TypeVar
 
@@ -86,6 +87,9 @@ class CacheManager:
         fetcher: Callable[[], Awaitable[T]],
         ttl: int | None = None,
     ) -> T:
+        if os.getenv("EVAL_CACHE_BYPASS") == "1":
+            return await fetcher()
+
         key = self._generate_key(prefix, params)
         cached = await self._get(key)
         if cached is not None:
