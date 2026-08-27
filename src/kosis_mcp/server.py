@@ -9,7 +9,9 @@ from typing import Any, Literal
 from dotenv import load_dotenv
 from fastmcp import FastMCP
 from fastmcp.server.lifespan import lifespan
-from langfuse import get_client, observe
+from langfuse import Langfuse, observe
+from langfuse.span_filter import is_default_export_span
+from opentelemetry.sdk.trace import ReadableSpan
 
 load_dotenv()
 
@@ -49,12 +51,19 @@ ANN = {
 }
 
 
+def _should_export_span(span: ReadableSpan) -> bool:
+    if not is_default_export_span(span):
+        return False
+    scope = span.instrumentation_scope
+    return scope is None or scope.name != "fastmcp"
+
+
 @lifespan
 async def langfuse_lifecycle(_: FastMCP):
     if not os.getenv("LANGFUSE_PUBLIC_KEY") or not os.getenv("LANGFUSE_SECRET_KEY"):
         yield {}
         return
-    langfuse = get_client()
+    langfuse = Langfuse(should_export_span=_should_export_span)
     try:
         yield {"langfuse": langfuse}
     finally:

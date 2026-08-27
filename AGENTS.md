@@ -25,7 +25,7 @@
 
 ## Langfuse tracing
 
-MCP tool 호출마다 Langfuse trace가 생성됩니다. `as_type="tool"` observe는 `server.py`의 `@mcp.tool` 래퍼에만 두고, HTTP는 `kosis.openapi.request`. client는 FastMCP lifespan에서 관리. UI: `LANGFUSE_BASE_URL`/project/traces.
+MCP tool 호출마다 Langfuse trace가 생성됩니다. `as_type="tool"` observe는 `server.py`의 `@mcp.tool` 래퍼에만 두고, HTTP는 `kosis.openapi.request`. FastMCP OTEL span(`scope: fastmcp`)은 `server.py` lifespan에서 export 제외. UI: `LANGFUSE_BASE_URL`/project/traces.
 
 ## 테스트
 
@@ -42,7 +42,33 @@ npx @modelcontextprotocol/inspector --cli .venv/bin/kosis-mcp --method tools/lis
 ```
 
 L1 (`scripts/ci.sh`): initialize, tools/list(14개·annotation·schema), resources/list·read, prompts/list.
-L2 (pytest): `test_extract_keyword.py`, `test_utils.py` — 순수 Python 로직만.
+L2 (pytest): `test_extract_keyword.py`, `test_utils.py`, `tests/eval/` — 순수 Python 로직만.
+L3 eval (수동): 골드/ops/edge + KOSIS API + Langfuse experiment. PR gate 아님.
+
+| Dataset | 소스 | 건수 |
+|---------|------|------|
+| `population-search-gold-v1` | `gold_queries.json` | 50 |
+| `population-search-ops-gold-v1` | `ops_gold_queries.json` | 30 |
+| `population-search-edge-v1` | `edge_queries.json` | 132 |
+
+```bash
+# dataset 업로드 (최초 1회 · --dataset이 소스 JSON을 고름)
+PYTHONPATH=src .venv/bin/python scripts/eval/upload_dataset.py --dataset population-search-gold-v1
+PYTHONPATH=src .venv/bin/python scripts/eval/upload_dataset.py --dataset population-search-ops-gold-v1
+PYTHONPATH=src .venv/bin/python scripts/eval/upload_dataset.py --dataset population-search-edge-v1
+
+# mode smoke (Q001 × 3)
+PYTHONPATH=src .venv/bin/python scripts/eval/smoke_modes.py
+
+# MCP baseline experiment — mode: direct_search | direct_quick | direct_list
+PYTHONPATH=src .venv/bin/python scripts/eval/run_experiment.py \
+  --run-id mcp-direct_search-YYYY-MM-DD \
+  --mode direct_search \
+  --dataset population-search-gold-v1
+```
+
+필요 env: `KOSIS_API_KEY`, `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_BASE_URL`.  
+HTML 연구 baseline(VDB·reranker)은 이 harness에서 실행·import하지 않음 — MCP run끼리 Langfuse UI에서 비교.
 
 ## 배포 (Docker Compose)
 
