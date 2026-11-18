@@ -1,4 +1,4 @@
-"""Remaining MCP tools: trend, rank, search, list, explain, chains."""
+"""Remaining MCP tools: trend, rank, browse, explain, region bundles."""
 
 from __future__ import annotations
 
@@ -7,41 +7,41 @@ from datetime import datetime
 from typing import Any, Literal
 
 from kosis_mcp.cache import get_cache_manager
-from kosis_mcp.client import get_kosis_client
-from kosis_mcp.config import VIEW_CODES
-from kosis_mcp.data.district_file_map import DISTRICT_OPENAPI_ROUTES
+from kosis_mcp.client import KosisApiError, get_kosis_client
 from kosis_mcp.data.quick_stats_params import (
     MISLEADING_KEYWORD_HINTS,
-    VITAL_STATS_TABLE_IDS,
     get_quick_stats_param,
-    get_region_code,
     normalize_keyword_key,
 )
 from kosis_mcp.tools.quick_stats import (
+    _fmt_num,
     extract_district_name,
     extract_keyword,
     extract_province_name,
-    format_period_with_type,
-    is_within_months,
     quick_stats,
 )
 from kosis_mcp.utils.concurrency import CHAIN_CONCURRENCY, map_with_concurrency
 from kosis_mcp.utils.data_formatter import (
-    analyze_trend,
     calculate_change_rate,
     format_period,
     parse_kosis_number,
 )
-from kosis_mcp.utils.district_kosis_codes import get_district_kscd_candidates_for
-from kosis_mcp.utils.query_parser import generate_search_terms, parse_query
-from langfuse import get_client, observe
-from kosis_mcp.utils.regions import (
-    AMBIGUOUS_DISTRICTS,
-    PROVINCES,
-    detect_region,
-    find_province_by_district,
-    normalize_province_name,
+from kosis_mcp.series.fetch import fetch_spec
+from kosis_mcp.series.keyword import (
+    district_route,
+    district_spec,
+    param_spec,
+    province_hint,
+    resolve_region_code,
 )
+from kosis_mcp.series.periods import PER_YEAR
+from kosis_mcp.series.metrics import rank, trend_stats
+from kosis_mcp.series.resolve import is_province
+from kosis_mcp.tools.series_tools import compare_values
+from kosis_mcp.population_search.categories import CATEGORY_LIST_IDS
+from kosis_mcp.population_search.schema import build_source
+from langfuse import get_client, observe
+from kosis_mcp.utils.regions import normalize_province_name
 
 
 def extract_year_count(query: str) -> int | None:
@@ -80,8 +80,6 @@ async def quick_trend(
     region: str | None = None,
     yearCount: int | None = None,
 ) -> dict[str, Any]:
-    client = get_kosis_client()
-    cache = get_cache_manager()
     trimmed = (keyword or "").strip()
     if not trimmed:
         return {"success": False, "summary": "키워드를 입력하세요.", "dataPoints": []}
@@ -99,65 +97,61 @@ async def quick_trend(
             "keyword": kw,
             "region": region or "전국",
             "summary": f'"{keyword}" 추세 조회 미지원.',
-            "note": hint or "search_statistics를 사용하세요.",
+            "note": hint or "find_tables로 통계표를 찾으세요.",
             "dataPoints": [],
         }
 
     district = extract_district_name(region or "") or extract_district_name(trimmed)
-    prov = extract_province_name(trimmed, bool(district))
+    prov_q = extract_province_name(region or "", False) or extract_province_name(trimmed, False)
+    route = district_route(kw)
+    spec = None
+    note: str | None = None
+    fallback_region: str | None = None
+    source = {"orgId": param["orgId"], "tableId": param["tableId"], "tableName": param.get("tableName")}
     region_name = "전국"
-    obj_l1, obj_l2 = param.get("objL1"), param.get("objL2")
-    requested = region or (find_province_by_district(district).shortName if district and find_province_by_district(district) else None) or prov
-    if requested:
-        code = get_region_code(param, requested)
-        if code is None and param.get("regionCodes"):
-            return {
-                "success": False,
-                "keyword": kw,
-                "region": requested,
-                "summary": f'"{requested}" 지역명을 인식하지 못했습니다.',
-                "dataPoints": [],
-            }
-        if code and normalize_province_name(requested) != "전국":
-            if param.get("regionObjLevel") == 2:
-                obj_l2 = code
-            else:
-                obj_l1 = code
-            region_name = normalize_province_name(requested)
+    if district and route:
+        try:
+            spec = await district_spec(route, district, province=prov_q)
+        except Exception:
+            spec = None
+        if spec:
+            region_name = district
+            source = {"orgId": route["orgId"], "tableId": route["tblId"], "tableName": route.get("description")}
+    if spec is None:
+        prov = province_hint(district, prov_q) if district else None
+        requested = (region if region and not district else None) or (prov.shortName if prov else None) or (
+            None if district else extract_province_name(trimmed, False)
+        )
+        spec, region_name = param_spec(param, region=requested)
+        if spec is None and param.get("regionCodes"):
+            live = await resolve_region_code(
+                param["orgId"], param["tableId"], requested or "",
+                obj_l=2 if param.get("regionObjLevel") == 2 else None,
+            )
+            if live:
+                spec, region_name = param_spec(param, region=requested, region_code=live)
+        if spec is None:
+            # 성공은 유지하되 전국 값임을 플래그로 명시한다.
+            spec, region_name = param_spec(param)
+            fallback_region = "전국"
+            note = (
+                f'"{requested}" 지역 값은 이 지표에서 조회할 수 없어 전국 추세를 표시합니다.'
+                if param.get("regionCodes")
+                else f'"{kw}" 통계는 지역별 조회를 지원하지 않아 전국 추세를 표시합니다.'
+            )
+        elif district:
+            fallback_region = region_name
+            note = f'"{district}" 자치구 추세는 지원되지 않아 {region_name} 값을 표시합니다.'
 
-    results = await cache.get_statistics_data(
-        {
-            "orgId": param["orgId"],
-            "tableId": param["tableId"],
-            "objL1": obj_l1,
-            "objL2": obj_l2,
-            "itemId": param["itemId"],
-            "yearCount": years,
-        },
-        lambda: client.get_statistics_data(
-            {
-                "orgId": param["orgId"],
-                "tblId": param["tableId"],
-                "objL1": obj_l1,
-                "objL2": obj_l2,
-                "itmId": param["itemId"],
-                "prdSe": (param.get("supportedPeriods") or ["Y"])[0],
-                "newEstPrdCnt": years,
-            }
-        ),
-    )
-    points = sorted(
-        [
-            {
-                "year": r["PRD_DE"],
-                "value": parse_kosis_number(r.get("DT")),
-                "formatted": r.get("DT"),
-            }
-            for r in results
-            if parse_kosis_number(r.get("DT")) is not None
-        ],
-        key=lambda p: p["year"],
-    )
+    period_type = spec.get("periodType") or "Y"
+    # yearCount는 연 단위: 월·분기·반기 주기는 연간 시점 수를 곱한다.
+    points_wanted = years * PER_YEAR.get(period_type, 1)
+    try:
+        res = await fetch_spec(spec, recent=points_wanted)
+    except KosisApiError as e:
+        return {"success": False, "keyword": kw, "region": region_name, "summary": f"조회 오류: {e}", "dataPoints": []}
+    series = next((s for s in res["series"] if any(p["value"] is not None for p in s["points"])), None)
+    points = [p for p in (series or {}).get("points", []) if p["value"] is not None]
     if len(points) < 2:
         return {
             "success": False,
@@ -166,158 +160,139 @@ async def quick_trend(
             "summary": "추세 분석에 충분한 데이터가 없습니다.",
             "dataPoints": [],
         }
-    values = [float(p["value"]) for p in points]
-    info = analyze_trend(values)
-    for i in range(1, len(points)):
-        ch = calculate_change_rate(values[i], values[i - 1])
-        points[i]["changeRate"] = ch["formatted"]
+    stats = trend_stats(points, period_type)
+    data_points = []
+    for i, p in enumerate(points):
+        dp: dict[str, Any] = {
+            "year": format_period(p["period"], period_type),
+            "period": p["period"],
+            "value": p["value"],
+            "formatted": _fmt_num(str(p["raw"])),
+        }
+        if i:
+            dp["changeRate"] = calculate_change_rate(p["value"], points[i - 1]["value"])["formatted"]
+        data_points.append(dp)
     summary = (
-        f"{region_name} {kw} {years}년 추세: {_trend_desc(info['trend'])} "
-        f"(평균 변화율 {info['avgGrowthRate']:.1f}%)"
+        f"{region_name} {kw} {years}년({len(points)}개 시점) 추세: {_trend_desc(stats['trend'])} "
+        f"(평균 변화율 {stats['avgGrowthRate']:.1f}%)"
     )
     out: dict[str, Any] = {
         "success": True,
         "keyword": kw,
         "region": region_name,
-        "trend": info["trend"],
-        "trendDescription": _trend_desc(info["trend"]),
+        "trend": stats["trend"],
+        "trendDescription": _trend_desc(stats["trend"]),
         "summary": summary,
-        "dataPoints": [
-            {
-                "year": format_period(p["year"], (param.get("supportedPeriods") or ["Y"])[0]),
-                "value": p["value"],
-                "formatted": p["formatted"],
-                **({"changeRate": p["changeRate"]} if p.get("changeRate") else {}),
-            }
-            for p in points
-        ],
-        "source": {
-            "orgId": param["orgId"],
-            "tableId": param["tableId"],
-            "tableName": param.get("tableName"),
-        },
+        "cagr": stats.get("cagr"),
+        "periodType": period_type,
+        "unit": (series.get("unit") if series else None) or param.get("unit"),
+        "dataPoints": data_points,
+        "source": source,
     }
+    if fallback_region:
+        out["isFallback"] = True
+        out["fallbackRegion"] = fallback_region
+        out["requestedRegion"] = district or region
+    notes = [n for n in (note, "⚠️ 장래추계 데이터입니다." if param.get("isProjection") else None) if n]
     if param.get("isProjection"):
         out["isProjection"] = True
-        out["note"] = "⚠️ 장래추계 데이터입니다."
+    if notes:
+        out["note"] = " ".join(notes)
     return out
 
 
 async def quick_rank(keyword: str, region: str) -> dict[str, Any]:
-    client = get_kosis_client()
-    cache = get_cache_manager()
     kw = extract_keyword(keyword)
     param = get_quick_stats_param(kw)
     if not param or not param.get("regionCodes"):
-        return {
+        out: dict[str, Any] = {
             "success": False,
             "answer": f'"{keyword}" 전국 순위 조회가 지원되지 않습니다.',
         }
+        if param:
+            out["source"] = build_source(
+                param["orgId"], param["tableId"], param.get("tableName") or ""
+            )
+        return out
     district = extract_district_name(region) or (
-        region if re.match(r"^[가-힣]{1,4}(구|군|시)$", region.strip()) else None
+        region.strip()
+        if re.match(r"^[가-힣]{1,4}(구|군|시)$", region.strip()) and not is_province(region)
+        else None
     )
-    route = DISTRICT_OPENAPI_ROUTES.get(kw)
+    prov_q = extract_province_name(region, False)
+    route = district_route(kw)
+    if district and route:
+        spec = await district_spec(route, district, all_regions=True)
+        scope = "sigungu"
+        tbl_org, tbl_id = route["orgId"], route["tblId"]
+    else:
+        spec, _ = param_spec(param, all_regions=True)
+        scope = "sido"
+        tbl_org, tbl_id = param["orgId"], param["tableId"]
+    source = build_source(tbl_org, tbl_id, param.get("tableName") or "")
+    if spec is None:
+        return {"success": False, "answer": "순위 데이터가 없습니다.", "source": source}
+    spec = {**spec, "level": scope, "label": "value"}  # type: ignore[typeddict-item]
     try:
-        if district and route:
-            # nationwide sigungu via ALL on district table when possible
-            rows = await cache.get_statistics_data(
-                {"rank": True, "tbl": route["tblId"], "itm": route["itmId"]},
-                lambda: client.get_statistics_data(
-                    {
-                        "orgId": route["orgId"],
-                        "tblId": route["tblId"],
-                        "objL1": "ALL",
-                        **({"objL2": route["objL2"]} if route.get("objL2") else {}),
-                        "itmId": route["itmId"],
-                        "prdSe": route.get("prdSe", "Y"),
-                        "newEstPrdCnt": 2,
-                    }
-                ),
-            )
-            scope = "sigungu"
-            target_name = district
-        else:
-            short = normalize_province_name(region)
-            rows = await cache.get_statistics_data(
-                {
-                    "rank": True,
-                    "tbl": param["tableId"],
-                    "itm": param["itemId"],
-                    "scope": "sido",
-                },
-                lambda: client.get_statistics_data(
-                    {
-                        "orgId": param["orgId"],
-                        "tblId": param["tableId"],
-                        "objL1": "ALL",
-                        "objL2": param.get("objL2"),
-                        "itmId": param["itemId"],
-                        "prdSe": (param.get("supportedPeriods") or ["Y"])[0],
-                        "newEstPrdCnt": 2,
-                    }
-                ),
-            )
-            scope = "sido"
-            target_name = short
-
-        # pick latest period
-        periods = sorted({r.get("PRD_DE", "") for r in rows}, reverse=True)
-        if not periods:
-            return {"success": False, "answer": "순위 데이터가 없습니다."}
-        latest = periods[0]
-        prev = periods[1] if len(periods) > 1 else None
-        cur = [
-            r
-            for r in rows
-            if r.get("PRD_DE") == latest and parse_kosis_number(r.get("DT")) is not None
-        ]
-        entries = sorted(
-            [
-                {
-                    "region": r.get("C1_NM") or r.get("C2_NM") or "",
-                    "value": parse_kosis_number(r.get("DT")),
-                    "formatted": r.get("DT"),
-                }
-                for r in cur
-            ],
-            key=lambda e: e["value"],
-            reverse=True,
-        )
-        for i, e in enumerate(entries):
-            e["rank"] = i + 1
-        target = next(
-            (
-                e
-                for e in entries
-                if target_name in e["region"] or e["region"] in target_name
-            ),
-            None,
-        )
-        if not target:
-            return {
-                "success": False,
-                "answer": f'"{region}" 순위 항목을 찾지 못했습니다.',
-            }
-        avg = sum(e["value"] for e in entries) / len(entries) if entries else None
-        answer = (
-            f"{target['region']} {kw}은(는) {scope} 기준 {target['rank']}위"
-            f"/{len(entries)} "
-            f"(값 {target['formatted']}, 평균 {avg:.2f})."
-        )
-        return {
-            "success": True,
-            "answer": answer,
-            "keyword": kw,
-            "region": target["region"],
-            "scope": scope,
-            "rank": target["rank"],
-            "total": len(entries),
-            "value": target["value"],
-            "period": latest,
-            "average": avg,
-        }
+        cmp = await compare_values([spec])
     except Exception as e:
-        return {"success": False, "answer": f"순위 조회 오류: {e}"}
+        return {"success": False, "answer": f"순위 조회 오류: {e}", "source": source}
+    if not cmp.get("success"):
+        return {"success": False, "answer": cmp.get("error") or "순위 데이터가 없습니다.", "source": source}
+
+    ranked = [r for r in cmp["rows"] if "value" in (r.get("ranks") or {})]
+    if scope == "sido":
+        short = normalize_province_name(region)
+        matches = [r for r in ranked if r["key"] == short]
+    else:
+        prov_short = normalize_province_name(prov_q) if prov_q else None
+        matches = [
+            r
+            for r in ranked
+            if (r["key"] == f"{prov_short} {district}" if prov_short else (r["key"] == district or r["key"].endswith(f" {district}")))
+        ]
+    if len(matches) != 1:
+        out = {
+            "success": False,
+            "answer": (
+                f'"{region}"이(가) 여러 지역과 일치합니다. 시도를 붙여 주세요: {[r["key"] for r in matches]}'
+                if matches
+                else f'"{region}" 순위 항목을 찾지 못했습니다. '
+                f"(기준 시점 {(cmp['columns'][0].get('period') if cmp.get('columns') else '') or ''} 순위표에 없음 — "
+                "신설·개편 지역은 아직 연간 값이 없을 수 있습니다.)"
+            ),
+            "source": source,
+        }
+        return out
+    target = matches[0]
+    cell = target["values"]["value"]
+    values = [r["values"]["value"]["value"] for r in ranked]
+    avg = sum(values) / len(values) if values else None
+    unit = cell.get("unit") or ""
+    answer = (
+        f"{target['key']} {kw}은(는) {scope} 기준 {target['ranks']['value']}위/{len(ranked)} "
+        f"(값 {cell['value']:,.10g}{unit}, 평균 {avg:,.2f})."
+    )
+    out = {
+        "success": True,
+        "answer": answer,
+        "keyword": kw,
+        "region": target["key"],
+        "scope": scope,
+        "rank": target["ranks"]["value"],
+        "total": len(ranked),
+        "percentile": round((len(ranked) - target["ranks"]["value"]) / (len(ranked) - 1) * 100, 1)
+        if len(ranked) > 1
+        else None,
+        "value": cell["value"],
+        "unit": unit,
+        "period": cell["period"],
+        "average": avg,
+        "source": source,
+    }
+    if cmp.get("warnings"):
+        out["warnings"] = cmp["warnings"]
+    return out
 
 
 async def explain_statistic(
@@ -343,10 +318,16 @@ async def explain_statistic(
             "answer": "orgId+tableId 또는 지원 keyword가 필요합니다.",
         }
     try:
-        explain_rows = await cache.get_explanation(
-            {"orgId": org_id, "tableId": table_id},
-            lambda: client.get_statistics_explain(org_id, table_id),
-        )
+        try:
+            explain_rows = await cache.get_explanation(
+                {"orgId": org_id, "tableId": table_id},
+                lambda: client.get_statistics_explain(org_id, table_id),
+            )
+        except KosisApiError as e:
+            # 통계설명 미등록 표는 KOSIS가 '데이터 없음' 오류로 답한다 → 인용문구만 제공.
+            if _NO_DATA_MARK not in str(e):
+                raise
+            explain_rows = []
         tbl_meta = await cache.get_table_meta(
             {"orgId": org_id, "tableId": table_id, "type": "TBL"},
             lambda: client.get_table_meta(org_id, table_id, "TBL"),
@@ -431,82 +412,87 @@ TOPIC_RECOMMENDATIONS: dict[str, dict[str, Any]] = {
 }
 
 
-async def get_statistics_list(
-    viewCode: str = "MT_ZTITLE",
-    parentId: str = "",
-    recommendedTopic: str | None = None,
-    limit: int = 5,
+# 분야 → 기존 추천 카드 (Phase 3에서 대표 조사로 교체)
+_CATEGORY_TOPICS = {"인구": "population", "국민계정": "economy", "노동": "employment"}
+
+
+BROWSE_MAX_LIMIT = 200
+
+
+async def browse_statistics(
+    category: str | None = None,
+    listId: str | None = None,
+    limit: int = 50,
+    offset: int = 0,
 ) -> dict[str, Any]:
     client = get_kosis_client()
     cache = get_cache_manager()
-    if recommendedTopic:
-        info = TOPIC_RECOMMENDATIONS.get(recommendedTopic, {"name": recommendedTopic, "description": "", "tables": []})
-        recs = [
-            {
-                "orgId": t["ORG_ID"],
-                "tableId": t["TBL_ID"],
-                "tableName": t["TBL_NM"],
-            }
-            for t in info.get("tables", [])[:limit]
-        ]
-        return {
-            "success": True,
-            "mode": "recommended",
-            "topic": {
-                "code": recommendedTopic,
-                "name": info.get("name"),
-                "description": info.get("description"),
-            },
-            "recommendations": recs,
-            "relatedTopics": [],
-            "searchSuggestions": [],
-        }
-    vc = viewCode or "MT_ZTITLE"
+    limit = min(max(1, limit), BROWSE_MAX_LIMIT)
+    offset = max(0, offset)
+    parent = listId or (CATEGORY_LIST_IDS.get(category, "") if category else "")
     rows = await cache.get_statistics_list(
-        {"vwCd": vc, "parentId": parentId or ""},
-        lambda: client.get_statistics_list(vc, parentId or ""),
+        {"vwCd": "MT_ZTITLE", "parentId": parent},
+        lambda: client.get_statistics_list("MT_ZTITLE", parent),
     )
     items = []
-    for r in rows[:50]:
-        items.append(
-            {
-                "listId": r.get("LIST_ID"),
-                "listName": r.get("LIST_NM"),
-                "orgId": r.get("ORG_ID"),
-                "tableId": r.get("TBL_ID"),
-                "tableName": r.get("TBL_NM"),
-                "isFolder": bool(r.get("LIST_ID") and not r.get("TBL_ID")),
-            }
-        )
-    return {
+    for r in rows[offset : offset + limit]:
+        is_folder = bool(r.get("LIST_ID") and not r.get("TBL_ID"))
+        item = {
+            "name": r.get("LIST_NM") if is_folder else r.get("TBL_NM"),
+            "isFolder": is_folder,
+        }
+        if is_folder:
+            item["listId"] = r.get("LIST_ID")
+        else:
+            item.update(
+                {
+                    "orgId": r.get("ORG_ID"),
+                    "tableId": r.get("TBL_ID"),
+                    "tableName": r.get("TBL_NM"),
+                    "statId": r.get("STAT_ID"),
+                    "lastUpdated": r.get("SEND_DE"),
+                }
+            )
+        items.append(item)
+    out: dict[str, Any] = {
         "success": True,
-        "viewName": VIEW_CODES.get(vc, vc),
-        "parentId": parentId or "",
+        "category": None if listId else category,
+        "listId": parent,
         "items": items,
-        "hasMore": len(rows) > 50,
+        "offset": offset,
+        "total": len(rows),
+        "hasMore": len(rows) > offset + limit,
     }
+    topic = TOPIC_RECOMMENDATIONS.get(_CATEGORY_TOPICS.get(category or "", ""))
+    if topic and not listId:
+        out["recommendations"] = [
+            {"orgId": t["ORG_ID"], "tableId": t["TBL_ID"], "tableName": t["TBL_NM"]}
+            for t in topic["tables"]
+        ]
+    return out
 
 
-async def search_statistics(
-    query: str,
-    orgId: str | None = None,
-    sort: Literal["RANK", "DATE"] | None = "RANK",
-    limit: int = 10,
-) -> dict[str, Any]:
-    get_client().update_current_span(input={"query": query, "orgId": orgId, "sort": sort, "limit": limit})
-    client = get_kosis_client()
-    cache = get_cache_manager()
-    parsed = parse_query(query)
-    terms = generate_search_terms(parsed, query) or [query]
-    all_results, _per_term = await _merge_search_results(
-        cache, client, terms, orgId, sort, limit, parsed
-    )
+# KOSIS answers an empty search with an error instead of [].
+_NO_DATA_MARK = "데이터가 존재하지 않습니다"
+
+
+SEARCH_PER_TERM = 20
+
+
+def _search_row(r: dict[str, Any]) -> dict[str, Any]:
     return {
-        "success": True,
-        "query": query,
-        "totalCount": len(all_results),
-        "results": all_results[:limit],
-        "region": detect_region(query),
+        "orgId": r.get("ORG_ID"),
+        "orgName": r.get("ORG_NM"),
+        "tableId": r.get("TBL_ID"),
+        "tableName": r.get("TBL_NM"),
+        "statName": r.get("STAT_NM"),
+        "statId": r.get("STAT_ID"),
+        "viewCode": r.get("VW_CD"),
+        "path": r.get("MT_ATITLE"),
+        "pathId": r.get("FULL_PATH_ID"),
+        "startPeriod": r.get("STRT_PRD_DE"),
+        "endPeriod": r.get("END_PRD_DE"),
+        "searchRank": None,
     }
 
 
@@ -520,51 +506,52 @@ async def _merge_search_results(
     limit: int,
     parsed: dict[str, Any],
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    all_results: list[dict[str, Any]] = []
-    seen: set[str] = set()
+    """검색어마다 SEARCH_PER_TERM건을 받아 순위대로 번갈아 합친다(첫 검색어가 limit을 독점하지 않도록).
+    각 행의 searchRank는 그 표가 처음 나온 검색어 안의 순위(0부터)."""
     per_term: list[dict[str, Any]] = []
-    for term in terms[:3]:
-        params = {"q": term, "orgId": orgId, "sort": sort}
+    lists: list[list[dict[str, Any]]] = []
+    count = max(limit, SEARCH_PER_TERM)
+    for term in terms[:4]:
+        params = {"q": term, "orgId": orgId, "sort": sort, "count": count}
         cache_key = cache._generate_key("search", params)
         cache_hit = (await cache._get(cache_key)) is not None
-        rows = await cache.get_search_results(
-            params,
-            lambda t=term: client.search_statistics(
-                t, org_id=orgId, sort=sort or "RANK", result_count=limit
-            ),
-        )
-        term_table_ids: list[str] = []
-        for r in rows:
-            tbl = r.get("TBL_ID")
-            if tbl:
-                term_table_ids.append(tbl)
-            key = f"{r.get('ORG_ID')}:{r.get('TBL_ID')}"
-            if key in seen:
-                continue
-            seen.add(key)
-            all_results.append(
-                {
-                    "orgId": r.get("ORG_ID"),
-                    "orgName": r.get("ORG_NM"),
-                    "tableId": r.get("TBL_ID"),
-                    "tableName": r.get("TBL_NM"),
-                    "statName": r.get("STAT_NM"),
-                    "viewCode": r.get("VW_CD"),
-                }
+        try:
+            rows = await cache.get_search_results(
+                params,
+                lambda t=term: client.search_statistics(
+                    t, org_id=orgId, sort=sort or "RANK", result_count=count
+                ),
             )
-            if len(all_results) >= limit:
-                break
+        except KosisApiError as e:
+            if _NO_DATA_MARK not in str(e):
+                raise
+            rows = []
+        lists.append(rows)
         per_term.append(
             {
                 "term": term,
-                "table_ids": term_table_ids[:limit],
-                "count": len(term_table_ids),
+                "table_ids": [r.get("TBL_ID") for r in rows if r.get("TBL_ID")][:limit],
+                "count": len(rows),
                 "cache_hit": cache_hit,
             }
         )
+    all_results: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for i in range(count):
+        for rows in lists:
+            if i >= len(rows) or not rows[i].get("TBL_ID"):
+                continue
+            key = f"{rows[i].get('ORG_ID')}:{rows[i].get('TBL_ID')}"
+            if key in seen:
+                continue
+            seen.add(key)
+            row = _search_row(rows[i])
+            row["searchRank"] = i
+            all_results.append(row)
         if len(all_results) >= limit:
             break
-    merged_table_ids = [r["tableId"] for r in all_results if r.get("tableId")]
+    all_results = all_results[:limit]
+    merged_table_ids = [r["tableId"] for r in all_results]
     get_client().update_current_span(
         metadata={
             "parsed": {
@@ -607,7 +594,7 @@ POLICY_DOMAINS: dict[str, list[str]] = {
 }
 
 
-async def chain_region_brief(
+async def region_brief(
     region: str,
     includeNational: bool = False,
     format: Literal["detail", "speech"] = "detail",
@@ -630,11 +617,13 @@ async def chain_region_brief(
             lambda ind, _i: _brief_item(ind, None, fetch_one),
             CHAIN_CONCURRENCY,
         )
-    ok = [r for r in regional if r["success"]]
+    ok = [r for r in regional if r["success"] and not r.get("isFallback")]
+    fallbacks = [r for r in regional if r["success"] and r.get("isFallback")]
     if format == "speech":
         parts = [
             f"{r['label']} {r['value']}{r['unit'] or ''}"
-            for r in ok[:5]
+            + (f"({r['fallbackRegion']} 기준 참고값)" if r.get("isFallback") else "")
+            for r in [x for x in regional if x["success"]][:5]
             if r.get("value") is not None
         ]
         speech = f"{region} — " + ", ".join(parts) if parts else f"{region} 핵심 통계 조회 실패"
@@ -650,6 +639,7 @@ async def chain_region_brief(
         "region": region,
         "format": "detail",
         "successCount": len(ok),
+        "fallbackCount": len(fallbacks),
         "items": regional,
         "national": national,
     }
@@ -657,6 +647,7 @@ async def chain_region_brief(
 
 async def _brief_item(ind: dict[str, str], region: str | None, fetch_one) -> dict[str, Any]:
     r = await fetch_one(ind["key"], region)
+    src = r.get("source") or {}
     return {
         "keyword": ind["key"],
         "label": ind["label"],
@@ -665,44 +656,89 @@ async def _brief_item(ind: dict[str, str], region: str | None, fetch_one) -> dic
         "value": r.get("value"),
         "unit": r.get("unit"),
         "period": r.get("period"),
-        "source": (r.get("source") or {}).get("tableName"),
+        "source": src if src.get("tableId") else None,
         "note": r.get("note"),
-        "message": (r.get("answer") or "").split("\n")[0],
+        "isFallback": bool(r.get("isFallback")),
+        "fallbackRegion": r.get("fallbackRegion"),
+        "message": (r.get("answer") or r.get("summary") or "").split("\n")[0],
     }
 
 
-async def chain_compare_regions(
+COMPARE_MAX_REGIONS, COMPARE_MAX_KEYWORDS = 17, 8
+
+
+async def compare_regions(
     regions: list[str],
     keywords: list[str],
 ) -> dict[str, Any]:
-    regions = regions[:17]
-    keywords = keywords[:8]
+    warnings: list[str] = []
+    if len(regions) > COMPARE_MAX_REGIONS or len(keywords) > COMPARE_MAX_KEYWORDS:
+        warnings.append(
+            f"지역 {COMPARE_MAX_REGIONS}개·키워드 {COMPARE_MAX_KEYWORDS}개까지만 비교했습니다 "
+            f"(요청: 지역 {len(regions)}개, 키워드 {len(keywords)}개)."
+        )
+    regions = regions[:COMPARE_MAX_REGIONS]
+    keywords = keywords[:COMPARE_MAX_KEYWORDS]
 
     async def one(pair: tuple[str, str], _i: int) -> dict[str, Any]:
         region, kw = pair
-        r = await quick_stats(query=kw, region=region)
+        try:
+            r = await quick_stats(query=kw, region=region)
+        except Exception as e:
+            r = {"success": False, "answer": f"조회 실패: {e}"}
+        src = r.get("source") or {}
+        value = r.get("value")
         return {
             "region": region,
             "keyword": kw,
             "success": r.get("success"),
-            "value": r.get("value"),
+            "value": value,
+            "numericValue": parse_kosis_number(str(value)) if value is not None else None,
             "unit": r.get("unit"),
             "period": r.get("period"),
-            "tableId": (r.get("source") or {}).get("tableId"),
+            "isFallback": bool(r.get("isFallback")),
+            "fallbackRegion": r.get("fallbackRegion"),
+            "note": r.get("note"),
+            "source": src if src.get("tableId") else None,
             "message": (r.get("answer") or "").split("\n")[0],
         }
 
     pairs = [(reg, kw) for reg in regions for kw in keywords]
     cells = await map_with_concurrency(pairs, one, CHAIN_CONCURRENCY)
-    return {
-        "success": True,
+    ranks: dict[str, list[dict[str, Any]]] = {}
+    for kw in keywords:
+        # 상위 지역 값으로 대체된 셀(isFallback)은 순위에서 뺀다.
+        kw_cells = [c for c in cells if c["keyword"] == kw and c["success"] and not c["isFallback"]]
+        order = rank({c["region"]: c["numericValue"] for c in kw_cells})
+        ranks[kw] = sorted(
+            (
+                {"region": c["region"], "value": c["numericValue"], "period": c.get("period"), "rank": order[c["region"]]}
+                for c in kw_cells
+                if c["region"] in order
+            ),
+            key=lambda x: x["rank"],
+        )
+        periods = {c.get("period") for c in kw_cells if c.get("numericValue") is not None}
+        if len(periods) > 1:
+            warnings.append(f"'{kw}' 시점이 지역마다 다릅니다: {sorted(p for p in periods if p)} (순위는 참고용)")
+    fallback_cells = [f"{c['region']}·{c['keyword']}" for c in cells if c["isFallback"]]
+    if fallback_cells:
+        warnings.append(f"상위 지역 값으로 대체되어 순위에서 뺀 셀: {fallback_cells}")
+    failed = [c for c in cells if not c["success"]]
+    out: dict[str, Any] = {
+        "success": len(failed) < len(cells),
         "regions": regions,
         "keywords": keywords,
         "matrix": cells,
+        "ranks": ranks,
+        "failedCount": len(failed),
     }
+    if warnings:
+        out["warnings"] = warnings
+    return out
 
 
-async def chain_policy_indicator(
+async def policy_indicator(
     domain: Literal[
         "lowFertility", "aging", "housing", "jobs", "safety", "health", "economy"
     ],
@@ -712,25 +748,30 @@ async def chain_policy_indicator(
     kws = POLICY_DOMAINS.get(domain, [])
 
     async def one(kw: str, _i: int) -> dict[str, Any]:
-        r = await quick_trend(keyword=kw, region=region, yearCount=yearCount)
+        try:
+            r = await quick_trend(keyword=kw, region=region, yearCount=yearCount)
+        except Exception as e:
+            r = {"success": False, "summary": f"조회 실패: {e}"}
         return {
             "keyword": kw,
             "success": r.get("success"),
             "trend": r.get("trend"),
             "summary": r.get("summary"),
+            "periodType": r.get("periodType"),
+            "unit": r.get("unit"),
+            "isFallback": bool(r.get("isFallback")),
+            "fallbackRegion": r.get("fallbackRegion"),
             "dataPoints": r.get("dataPoints"),
+            "source": r.get("source"),
         }
 
     items = await map_with_concurrency(kws, one, CHAIN_CONCURRENCY)
-    return {"success": True, "domain": domain, "region": region or "전국", "items": items}
-
-
-def get_available_view_codes() -> list[dict[str, str]]:
-    return [{"code": k, "name": v} for k, v in VIEW_CODES.items()]
-
-
-def get_available_recommended_topics() -> list[dict[str, str]]:
-    return [
-        {"code": k, "name": v["name"], "description": v["description"]}
-        for k, v in TOPIC_RECOMMENDATIONS.items()
-    ]
+    failed = sum(1 for i in items if not i["success"])
+    return {
+        "success": failed < len(items),
+        "domain": domain,
+        "region": region or "전국",
+        "failedCount": failed,
+        "fallbackCount": sum(1 for i in items if i["isFallback"]),
+        "items": items,
+    }

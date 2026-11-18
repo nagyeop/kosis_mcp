@@ -7,7 +7,7 @@ from datetime import datetime
 from typing import Any
 
 from kosis_mcp.cache import get_cache_manager
-from kosis_mcp.client import get_kosis_client
+from kosis_mcp.client import KosisApiError, get_kosis_client
 from kosis_mcp.data.district_file_map import (
     DISTRICT_KEYWORD_TO_FILESN,
     DISTRICT_OPENAPI_ROUTES,
@@ -23,10 +23,15 @@ from kosis_mcp.data.quick_stats_params import (
     get_region_code,
     normalize_keyword_key,
 )
+from kosis_mcp.population_search.schema import build_source
+from kosis_mcp.series.keyword import resolve_region_code, resolve_region_codes
+from kosis_mcp.series.periods import PER_YEAR, normalize_period
+from kosis_mcp.series.resolve import table_period_types
 from kosis_mcp.utils.data_formatter import parse_kosis_number
 from kosis_mcp.utils.district_kosis_codes import get_district_kscd_candidates_for
 from kosis_mcp.utils.regions import (
     AMBIGUOUS_DISTRICTS,
+    PROVINCE_NAME_TO_SHORT,
     PROVINCE_NAME_VARIANTS,
     PROVINCES,
     find_province_by_district,
@@ -114,6 +119,8 @@ def extract_district_name(query: str) -> str | None:
             continue
         if token in PROVINCE_FULL_NAMES or token in PROVINCE_SHORT_NAMES:
             continue
+        if token in PROVINCE_NAME_TO_SHORT:  # 서울시·부산시 같은 시도 별칭
+            continue
         if token in NON_DISTRICT_WORDS:
             continue
         if token in QUICK_STATS_PARAMS or token in KEYWORD_ALIASES:
@@ -187,6 +194,26 @@ def generate_natural_response(
     return f"{period} {region_name}의 {description}{suffix} {formatted_value}{formatted_unit}입니다."
 
 
+async def _stale_region_note(
+    org_id: str, tbl_id: str, period_type: str, latest: str, region_name: str, year: int | None
+) -> str | None:
+    """요청 지역의 최신 값이 표의 최신 시점보다 오래되면(행정구역 개편·폐지 가능) 안내한다."""
+    if year:
+        return None
+    try:
+        available = await table_period_types(org_id, tbl_id)
+        end = next((a["end"] for a in available if a["periodType"] == period_type), None)
+        table_latest = normalize_period(end, period_type) if end else None
+    except Exception:
+        return None
+    if table_latest and latest < table_latest:
+        return (
+            f"⚠️ {region_name} 값은 {latest}까지만 있고 표의 최신 시점은 {table_latest}입니다 "
+            "(행정구역 개편·폐지 가능성 — 통합·신설 지역명으로 다시 조회하세요)."
+        )
+    return None
+
+
 async def quick_stats(
     query: str,
     region: str | None = None,
@@ -212,7 +239,7 @@ async def quick_stats(
         if not param:
             guide = (
                 "📊 지원 키워드: 인구, 출산율, 실업률, 고용률, GDP, GRDP, 물가, "
-                "아파트가격, 전세가격, 미세먼지, 교통사고, 의사수, 범죄율 등 92개"
+                f"아파트가격, 전세가격, 미세먼지, 교통사고, 의사수, 범죄율 등 {len(QUICK_STATS_PARAMS)}개"
             )
             norm_q = normalize_keyword_key(trimmed_query)
             misleading = next(
@@ -223,7 +250,7 @@ async def quick_stats(
                 "success": False,
                 "answer": f'"{query}"에 대한 빠른 조회가 지원되지 않습니다.',
                 "note": (f"{misleading}\n\n" if misleading else "")
-                + f'{guide}\n\n🔍 search_statistics("{query}")로 검색해보세요.',
+                + f'{guide}\n\n🔍 find_tables("{query}")로 검색해보세요.',
             }
 
         region_name = "전국"
@@ -240,7 +267,10 @@ async def quick_stats(
             None if district_from_region else extract_district_name(trimmed_query)
         )
         district_name = district_from_region or district_from_query
-        prov_from_query = extract_province_name(trimmed_query, False)
+        prov_from_query = extract_province_name(trimmed_query, False) or (
+            extract_province_name(trimmed_region, False) if trimmed_region else None
+        )
+        fallback_region: str | None = None  # 값이 실제로 나온 상위 지역(요청 지역을 해석하지 못한 경우)
 
         if district_name:
             prov = find_province_by_district(district_name)
@@ -293,6 +323,15 @@ async def quick_stats(
                     prov_hint,
                     route.get("objId") or "auto",
                 )
+                # 행정구역 개편으로 같은 이름의 옛·새 코드가 공존한다 → live 메타 후보를 더해 최신 값이 있는 코드를 고른다.
+                live_codes = await resolve_region_codes(
+                    route["orgId"],
+                    route["tblId"],
+                    district_name,
+                    province=prov_hint.shortName if prov_hint else prov_from_query,
+                    obj_l=2 if route.get("districtObjLevel") == 2 else None,
+                )
+                district_codes = list(dict.fromkeys([*district_codes, *live_codes]))
                 start_prd = end_prd = None
                 if year:
                     y = str(year)
@@ -308,6 +347,8 @@ async def quick_stats(
                     elif prd_se == "S":
                         start_prd, end_prd = f"{y}01", f"{y}02"
 
+                route_prd = route.get("prdSe", "Y")
+                best: dict[str, Any] | None = None
                 for district_code in district_codes:
                     obj_l1_final = (
                         route.get("extraObjL1") or "0"
@@ -319,6 +360,8 @@ async def quick_stats(
                         if route.get("districtObjLevel") == 2
                         else route.get("objL2")
                     )
+                    # 연도 미지정이면 1년치를 받아 코드별 마지막 값을 비교한다(폐지 코드는 값이 끊겨 있다).
+                    recent_n = None if start_prd else PER_YEAR.get(route_prd, 2)
                     try:
                         rows = await cache.get_statistics_data(
                             {
@@ -327,18 +370,20 @@ async def quick_stats(
                                 "objL1": obj_l1_final,
                                 "objL2": obj_l2_final,
                                 "itemId": route["itmId"],
-                                "periodType": route.get("prdSe"),
-                                "year": year,
+                                "periodType": route_prd,
+                                "startPrdDe": start_prd,
+                                "endPrdDe": end_prd,
+                                "recent": recent_n,
                             },
-                            lambda o1=obj_l1_final, o2=obj_l2_final: client.get_statistics_data(
+                            lambda o1=obj_l1_final, o2=obj_l2_final, n=recent_n: client.get_statistics_data(
                                 {
                                     "orgId": route["orgId"],
                                     "tblId": route["tblId"],
                                     "objL1": o1,
                                     **({"objL2": o2} if o2 else {}),
                                     "itmId": route["itmId"],
-                                    "prdSe": route.get("prdSe"),
-                                    "newEstPrdCnt": None if start_prd else 1,
+                                    "prdSe": route_prd,
+                                    "newEstPrdCnt": n,
                                     "startPrdDe": start_prd,
                                     "endPrdDe": end_prd,
                                 }
@@ -349,32 +394,41 @@ async def quick_stats(
                     valid = [x for x in rows if parse_kosis_number(x.get("DT")) is not None]
                     if valid:
                         r = max(valid, key=lambda x: x.get("PRD_DE", ""))
-                        period_label = format_period_with_type(
-                            r["PRD_DE"], r.get("PRD_SE") or route.get("prdSe", "Y")
-                        )
-                        num_value = parse_kosis_number(r["DT"])
-                        formatted = f"{num_value:,}" if num_value == int(num_value or 0) else f"{num_value:,}"
-                        suffix = get_korean_particle(route.get("description", ""))
-                        answer = (
-                            f"{period_label} {district_name}의 {route.get('description')}{suffix} "
-                            f"{formatted}{route.get('unit', '')}입니다.\n\n"
-                            f"📊 출처: {route.get('description')} (KOSIS {route['tblId']})"
-                        )
-                        out: dict[str, Any] = {
-                            "success": True,
-                            "answer": answer,
-                            "value": formatted,
-                            "unit": route.get("unit"),
-                            "period": period_label,
-                            "source": {
-                                "orgId": route["orgId"],
-                                "tableId": route["tblId"],
-                                "tableName": route.get("description"),
-                            },
-                        }
-                        if route.get("isProjection"):
-                            out["isProjection"] = True
-                        return out
+                        if best is None or r.get("PRD_DE", "") > best.get("PRD_DE", ""):
+                            best = r
+                if best is not None:
+                    r = best
+                    period_label = format_period_with_type(
+                        r["PRD_DE"], r.get("PRD_SE") or route_prd
+                    )
+                    formatted = _fmt_num(str(r["DT"]))
+                    suffix = get_korean_particle(route.get("description", ""))
+                    stale = await _stale_region_note(
+                        route["orgId"], route["tblId"], route_prd, r["PRD_DE"], district_name, year
+                    )
+                    answer = (
+                        f"{period_label} {district_name}의 {route.get('description')}{suffix} "
+                        f"{formatted}{route.get('unit', '')}입니다.\n\n"
+                        f"📊 출처: {route.get('description')} (KOSIS {route['tblId']})"
+                        + (f"\n\n{stale}" if stale else "")
+                    )
+                    out: dict[str, Any] = {
+                        "success": True,
+                        "answer": answer,
+                        "value": formatted,
+                        "unit": route.get("unit"),
+                        "period": period_label,
+                        "source": {
+                            "orgId": route["orgId"],
+                            "tableId": route["tblId"],
+                            "tableName": route.get("description"),
+                        },
+                    }
+                    if stale:
+                        out["note"] = stale
+                    if route.get("isProjection"):
+                        out["isProjection"] = True
+                    return out
                 if district_codes:
                     district_note = (
                         f"💡 {district_name} {route.get('description')}: "
@@ -425,20 +479,27 @@ async def quick_stats(
             except Exception as e:
                 district_note = f'⚠️ "{district_name}" 엑셀 조회 예외: {str(e)[:150]}'
 
-        if requested_region:
-            if not param.get("regionCodes"):
-                return {
-                    "success": False,
-                    "answer": f'"{keyword}" 통계는 지역별 조회를 지원하지 않습니다.',
-                    "note": "전국 데이터만 제공됩니다.",
-                }
-            region_code = get_region_code(param, requested_region)
+        if district_name and not requested_region:
+            fallback_region = "전국"
+        if requested_region and normalize_province_name(requested_region) != "전국":
+            region_code = get_region_code(param, requested_region) if param.get("regionCodes") else None
+            if region_code is None and param.get("regionCodes"):
+                region_code = await resolve_region_code(
+                    param["orgId"],
+                    param["tableId"],
+                    requested_region,
+                    obj_l=2 if param.get("regionObjLevel") == 2 else None,
+                )
             if region_code is None:
-                return {
-                    "success": False,
-                    "answer": f'"{requested_region}" 지역명을 인식하지 못해 조회를 중단했습니다.',
-                    "note": "지원 지역: 17개 광역시도 약칭/풀네임. 전국은 region 생략.",
-                }
+                # 성공은 유지하되 전국 값임을 플래그로 명시한다.
+                fallback_region = "전국"
+                district_note = (
+                    f'💡 "{requested_region}" 지역 값은 이 지표에서 조회할 수 없어 전국 값을 표시합니다.'
+                    if param.get("regionCodes")
+                    else f'💡 "{keyword}" 통계는 지역별 조회를 지원하지 않아 전국 값을 표시합니다.'
+                )
+                requested_region = None
+        if requested_region:
             normalized = normalize_province_name(requested_region)
             if normalized != "전국":
                 if param.get("regionObjLevel") == 2:
@@ -446,6 +507,8 @@ async def quick_stats(
                 else:
                     obj_l1 = region_code
                 region_name = normalized
+                if district_name:
+                    fallback_region = region_name
 
         supported = param.get("supportedPeriods") or ["Y"]
         requested_period = period or supported[0]
@@ -471,36 +534,67 @@ async def quick_stats(
             elif requested_period == "M":
                 start_prd, end_prd = f"{year}01", f"{year}12"
 
-        results = await cache.get_statistics_data(
-            {
-                "orgId": param["orgId"],
-                "tableId": param["tableId"],
-                "objL1": obj_l1,
-                "objL2": obj_l2,
-                "itemId": param["itemId"],
-                "periodType": requested_period,
-                "year": year,
-            },
-            lambda: client.get_statistics_data(
-                {
-                    "orgId": param["orgId"],
-                    "tblId": param["tableId"],
-                    "objL1": obj_l1,
-                    "objL2": obj_l2,
-                    "itmId": param["itemId"],
-                    "prdSe": requested_period,
-                    "newEstPrdCnt": None if start_prd else 1,
-                    "startPrdDe": start_prd,
-                    "endPrdDe": end_prd,
-                }
-            ),
-        )
+        async def fetch_main(prd: str, start: str | None, end: str | None) -> list[dict[str, Any]]:
+            try:
+                return await cache.get_statistics_data(
+                    {
+                        "orgId": param["orgId"],
+                        "tableId": param["tableId"],
+                        "objL1": obj_l1,
+                        "objL2": obj_l2,
+                        "itemId": param["itemId"],
+                        "periodType": prd,
+                        "startPrdDe": start,
+                        "endPrdDe": end,
+                    },
+                    lambda: client.get_statistics_data(
+                        {
+                            "orgId": param["orgId"],
+                            "tblId": param["tableId"],
+                            "objL1": obj_l1,
+                            "objL2": obj_l2,
+                            "itmId": param["itemId"],
+                            "prdSe": prd,
+                            "newEstPrdCnt": None if start else 1,
+                            "startPrdDe": start,
+                            "endPrdDe": end,
+                        }
+                    ),
+                )
+            except KosisApiError as e:
+                if "데이터가 존재하지" not in str(e):
+                    raise
+                return []
+
+        results = await fetch_main(requested_period, start_prd, end_prd)
+        period_note = None
+        if (
+            not any(parse_kosis_number(r.get("DT")) is not None for r in results)
+            and region_name != "전국"
+            and not year
+        ):
+            # 신설 지역(예: 2026-07 통합특별시)은 연간 값이 아직 없을 수 있다 → 표의 다른 주기로 최신 값.
+            for alt in ("M", "Q", "H", "Y"):
+                if alt == requested_period:
+                    continue
+                if alt not in {a["periodType"] for a in await table_period_types(param["orgId"], param["tableId"])}:
+                    continue
+                alt_rows = await fetch_main(alt, None, None)
+                if any(parse_kosis_number(r.get("DT")) is not None for r in alt_rows):
+                    period_note = f"💡 {region_name}의 {requested_period} 주기 값이 아직 없어 {alt} 주기 최신 값을 표시합니다."
+                    results, requested_period = alt_rows, alt
+                    break
         valid = [r for r in results if parse_kosis_number(r.get("DT")) is not None]
         if not valid:
             return {
                 "success": False,
                 "answer": f'"{query}"에 대한 데이터를 찾을 수 없습니다.',
                 "note": f"테이블: {param.get('tableName')} ({param.get('tableId')})",
+                "source": build_source(
+                    param["orgId"],
+                    param["tableId"],
+                    param.get("tableName") or "",
+                ),
             }
         latest = max(valid, key=lambda r: r.get("PRD_DE", ""))
         value = latest["DT"]
@@ -537,7 +631,12 @@ async def quick_stats(
             and is_within_months(latest["PRD_DE"], 24)
             else None
         )
-        notes = [n for n in (district_note, projection_note, provisional) if n]
+        stale_note = None
+        if region_name != "전국":
+            stale_note = await _stale_region_note(
+                param["orgId"], param["tableId"], requested_period, latest["PRD_DE"], region_name, year
+            )
+        notes = [n for n in (district_note, period_note, projection_note, provisional, stale_note) if n]
         answer = (
             f"{base}\n\n📊 출처: {param.get('tableName')} (KOSIS {param['tableId']})"
             + (f"\n\n{chr(10).join(notes)}" if notes else "")
@@ -557,6 +656,10 @@ async def quick_stats(
         }
         if latest.get("LST_CHN_DE"):
             out["source"]["lastUpdated"] = latest["LST_CHN_DE"]
+        if fallback_region:
+            out["isFallback"] = True
+            out["fallbackRegion"] = fallback_region
+            out["requestedRegion"] = district_name or (region or "").strip() or None
         if param.get("isProjection"):
             out["isProjection"] = True
         if notes:
@@ -568,10 +671,10 @@ async def quick_stats(
             return {
                 "success": False,
                 "answer": f'"{query}" 데이터를 찾을 수 없습니다.',
-                "note": f'search_statistics("{query}") 사용.',
+                "note": f'find_tables("{query}") 사용.',
             }
         return {
             "success": False,
             "answer": f"조회 중 오류가 발생했습니다: {msg}",
-            "note": f'search_statistics("{query}")로 직접 검색해보세요.',
+            "note": f'find_tables("{query}")로 직접 검색해보세요.',
         }

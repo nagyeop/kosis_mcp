@@ -46,25 +46,25 @@ if [[ "$node_major" -lt 22 ]]; then
   exit 1
 fi
 
-INSPECTOR=(npx --yes @modelcontextprotocol/inspector@latest)
+INSPECTOR=(npx --yes @modelcontextprotocol/inspector@2.10.1)
 SERVER="$ROOT/scripts/kosis-mcp-inspector.sh"
 CLI=( "${INSPECTOR[@]}" --cli "$SERVER" --format json )
 
 EXPECTED_TOOLS=(
+  find_tables
+  browse_statistics
+  get_table_info
+  explain_statistic
+  get_statistics_data
+  analyze_trend
+  compare_values
   quick_stats
   quick_trend
   quick_rank
-  explain_statistic
-  search_statistics
-  get_statistics_list
-  get_statistics_data
-  compare_statistics
-  analyze_time_series
-  get_table_info
+  compare_regions
+  region_brief
+  policy_indicator
   fetch_kosis_excel
-  chain_region_brief
-  chain_compare_regions
-  chain_policy_indicator
 )
 
 inspector() {
@@ -101,6 +101,12 @@ elif check == 'tools':
     schema = quick_stats['inputSchema']
     assert 'query' in schema['properties']
     assert 'query' in schema['required']
+    for name in ('analyze_trend', 'compare_values'):
+        tool = next(t for t in tools if t['name'] == name)
+        item = tool['inputSchema']['properties']['series']['items']
+        assert set(item.get('required') or []) >= {'orgId', 'tableId'}, name
+        missing = [k for k, v in item['properties'].items() if not v.get('description')]
+        assert not missing, f'{name} series fields without description: {missing}'
 elif check == 'resources':
     uris = {r['uri'] for r in data['result']['resources']}
     assert 'kosis://categories/tree' in uris

@@ -2895,9 +2895,9 @@ KEYWORD_LOOKUP: dict[str, str] = {
 }
 
 MISLEADING_KEYWORD_HINTS: list[dict[str, Any]] = [
-    {"pattern": re.compile(r"청년실업"), "hint": "⚠️ 청년실업률(15~29세)은 전체 실업률과 다른 별도 지표입니다. quick_stats는 전체 실업률만 지원 — 청년실업률은 search_statistics(\"청년 실업률\")로 경제활동인구조사 연령별 표를 조회하세요."},
-    {"pattern": re.compile(r"연봉|연소득"), "hint": "⚠️ 연봉(연 단위)은 quick_stats 미지원입니다. \"월급\" 키워드로 상용근로자 월평균 임금(원)을 조회하거나, search_statistics(\"임금근로자 연소득\")을 사용하세요."},
-    {"pattern": re.compile(r"가계소득|가구소득|^소득$"), "hint": "⚠️ 가계(가구)소득은 임금 통계와 다른 지표입니다(사업·재산·이전소득 포함). search_statistics(\"가계동향 소득\")으로 가계동향조사를 조회하세요. 임금만 필요하면 \"월급\" 키워드 사용."},
+    {"pattern": re.compile(r"청년실업"), "hint": "⚠️ 청년실업률(15~29세)은 전체 실업률과 다른 별도 지표입니다. quick_stats는 전체 실업률만 지원 — 청년실업률은 find_tables(\"청년 실업률\")로 경제활동인구조사 연령별 표를 조회하세요."},
+    {"pattern": re.compile(r"연봉|연소득"), "hint": "⚠️ 연봉(연 단위)은 quick_stats 미지원입니다. \"월급\" 키워드로 상용근로자 월평균 임금(원)을 조회하거나, find_tables(\"임금근로자 연소득\")을 사용하세요."},
+    {"pattern": re.compile(r"가계소득|가구소득|^소득$"), "hint": "⚠️ 가계(가구)소득은 임금 통계와 다른 지표입니다(사업·재산·이전소득 포함). find_tables(\"가계동향 소득\")으로 가계동향조사를 조회하세요. 임금만 필요하면 \"월급\" 키워드 사용."},
 ]
 
 def get_quick_stats_param(keyword: str) -> QuickStatsParam | None:

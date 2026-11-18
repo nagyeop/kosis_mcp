@@ -6,6 +6,7 @@ import asyncio
 import re
 from typing import Any
 
+from kosis_mcp.cache import settle_failed
 from kosis_mcp.client import get_kosis_client
 from kosis_mcp.utils.regions import (
     ProvinceInfo,
@@ -87,7 +88,7 @@ async def _load_district_codes_for(
     if cache_key in _cached:
         return _cached[cache_key]
     if cache_key in _loading:
-        return await _loading[cache_key]
+        return await asyncio.shield(_loading[cache_key])
 
     loop = asyncio.get_running_loop()
     fut: asyncio.Future[TableCodeIndex] = loop.create_future()
@@ -159,8 +160,8 @@ async def _load_district_codes_for(
         _cached[cache_key] = final
         fut.set_result(final)
         return final
-    except Exception as e:
-        fut.set_exception(e)
+    except BaseException as e:
+        settle_failed(fut, e)
         raise
     finally:
         _loading.pop(cache_key, None)
