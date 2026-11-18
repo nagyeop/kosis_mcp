@@ -1,0 +1,2103 @@
+[
+  {
+    "source_set": "gold",
+    "query_id": "Q003",
+    "query": "지역마다 사람들이 얼마나 빽빽하게 사는지 볼 수 있는 표 찾아줘",
+    "gold": {
+      "DT_1B08024": {
+        "tableName": "인구밀도(인구주택총조사기준) - 시도",
+        "statName": "인구총조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1IN5502",
+        "tableName": "시도/성별 인구 및 인구밀도",
+        "statName": "인구총조사",
+        "periodRange": [
+          "1955",
+          "1955"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "gold",
+    "query_id": "Q004",
+    "query": "한 해에 태어난 아기가 몇 명인지 볼 수 있는 표가 있어?",
+    "gold": {
+      "DT_1B8000G": {
+        "tableName": "월.분기.연간 인구동향(출생,사망,혼인,이혼)",
+        "statName": "인구동향조사"
+      },
+      "DT_1B81A23": {
+        "tableName": "시군구/출생아수, 합계출산율",
+        "statName": "인구동향조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "INH_1B8000F_01",
+        "tableName": "출생아수, 합계출산율, 자연증가 등",
+        "statName": "인구동향조사",
+        "periodRange": [
+          "1970",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=1.00",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_1B8000H",
+        "tableName": "시도/인구동태건수 및 동태율(출생,사망,혼인,이혼)",
+        "statName": "인구동향조사",
+        "periodRange": [
+          "1990",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.80",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "INH_1B81A01",
+        "tableName": "출생아수(시도/시/군/구)",
+        "statName": "인구동향조사",
+        "periodRange": [
+          "1997",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "gold",
+    "query_id": "Q005",
+    "query": "다른 지역에서 이사 들어온 사람이 몇 명인지 알고 싶어",
+    "gold": {
+      "DT_1B26001": {
+        "tableName": "시군구/성/연령(5세)별 이동자수",
+        "statName": "국내인구이동통계"
+      },
+      "DT_1B26001_A02": {
+        "tableName": "시군구/성별 이동자수",
+        "statName": "국내인구이동통계"
+      },
+      "DT_1B26001_A04": {
+        "tableName": "시도/성/연령(5세)별 이동자수",
+        "statName": "국내인구이동통계"
+      },
+      "DT_1B26A01": {
+        "tableName": "시군구/성/연령(5세)별 1인 이동건수",
+        "statName": "국내인구이동통계"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1B26006",
+        "tableName": "시군구/성/연령(5세)별 이동률",
+        "statName": "국내인구이동통계",
+        "periodRange": [
+          "1970",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.67",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_1B26001_A03",
+        "tableName": "시군구/연령(5세)별 이동자수",
+        "statName": "국내인구이동통계",
+        "periodRange": [
+          "1970",
+          "2026"
+        ],
+        "reason": [
+          "name_overlap=1.00",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "gold",
+    "query_id": "Q007",
+    "query": "혼자 사는 가구가 몇 가구인지 볼 수 있는 통계표 찾아줘",
+    "gold": {
+      "DT_1PL1501": {
+        "tableName": "성 및 거처의 종류별 1인가구 - 시군구",
+        "statName": "인구총조사"
+      },
+      "DT_1PL1502": {
+        "tableName": "성 및 연령별 1인가구 - 시군구",
+        "statName": "인구총조사"
+      },
+      "DT_1PL1509": {
+        "tableName": "성, 연령 및 거처의 종류별 1인가구 - 시군구",
+        "statName": "인구총조사"
+      },
+      "DT_1JC1511": {
+        "tableName": "가구주의 연령 및 가구원수별 가구(일반가구) - 시군구",
+        "statName": "인구총조사"
+      },
+      "DT_1JC1516": {
+        "tableName": "세대구성 및 가구원수별 가구(일반가구) - 시군구",
+        "statName": "인구총조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1JC1515",
+        "tableName": "세대구성별 가구 및 가구원(일반가구) - 시군구",
+        "statName": "인구총조사",
+        "periodRange": [
+          "2015",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "gold",
+    "query_id": "Q013",
+    "query": "2009년에 등록외국인을 국적별로 볼 수 있는 표 찾아줘",
+    "gold": {
+      "DT_1B040A7A": {
+        "tableName": "국적(지역) 및 체류자격별 등록외국인 현황",
+        "statName": "출입국자및체류외국인통계"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1B040A8",
+        "tableName": "국적(지역) 및 연령별 등록외국인 현황",
+        "statName": "출입국자및체류외국인통계",
+        "periodRange": [
+          "2009",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.67",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_1B040A11",
+        "tableName": "시군구별 및 체류자격별 등록외국인 현황",
+        "statName": "출입국자및체류외국인통계",
+        "periodRange": [
+          "2010",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.67",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "gold",
+    "query_id": "Q014",
+    "query": "등록외국인을 체류자격별로 나눠 볼 수 있는 표가 있어?",
+    "gold": {
+      "DT_1B040A7": {
+        "tableName": "국적(지역) 및 체류자격별 등록외국인 현황",
+        "statName": "출입국자및체류외국인통계"
+      },
+      "DT_1B040A11": {
+        "tableName": "시군구별 및 체류자격별 등록외국인 현황",
+        "statName": "출입국자및체류외국인통계"
+      },
+      "DT_1B040A11A": {
+        "tableName": "시군구별 및 체류자격별 등록외국인 현황",
+        "statName": "출입국자및체류외국인통계"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1B040A8",
+        "tableName": "국적(지역) 및 연령별 등록외국인 현황",
+        "statName": "출입국자및체류외국인통계",
+        "periodRange": [
+          "2009",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.67",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "gold",
+    "query_id": "Q017",
+    "query": "결혼이민자를 출신국적별로 확인할 수 있는 표 찾아줘",
+    "gold": {
+      "DT_1B040A16": {
+        "tableName": "국적(지역)별 결혼이민자 현황",
+        "statName": "출입국자및체류외국인통계"
+      },
+      "TX_11025_A008": {
+        "tableName": "한국국적을 가지지 않은 자-국제결혼 이주자(계)(2007~2015)",
+        "statName": "지방자치단체외국인주민현황"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "TX_11025_A009_A",
+        "tableName": "한국국적을 가지지 않은 자-결혼이민자(남)",
+        "statName": "지방자치단체외국인주민현황",
+        "periodRange": [
+          "2015",
+          "2024"
+        ],
+        "reason": [
+          "name_overlap=0.60",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "TX_11025_A010_A",
+        "tableName": "한국국적을 가지지 않은 자-결혼이민자(여)",
+        "statName": "지방자치단체외국인주민현황",
+        "periodRange": [
+          "2015",
+          "2024"
+        ],
+        "reason": [
+          "name_overlap=0.60",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "TX_11025_A008_A",
+        "tableName": "한국국적을 가지지 않은 자-결혼이민자(계)",
+        "statName": "지방자치단체외국인주민현황",
+        "periodRange": [
+          "2015",
+          "2024"
+        ],
+        "reason": [
+          "name_overlap=0.60",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "gold",
+    "query_id": "Q019",
+    "query": "2024년 주민등록인구를 월별로 볼 수 있는 표 찾아줘",
+    "gold": {
+      "DT_1B040A3": {
+        "tableName": "행정구역(시군구)별, 성별 인구수",
+        "statName": "주민등록인구현황"
+      },
+      "DT_1B04006": {
+        "tableName": "행정구역(시군구)별/1세별 주민등록인구",
+        "statName": "주민등록인구현황"
+      },
+      "DT_1B04005N": {
+        "tableName": "행정구역(읍면동)별/5세별 주민등록인구(2011년~)",
+        "statName": "주민등록인구현황"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1YL20651E",
+        "tableName": "주민등록인구(시도/시/군/구)",
+        "statName": "주민등록인구현황",
+        "periodRange": [
+          "1992",
+          "2026"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "gold",
+    "query_id": "Q020",
+    "query": "2015년부터 2024년까지 출생아 수를 연도별로 볼 수 있는 표 찾아줘",
+    "gold": {
+      "DT_1B8000G": {
+        "tableName": "월.분기.연간 인구동향(출생,사망,혼인,이혼)",
+        "statName": "인구동향조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1B8000H",
+        "tableName": "시도/인구동태건수 및 동태율(출생,사망,혼인,이혼)",
+        "statName": "인구동향조사",
+        "periodRange": [
+          "1990",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.80",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "gold",
+    "query_id": "Q021",
+    "query": "2023년 시도별 순이동자 수를 볼 수 있는 통계표 찾아줘",
+    "gold": {
+      "DT_1B26003_A01": {
+        "tableName": "전출지/전입지(시도)별 이동자수",
+        "statName": "국내인구이동통계"
+      },
+      "DT_1B26001_A04": {
+        "tableName": "시도/성/연령(5세)별 이동자수",
+        "statName": "국내인구이동통계"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1B26003",
+        "tableName": "전출지/전입지(시도)/성/연령(5세)별 이동자수",
+        "statName": "국내인구이동통계",
+        "periodRange": [
+          "1970",
+          "2026"
+        ],
+        "reason": [
+          "name_overlap=1.00",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_1B26003_A02",
+        "tableName": "전출지/전입지(시군구)/성별 이동자수",
+        "statName": "국내인구이동통계",
+        "periodRange": [
+          "2012",
+          "2026"
+        ],
+        "reason": [
+          "name_overlap=1.00",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "gold",
+    "query_id": "Q024",
+    "query": "시군구별 주민등록인구를 확인할 수 있는 표 찾아줘",
+    "gold": {
+      "DT_1B040A3": {
+        "tableName": "행정구역(시군구)별, 성별 인구수",
+        "statName": "주민등록인구현황"
+      },
+      "DT_1B04006": {
+        "tableName": "행정구역(시군구)별/1세별 주민등록인구",
+        "statName": "주민등록인구현황"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1YL20651E",
+        "tableName": "주민등록인구(시도/시/군/구)",
+        "statName": "주민등록인구현황",
+        "periodRange": [
+          "1992",
+          "2026"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "gold",
+    "query_id": "Q028",
+    "query": "주민등록 기준 시군구별 인구를 볼 수 있는 표 찾아줘",
+    "gold": {
+      "DT_1B040A3": {
+        "tableName": "행정구역(시군구)별, 성별 인구수",
+        "statName": "주민등록인구현황"
+      },
+      "DT_1B04006": {
+        "tableName": "행정구역(시군구)별/1세별 주민등록인구",
+        "statName": "주민등록인구현황"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1B04005N",
+        "tableName": "행정구역(읍면동)별/5세별 주민등록인구(2011년~)",
+        "statName": "주민등록인구현황",
+        "periodRange": [
+          "2011",
+          "2026"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_1YL20651E",
+        "tableName": "주민등록인구(시도/시/군/구)",
+        "statName": "주민등록인구현황",
+        "periodRange": [
+          "1992",
+          "2026"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "gold",
+    "query_id": "Q031",
+    "query": "현재 시군구별 주민등록인구 통계표를 찾아줘. 읍면동 단위 표는 제외해줘",
+    "gold": {
+      "DT_1B040A3": {
+        "tableName": "행정구역(시군구)별, 성별 인구수",
+        "statName": "주민등록인구현황"
+      },
+      "DT_1B04006": {
+        "tableName": "행정구역(시군구)별/1세별 주민등록인구",
+        "statName": "주민등록인구현황"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1YL20651E",
+        "tableName": "주민등록인구(시도/시/군/구)",
+        "statName": "주민등록인구현황",
+        "periodRange": [
+          "1992",
+          "2026"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "gold",
+    "query_id": "Q034",
+    "query": "2020년 등록외국인을 국적과 체류자격별로 확인할 수 있는 표 찾아줘",
+    "gold": {
+      "DT_1B040A7": {
+        "tableName": "국적(지역) 및 체류자격별 등록외국인 현황",
+        "statName": "출입국자및체류외국인통계"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1B28023",
+        "tableName": "국적/체류자격별 외국인 입국자(월간, 연간)",
+        "statName": "국제인구이동통계",
+        "periodRange": [
+          "2000",
+          "2026"
+        ],
+        "reason": [
+          "name_overlap=0.67"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_1B040A8",
+        "tableName": "국적(지역) 및 연령별 등록외국인 현황",
+        "statName": "출입국자및체류외국인통계",
+        "periodRange": [
+          "2009",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.67",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "gold",
+    "query_id": "Q035",
+    "query": "2023년 시도별 고령인구를 남녀로 나눠 볼 수 있는 표 찾아줘",
+    "gold": {
+      "DT_1IN1503": {
+        "tableName": "연령 및 성별 인구   읍면동",
+        "statName": "인구총조사"
+      },
+      "DT_1B04006": {
+        "tableName": "행정구역(시군구)별/1세별 주민등록인구",
+        "statName": "주민등록인구현황"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1B04005N",
+        "tableName": "행정구역(읍면동)별/5세별 주민등록인구(2011년~)",
+        "statName": "주민등록인구현황",
+        "periodRange": [
+          "2011",
+          "2026"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "gold",
+    "query_id": "Q036",
+    "query": "2022년 시군구별 1인가구를 연령별로 볼 수 있는 표가 있어?",
+    "gold": {
+      "DT_1PL1502": {
+        "tableName": "성 및 연령별 1인가구 - 시군구",
+        "statName": "인구총조사"
+      },
+      "DT_1PR1501": {
+        "tableName": "성별/연령별/교육정도별 1인가구(일반가구)-시군구",
+        "statName": "인구총조사"
+      },
+      "DT_1PR2001": {
+        "tableName": "성별/연령별/교육정도별 1인가구(일반가구)-시군구",
+        "statName": "인구총조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1PL1501",
+        "tableName": "성 및 거처의 종류별 1인가구 - 시군구",
+        "statName": "인구총조사",
+        "periodRange": [
+          "2015",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_1PL1509",
+        "tableName": "성, 연령 및 거처의 종류별 1인가구 - 시군구",
+        "statName": "인구총조사",
+        "periodRange": [
+          "2015",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "gold",
+    "query_id": "Q037",
+    "query": "2021년 지역별 등록외국인을 국적과 성별로 비교할 수 있는 표 찾아줘",
+    "gold": {
+      "DT_1B040A7": {
+        "tableName": "국적(지역) 및 체류자격별 등록외국인 현황",
+        "statName": "출입국자및체류외국인통계"
+      },
+      "DT_1B040A9C": {
+        "tableName": "시군구별 및 국적(지역)별 등록외국인 현황",
+        "statName": "출입국자및체류외국인통계"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1B040A8",
+        "tableName": "국적(지역) 및 연령별 등록외국인 현황",
+        "statName": "출입국자및체류외국인통계",
+        "periodRange": [
+          "2009",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=1.00",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "gold",
+    "query_id": "Q038",
+    "query": "시도별 다문화 혼인 비중과 다문화 이혼 비중을 함께 비교하고 싶어",
+    "gold": {
+      "DT_1BB0002": {
+        "tableName": "지역별 다문화 혼인",
+        "statName": "인구동향조사"
+      },
+      "DT_1BB0004": {
+        "tableName": "지역별 다문화 이혼",
+        "statName": "인구동향조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1BB0001",
+        "tableName": "다문화 유형별 혼인",
+        "statName": "인구동향조사",
+        "periodRange": [
+          "2008",
+          "2024"
+        ],
+        "reason": [
+          "name_overlap=1.00",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "gold",
+    "query_id": "Q039",
+    "query": "국적처리 연도별 추이와 연령·취득유형별 현황을 같이 보고 싶어",
+    "gold": {
+      "DT_1B040A18": {
+        "tableName": "연도별 국적 처리 현황",
+        "statName": "출입국자및체류외국인통계"
+      },
+      "DT_1B040A20": {
+        "tableName": "연령 및 유형별 국적 처리 현황",
+        "statName": "출입국자및체류외국인통계"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1B040A19",
+        "tableName": "국적(지역) 및 유형별 국적 처리 현황",
+        "statName": "출입국자및체류외국인통계",
+        "periodRange": [
+          "2009",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=1.00",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "gold",
+    "query_id": "Q040",
+    "query": "시도별 주민등록인구와 인구밀도를 함께 비교하고 싶어",
+    "gold": {
+      "DT_1B040A3": {
+        "tableName": "행정구역(시군구)별, 성별 인구수",
+        "statName": "주민등록인구현황"
+      },
+      "DT_1B08024": {
+        "tableName": "인구밀도(인구주택총조사기준) - 시도",
+        "statName": "인구총조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1IN1503",
+        "tableName": "연령 및 성별 인구   읍면동",
+        "statName": "인구총조사",
+        "periodRange": [
+          "2015",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "gold",
+    "query_id": "Q041",
+    "query": "읍면동별 외국인 주민현황과 다문화가구 현황을 함께 비교하고 싶어",
+    "gold": {
+      "DT_110025_A033_A": {
+        "tableName": "읍면동별 유형 및 지역별 외국인 주민현황",
+        "statName": "지방자치단체외국인주민현황"
+      },
+      "DT_110025_A045_A": {
+        "tableName": "읍면동별 다문화가구 현황",
+        "statName": "지방자치단체외국인주민현황"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_110025_A030_A",
+        "tableName": "시군구별 연령별  외국인 주민현황(계)",
+        "statName": "지방자치단체외국인주민현황",
+        "periodRange": [
+          "2016",
+          "2024"
+        ],
+        "reason": [
+          "name_overlap=0.67",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_1JD1505",
+        "tableName": "다문화가구 구성 및 가구원수별 가구 - 시도",
+        "statName": "인구총조사",
+        "periodRange": [
+          "2016",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=1.00"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_1JD1511",
+        "tableName": "다문화가구 구성 및 거처의 종류별 다문화가구 - 시도",
+        "statName": "인구총조사",
+        "periodRange": [
+          "2016",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=1.00"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "gold",
+    "query_id": "Q042",
+    "query": "시군구별 순이동자수와 출생아 수를 함께 비교하고 싶어",
+    "gold": {
+      "DT_1B26002": {
+        "tableName": "시군구/성/연령(5세)별 순이동자수",
+        "statName": "국내인구이동통계"
+      },
+      "DT_1B81A23": {
+        "tableName": "시군구/출생아수, 합계출산율",
+        "statName": "인구동향조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1B26003",
+        "tableName": "전출지/전입지(시도)/성/연령(5세)별 이동자수",
+        "statName": "국내인구이동통계",
+        "periodRange": [
+          "1970",
+          "2026"
+        ],
+        "reason": [
+          "name_overlap=0.67",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "INH_1B8000F_01",
+        "tableName": "출생아수, 합계출산율, 자연증가 등",
+        "statName": "인구동향조사",
+        "periodRange": [
+          "1970",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=1.00",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "ops-gold",
+    "query_id": "O001",
+    "query": "인구수",
+    "gold": {
+      "DT_1B040A3": {
+        "tableName": "행정구역(시군구)별, 성별 인구수",
+        "statName": "주민등록인구현황"
+      },
+      "DT_1IN1502": {
+        "tableName": "인구, 가구 및 주택   읍면동(연도 끝자리 0, 5), 시군구(그 외 연도)",
+        "statName": "인구총조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1IN1503",
+        "tableName": "연령 및 성별 인구   읍면동",
+        "statName": "인구총조사",
+        "periodRange": [
+          "2015",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "ops-gold",
+    "query_id": "O002",
+    "query": "1인가구",
+    "gold": {
+      "DT_1PL1501": {
+        "tableName": "성 및 거처의 종류별 1인가구 - 시군구",
+        "statName": "인구총조사"
+      },
+      "DT_1PL1502": {
+        "tableName": "성 및 연령별 1인가구 - 시군구",
+        "statName": "인구총조사"
+      },
+      "DT_1PL1509": {
+        "tableName": "성, 연령 및 거처의 종류별 1인가구 - 시군구",
+        "statName": "인구총조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1PL2011",
+        "tableName": "현 거주지, 성, 연령 및 1년 전 거주지별 1인가구(1세이상) - 시군구",
+        "statName": "인구총조사",
+        "periodRange": [
+          "2020",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "ops-gold",
+    "query_id": "O003",
+    "query": "노령화지수",
+    "gold": {
+      "DT_1IN2030": {
+        "tableName": "주요 인구지표(부양비, 노령화지수, 중위연령 등) - 시군구",
+        "statName": "인구총조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1BPB002",
+        "tableName": "주요 인구지표(성비,인구성장률,인구구조,부양비 등)/시도",
+        "statName": "장래인구추계",
+        "periodRange": [
+          "1970",
+          "2052"
+        ],
+        "reason": [
+          "name_overlap=0.60"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "ops-gold",
+    "query_id": "O006",
+    "query": "제주시 노형동 인구",
+    "gold": {
+      "DT_1B04005N": {
+        "tableName": "행정구역(읍면동)별/5세별 주민등록인구(2011년~)",
+        "statName": "주민등록인구현황"
+      },
+      "DT_1IN1503": {
+        "tableName": "연령 및 성별 인구   읍면동",
+        "statName": "인구총조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1PB1607",
+        "tableName": "현 거주지 성, 연령 및 1년 전 거주지 기준 이동자유형별 인구(1세이상) - 읍면동(연도 끝자리 0, 5), 시군구(그 외 연도)",
+        "statName": "인구총조사",
+        "periodRange": [
+          "2016",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.67",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "ops-gold",
+    "query_id": "O013",
+    "query": "인구추계 관련 통계표 추천해줘",
+    "gold": {
+      "DT_1BPA001": {
+        "tableName": "성 및 연령별 추계인구(1세별, 5세별) / 전국",
+        "statName": "장래인구추계"
+      },
+      "DT_1BPA002": {
+        "tableName": "주요 인구지표(성비,인구성장률,인구구조,부양비 등) / 전국",
+        "statName": "장래인구추계"
+      },
+      "DT_1BPA003": {
+        "tableName": "주요 연령계층별 추계인구(생산연령인구, 고령인구 등) / 전국",
+        "statName": "장래인구추계"
+      },
+      "DT_1BPA004": {
+        "tableName": "장래 인구변동요인(출생, 사망, 국제이동) / 전국",
+        "statName": "장래인구추계"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1BPA403",
+        "tableName": "시나리오별 인구변동요인(출생, 사망, 국제이동) / 전국",
+        "statName": "장래인구추계",
+        "periodRange": [
+          "2022",
+          "2072"
+        ],
+        "reason": [
+          "name_overlap=0.80",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "ops-gold",
+    "query_id": "O020",
+    "query": "2026년 4월 출생아 수의 전년 동월 대비 증가율은 얼마인가요?",
+    "gold": {
+      "DT_1B8000G": {
+        "tableName": "월.분기.연간 인구동향(출생,사망,혼인,이혼)",
+        "statName": "인구동향조사"
+      },
+      "DT_1B81A23": {
+        "tableName": "시군구/출생아수, 합계출산율",
+        "statName": "인구동향조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1B8000H",
+        "tableName": "시도/인구동태건수 및 동태율(출생,사망,혼인,이혼)",
+        "statName": "인구동향조사",
+        "periodRange": [
+          "1990",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.80",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "ops-gold",
+    "query_id": "O021",
+    "query": "2026년 4월 출생, 사망, 혼인, 이혼 건수의 전년 대비 증감폭은 얼마인가요?",
+    "gold": {
+      "DT_1B8000G": {
+        "tableName": "월.분기.연간 인구동향(출생,사망,혼인,이혼)",
+        "statName": "인구동향조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1B8000F",
+        "tableName": "인구동태건수 및 동태율 추이(출생,사망,혼인,이혼)",
+        "statName": "인구동향조사",
+        "periodRange": [
+          "1970",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.80",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_1B8000H",
+        "tableName": "시도/인구동태건수 및 동태율(출생,사망,혼인,이혼)",
+        "statName": "인구동향조사",
+        "periodRange": [
+          "1990",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.80",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_1B8000I",
+        "tableName": "시군구/인구동태건수 및 동태율(출생,사망,혼인,이혼)",
+        "statName": "인구동향조사",
+        "periodRange": [
+          "2000",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.80",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E051",
+    "query": "부산인구",
+    "gold": {
+      "DT_1B040A3": {
+        "tableName": "행정구역(시군구)별, 성별 인구수",
+        "statName": "주민등록인구현황"
+      },
+      "DT_1IN1502": {
+        "tableName": "인구, 가구 및 주택   읍면동(연도 끝자리 0, 5), 시군구(그 외 연도)",
+        "statName": "인구총조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1IN1503",
+        "tableName": "연령 및 성별 인구   읍면동",
+        "statName": "인구총조사",
+        "periodRange": [
+          "2015",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E055",
+    "query": "저출산",
+    "gold": {
+      "DT_1B81A21": {
+        "tableName": "시도/합계출산율, 모의 연령별 출산율",
+        "statName": "인구동향조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1B81A17",
+        "tableName": "시군구/합계출산율, 모의 연령별 출산율",
+        "statName": "인구동향조사",
+        "periodRange": [
+          "2000",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=1.00",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E059",
+    "query": "장래인구추계는 어떤 기준으로 예측하면 되나요?",
+    "gold": {
+      "DT_1BPA401": {
+        "tableName": "시나리오별 추계인구(총인구, 인구구조, 성비 등) / 전국",
+        "statName": "장래인구추계"
+      },
+      "DT_1BPA001": {
+        "tableName": "성 및 연령별 추계인구(1세별, 5세별) / 전국",
+        "statName": "장래인구추계"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1BPA402",
+        "tableName": "시나리오별 추계인구(성 및 5세별 추계인구) / 전국",
+        "statName": "장래인구추계",
+        "periodRange": [
+          "2022",
+          "2072"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E067",
+    "query": "행정구역(시군구)별/5세별 주민등록인구",
+    "gold": {
+      "DT_1B040M5_1": {
+        "tableName": "시군구/성/연령(5세)별 주민등록연앙인구(2023~)",
+        "statName": "국내인구이동통계"
+      },
+      "DT_1B04006": {
+        "tableName": "행정구역(시군구)별/1세별 주민등록인구",
+        "statName": "주민등록인구현황"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1YL20651E",
+        "tableName": "주민등록인구(시도/시/군/구)",
+        "statName": "주민등록인구현황",
+        "periodRange": [
+          "1992",
+          "2026"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E069",
+    "query": "대구 중구 1인가구 여성에 관한 통계를 찾고있어",
+    "gold": {
+      "DT_1PL1502": {
+        "tableName": "성 및 연령별 1인가구 - 시군구",
+        "statName": "인구총조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1PL1501",
+        "tableName": "성 및 거처의 종류별 1인가구 - 시군구",
+        "statName": "인구총조사",
+        "periodRange": [
+          "2015",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_1PL1509",
+        "tableName": "성, 연령 및 거처의 종류별 1인가구 - 시군구",
+        "statName": "인구총조사",
+        "periodRange": [
+          "2015",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E073",
+    "query": "광명시 시흥시 별 외국인 거주자 2000~ 최근까지",
+    "gold": {
+      "TX_11025_A001_A": {
+        "tableName": "시군구별 외국인주민 현황",
+        "statName": "지방자치단체외국인주민현황"
+      },
+      "DT_1B040A9C": {
+        "tableName": "시군구별 및 국적(지역)별 등록외국인 현황",
+        "statName": "출입국자및체류외국인통계"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "TX_11025_A000_A",
+        "tableName": "시도별 외국인주민 현황",
+        "statName": "지방자치단체외국인주민현황",
+        "periodRange": [
+          "2015",
+          "2024"
+        ],
+        "reason": [
+          "name_overlap=1.00",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E075",
+    "query": "연령별 인구 이동 통계",
+    "gold": {
+      "DT_1B26001": {
+        "tableName": "시군구/성/연령(5세)별 이동자수",
+        "statName": "국내인구이동통계"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1B26006",
+        "tableName": "시군구/성/연령(5세)별 이동률",
+        "statName": "국내인구이동통계",
+        "periodRange": [
+          "1970",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.67",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_1B26001_A03",
+        "tableName": "시군구/연령(5세)별 이동자수",
+        "statName": "국내인구이동통계",
+        "periodRange": [
+          "1970",
+          "2026"
+        ],
+        "reason": [
+          "name_overlap=1.00",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E077",
+    "query": "금천구 60세 이상 인구 전입 수",
+    "gold": {
+      "DT_1B26001": {
+        "tableName": "시군구/성/연령(5세)별 이동자수",
+        "statName": "국내인구이동통계"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1B26006",
+        "tableName": "시군구/성/연령(5세)별 이동률",
+        "statName": "국내인구이동통계",
+        "periodRange": [
+          "1970",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.67",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E078",
+    "query": "행정구역 가구규모 성별 통근 통학인구",
+    "gold": {
+      "DT_1B90001": {
+        "tableName": "행정구역/가구규모/성별 통근·통학인구(12세이상)",
+        "statName": "인구총조사"
+      },
+      "DT_1TOOO02": {
+        "tableName": "시도/가구규모/성별 통근·통학인구(12세 이상)",
+        "statName": "인구총조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1PA2010",
+        "tableName": "현 거주지별/성별/통근통학지별 통근통학 인구(강원)(12세 이상)-시군구",
+        "statName": "인구총조사",
+        "periodRange": [
+          "2020",
+          "2020"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_1PA2012",
+        "tableName": "현 거주지별/성별/통근통학지별 통근통학 인구(제주)(12세 이상)-시군구",
+        "statName": "인구총조사",
+        "periodRange": [
+          "2020",
+          "2020"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_1PA2011",
+        "tableName": "현 거주지별/성별/통근통학지별 통근통학 인구(전북)(12세 이상)-시군구",
+        "statName": "인구총조사",
+        "periodRange": [
+          "2020",
+          "2020"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E079",
+    "query": "저출산과 청년인구를 연계해서 보고 싶어. 어떤 통계를 보면 좋을까?",
+    "gold": {
+      "DT_1B81A21": {
+        "tableName": "시도/합계출산율, 모의 연령별 출산율",
+        "statName": "인구동향조사"
+      },
+      "DT_1BPA003": {
+        "tableName": "주요 연령계층별 추계인구(생산연령인구, 고령인구 등) / 전국",
+        "statName": "장래인구추계"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1BPB003",
+        "tableName": "주요 연령계층별 추계인구(생산연령인구, 고령인구 등)/시도",
+        "statName": "장래인구추계",
+        "periodRange": [
+          "1970",
+          "2052"
+        ],
+        "reason": [
+          "name_overlap=1.00",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E081",
+    "query": "미래 지역별 인구 변화",
+    "gold": {
+      "DT_1BPB001": {
+        "tableName": "성 및 연령별 추계인구(1세별, 5세별)/시도",
+        "statName": "장래인구추계"
+      },
+      "DT_1BPB003": {
+        "tableName": "주요 연령계층별 추계인구(생산연령인구, 고령인구 등)/시도",
+        "statName": "장래인구추계"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1BPA402",
+        "tableName": "시나리오별 추계인구(성 및 5세별 추계인구) / 전국",
+        "statName": "장래인구추계",
+        "periodRange": [
+          "2022",
+          "2072"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E087",
+    "query": "외국인 유학생이 늘어나는 비율을 알고싶어요",
+    "gold": {
+      "DT_1B040A14": {
+        "tableName": "유학생관련 현황",
+        "statName": "출입국자및체류외국인통계"
+      },
+      "TX_11025_A011_A": {
+        "tableName": "한국국적을 가지지 않은 자-유학생(계)",
+        "statName": "지방자치단체외국인주민현황"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "TX_11025_A016_A",
+        "tableName": "한국국적을 가지지 않은 자-기타 외국인(여)",
+        "statName": "지방자치단체외국인주민현황",
+        "periodRange": [
+          "2015",
+          "2024"
+        ],
+        "reason": [
+          "name_overlap=0.75",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "TX_11025_A014_A",
+        "tableName": "한국국적을 가지지 않은 자-기타 외국인(계)",
+        "statName": "지방자치단체외국인주민현황",
+        "periodRange": [
+          "2015",
+          "2024"
+        ],
+        "reason": [
+          "name_overlap=0.75",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "TX_11025_A015_A",
+        "tableName": "한국국적을 가지지 않은 자-기타 외국인(남)",
+        "statName": "지방자치단체외국인주민현황",
+        "periodRange": [
+          "2015",
+          "2024"
+        ],
+        "reason": [
+          "name_overlap=0.75",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E088",
+    "query": "체류 외국인 2025나 2026통계는 없는거니",
+    "gold": {
+      "DT_1B040A5C": {
+        "tableName": "국적(지역) 및 체류자격별 체류외국인 현황",
+        "statName": "출입국자및체류외국인통계"
+      },
+      "DT_1B040A5": {
+        "tableName": "국적(지역) 및 체류자격별 체류외국인 현황",
+        "statName": "출입국자및체류외국인통계"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1B040A7",
+        "tableName": "국적(지역) 및 체류자격별 등록외국인 현황",
+        "statName": "출입국자및체류외국인통계",
+        "periodRange": [
+          "2010",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.67",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_1B040A6",
+        "tableName": "국적(지역) 및 연령별 체류외국인 현황",
+        "statName": "출입국자및체류외국인통계",
+        "periodRange": [
+          "2011",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.67",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E096",
+    "query": "사할린동포 세대 현황",
+    "gold": {
+      "DT_182001_A004_2025": {
+        "tableName": "사할린동포 세대",
+        "statName": "영주귀국사할린동포실태조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_182001_A086_2025",
+        "tableName": "정부의 사할린동포 지원 우선 과제(중복응답)",
+        "statName": "영주귀국사할린동포실태조사",
+        "periodRange": [
+          "2025",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_182001_A087_2025",
+        "tableName": "정부의 사할린동포 지원 우선 과제(1순위)",
+        "statName": "영주귀국사할린동포실태조사",
+        "periodRange": [
+          "2025",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E100",
+    "query": "인구피라미드",
+    "gold": {
+      "DT_1IN1503": {
+        "tableName": "연령 및 성별 인구   읍면동",
+        "statName": "인구총조사"
+      },
+      "DT_1B04006": {
+        "tableName": "행정구역(시군구)별/1세별 주민등록인구",
+        "statName": "주민등록인구현황"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1B04005N",
+        "tableName": "행정구역(읍면동)별/5세별 주민등록인구(2011년~)",
+        "statName": "주민등록인구현황",
+        "periodRange": [
+          "2011",
+          "2026"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E101",
+    "query": "장래가구추계랑 장래인구추계 다른 거지? 가구추계만 줘",
+    "gold": {
+      "DT_1BZ0503": {
+        "tableName": "가구주의 연령/가구원수별 추계가구-전국",
+        "statName": "장래가구추계"
+      },
+      "DT_1BZ05011": {
+        "tableName": "가구주의 성/연령별 추계가구-전국",
+        "statName": "장래가구추계"
+      },
+      "DT_1BZ0502": {
+        "tableName": "가구주의 연령/가구유형별 추계가구-전국",
+        "statName": "장래가구추계"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1BZ0505",
+        "tableName": "가구주의 연령/가구유형별 추계가구_시도",
+        "statName": "장래가구추계",
+        "periodRange": [
+          "2000",
+          "2052"
+        ],
+        "reason": [
+          "name_overlap=0.75",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_1BZ0506",
+        "tableName": "가구주의 연령/가구원수별 추계가구_시도",
+        "statName": "장래가구추계",
+        "periodRange": [
+          "2000",
+          "2052"
+        ],
+        "reason": [
+          "name_overlap=0.75",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_1BZ05042",
+        "tableName": "가구주의 성/연령/혼인상태별 추계가구-시도",
+        "statName": "장래가구추계",
+        "periodRange": [
+          "2000",
+          "2052"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E105",
+    "query": "고령친화용품 제조업 사업체수",
+    "gold": {
+      "DT_358005_003": {
+        "tableName": "고령친화 용품 제조업 사업체 지역분포",
+        "statName": "고령친화용품제조업실태조사"
+      },
+      "DT_358005_002": {
+        "tableName": "고령친화 용품 제조업 사업체 유형",
+        "statName": "고령친화용품제조업실태조사"
+      },
+      "DT_358005_001": {
+        "tableName": "고령친화 용품 제조업 사업체 기업형태",
+        "statName": "고령친화용품제조업실태조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_358005_004",
+        "tableName": "고령친화 용품 제조업 사업체 존속기간",
+        "statName": "고령친화용품제조업실태조사",
+        "periodRange": [
+          "2021",
+          "2024"
+        ],
+        "reason": [
+          "name_overlap=0.80",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_358005_011",
+        "tableName": "고령친화 용품 제품 관련 종사자 수 분포",
+        "statName": "고령친화용품제조업실태조사",
+        "periodRange": [
+          "2021",
+          "2024"
+        ],
+        "reason": [
+          "name_overlap=0.40",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E107",
+    "query": "북한출생 인구",
+    "gold": {
+      "DT_1BNOO01": {
+        "tableName": "행정구역별 북한출생 인구 및 가구,주택",
+        "statName": "인구총조사"
+      },
+      "DT_1BNOO02": {
+        "tableName": "시도/연령/성/혼인상태별 북한출생 인구",
+        "statName": "인구총조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1IN1503",
+        "tableName": "연령 및 성별 인구   읍면동",
+        "statName": "인구총조사",
+        "periodRange": [
+          "2015",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E111",
+    "query": "잠정 합계출산율이랑 확정 다른거야?",
+    "gold": {
+      "DT_1B81A21": {
+        "tableName": "시도/합계출산율, 모의 연령별 출산율",
+        "statName": "인구동향조사"
+      },
+      "DT_1B8000G": {
+        "tableName": "월.분기.연간 인구동향(출생,사망,혼인,이혼)",
+        "statName": "인구동향조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1B8000F",
+        "tableName": "인구동태건수 및 동태율 추이(출생,사망,혼인,이혼)",
+        "statName": "인구동향조사",
+        "periodRange": [
+          "1970",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.80",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_1B8000H",
+        "tableName": "시도/인구동태건수 및 동태율(출생,사망,혼인,이혼)",
+        "statName": "인구동향조사",
+        "periodRange": [
+          "1990",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.80",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E112",
+    "query": "강남 인구 몇 명이야?",
+    "gold": {
+      "DT_1B040A3": {
+        "tableName": "행정구역(시군구)별, 성별 인구수",
+        "statName": "주민등록인구현황"
+      },
+      "DT_1IN1502": {
+        "tableName": "인구, 가구 및 주택   읍면동(연도 끝자리 0, 5), 시군구(그 외 연도)",
+        "statName": "인구총조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1IN1503",
+        "tableName": "연령 및 성별 인구   읍면동",
+        "statName": "인구총조사",
+        "periodRange": [
+          "2015",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E125",
+    "query": "저출산 지표 한번에",
+    "gold": {
+      "DT_1B81A21": {
+        "tableName": "시도/합계출산율, 모의 연령별 출산율",
+        "statName": "인구동향조사"
+      },
+      "DT_1B8000G": {
+        "tableName": "월.분기.연간 인구동향(출생,사망,혼인,이혼)",
+        "statName": "인구동향조사"
+      },
+      "DT_1B8000F": {
+        "tableName": "인구동태건수 및 동태율 추이(출생,사망,혼인,이혼)",
+        "statName": "인구동향조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1B81A17",
+        "tableName": "시군구/합계출산율, 모의 연령별 출산율",
+        "statName": "인구동향조사",
+        "periodRange": [
+          "2000",
+          "2025"
+        ],
+        "reason": [
+          "name_overlap=1.00",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E128",
+    "query": "장래인구추계 엑셀로 내려줘",
+    "gold": {
+      "DT_1BPA001": {
+        "tableName": "성 및 연령별 추계인구(1세별, 5세별) / 전국",
+        "statName": "장래인구추계"
+      },
+      "DT_1BPA002": {
+        "tableName": "주요 인구지표(성비,인구성장률,인구구조,부양비 등) / 전국",
+        "statName": "장래인구추계"
+      },
+      "DT_1BPA003": {
+        "tableName": "주요 연령계층별 추계인구(생산연령인구, 고령인구 등) / 전국",
+        "statName": "장래인구추계"
+      },
+      "DT_1BPA004": {
+        "tableName": "장래 인구변동요인(출생, 사망, 국제이동) / 전국",
+        "statName": "장래인구추계"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1BPA402",
+        "tableName": "시나리오별 추계인구(성 및 5세별 추계인구) / 전국",
+        "statName": "장래인구추계",
+        "periodRange": [
+          "2022",
+          "2072"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_1BPA403",
+        "tableName": "시나리오별 인구변동요인(출생, 사망, 국제이동) / 전국",
+        "statName": "장래인구추계",
+        "periodRange": [
+          "2022",
+          "2072"
+        ],
+        "reason": [
+          "name_overlap=0.80",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E129",
+    "query": "주민등록인구현황",
+    "gold": {
+      "DT_1B040A3": {
+        "tableName": "행정구역(시군구)별, 성별 인구수",
+        "statName": "주민등록인구현황"
+      },
+      "DT_1B040B3": {
+        "tableName": "행정구역(시군구)별 주민등록세대수",
+        "statName": "주민등록인구현황"
+      },
+      "DT_1B04006": {
+        "tableName": "행정구역(시군구)별/1세별 주민등록인구",
+        "statName": "주민등록인구현황"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_1YL20651E",
+        "tableName": "주민등록인구(시도/시/군/구)",
+        "statName": "주민등록인구현황",
+        "periodRange": [
+          "1992",
+          "2026"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_1B04005N",
+        "tableName": "행정구역(읍면동)별/5세별 주민등록인구(2011년~)",
+        "statName": "주민등록인구현황",
+        "periodRange": [
+          "2011",
+          "2026"
+        ],
+        "reason": [
+          "name_overlap=0.50",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  },
+  {
+    "source_set": "edge",
+    "query_id": "E132",
+    "query": "고령친화용품제조업실태조사",
+    "gold": {
+      "DT_358005_001": {
+        "tableName": "고령친화 용품 제조업 사업체 기업형태",
+        "statName": "고령친화용품제조업실태조사"
+      },
+      "DT_358005_002": {
+        "tableName": "고령친화 용품 제조업 사업체 유형",
+        "statName": "고령친화용품제조업실태조사"
+      },
+      "DT_358005_003": {
+        "tableName": "고령친화 용품 제조업 사업체 지역분포",
+        "statName": "고령친화용품제조업실태조사"
+      }
+    },
+    "alternates": [
+      {
+        "tableId": "DT_358005_004",
+        "tableName": "고령친화 용품 제조업 사업체 존속기간",
+        "statName": "고령친화용품제조업실태조사",
+        "periodRange": [
+          "2021",
+          "2024"
+        ],
+        "reason": [
+          "name_overlap=0.80",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_358005_013",
+        "tableName": "고령친화 용품 제품 관련 종사자 직능별 종사자 비율",
+        "statName": "고령친화용품제조업실태조사",
+        "periodRange": [
+          "2021",
+          "2024"
+        ],
+        "reason": [
+          "name_overlap=0.40",
+          "same_survey"
+        ],
+        "approve": null
+      },
+      {
+        "tableId": "DT_358005_014",
+        "tableName": "고령친화 용품 제품 관련 종사자 인력 상황",
+        "statName": "고령친화용품제조업실태조사",
+        "periodRange": [
+          "2021",
+          "2024"
+        ],
+        "reason": [
+          "name_overlap=0.40",
+          "same_survey"
+        ],
+        "approve": null
+      }
+    ]
+  }
+]

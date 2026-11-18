@@ -1,0 +1,690 @@
+[
+  {
+    "query_id": "O001",
+    "query": "인구수",
+    "query_group": "A_shortcut",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3",
+      "DT_1IN1502"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1B04006",
+      "DT_1B04005N"
+    ],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "전문가: 인구수는 주민등록(DT_1B040A3)과 총조사(DT_1IN1502) 두 조사기준이 모두 적법. primary는 공표 주기가 짧은 주민등록. 1세별·읍면동은 질의에 없는 축이라 HN. 대중은 둘 중 1 hit면 허용.",
+    "evidence_source": [
+      "xlsx:no=1138",
+      "chatting_pk=14100",
+      "catalog:DT_1B040A3",
+      "catalog:DT_1IN1502"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O002",
+    "query": "1인가구",
+    "query_group": "A_shortcut",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1PL1501",
+      "DT_1PL1502",
+      "DT_1PL1509"
+    ],
+    "primary_gold_table_id": "DT_1PL1502",
+    "hard_negative_ids": [
+      "DT_1JC1511",
+      "DT_1JC1516",
+      "DT_1PR1508",
+      "DT_1PR2008",
+      "DT_1PL1008"
+    ],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_gold_queries",
+    "review_confidence": "high",
+    "review_note": "전문가: 1인가구 전용 현행 전수 표만 Gold. 가구원수 표(DT_1JC1511·DT_1JC1516)에서 1인을 자르는 것은 다른 표 — HN. Q007보다 좁힘. 대중은 전용 표 중 1 hit면 허용.",
+    "evidence_source": [
+      "xlsx:no=1145",
+      "chatting_pk=14061",
+      "gold:Q007"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O003",
+    "query": "노령화지수",
+    "query_group": "A_shortcut",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1IN2030"
+    ],
+    "primary_gold_table_id": "DT_1IN2030",
+    "hard_negative_ids": [
+      "DT_1BPA002"
+    ],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "전문가: 노령화지수는 총조사 주요 인구지표 DT_1IN2030. 장래추계 DT_1BPA002는 관측이 아닌 추계라 HN(항목에 노령화지수가 있어도 시점이 다름).",
+    "evidence_source": [
+      "xlsx:no=110",
+      "chatting_pk=21534",
+      "catalog:DT_1IN2030"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O004",
+    "query": "아산시 인구",
+    "query_group": "B_geo_lookup",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3",
+      "DT_1B04006",
+      "DT_1IN1502"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1B04005N"
+    ],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_gold_queries",
+    "review_confidence": "high",
+    "review_note": "전문가: 아산시=시군구 인구. 주민등록(DT_1B040A3·DT_1B04006)과 총조사(DT_1IN1502) 모두 적법. 읍면동은 HN. 대중은 셋 중 1 hit면 허용.",
+    "evidence_source": [
+      "xlsx:no=17",
+      "chatting_pk=22016",
+      "gold:Q024",
+      "gold:Q026",
+      "catalog:DT_1IN1502"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O005",
+    "query": "해운대구 외국인 현황",
+    "query_group": "B_geo_lookup",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "TX_11025_A001_A",
+      "DT_1B040A9C"
+    ],
+    "primary_gold_table_id": "TX_11025_A001_A",
+    "hard_negative_ids": [
+      "DT_1JA1501",
+      "TX_11025_A000_A",
+      "DT_110025_A033_A"
+    ],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "전문가: 구 단위 '외국인 현황'은 외국인주민현황(TX_11025_A001_A)과 등록외국인(DT_1B040A9C) 두 공식 현황. 모집단은 다름. 총조사 외국인(DT_1JA1501)은 현황 시계열이 아니라 HN. 시도·읍면동 HN. 대중은 두 현황 중 1 hit면 허용.",
+    "evidence_source": [
+      "xlsx:no=1661",
+      "chatting_pk=10005",
+      "catalog:TX_11025_A001_A",
+      "catalog:DT_1B040A9C",
+      "catalog:DT_1JA1501"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O006",
+    "query": "제주시 노형동 인구",
+    "query_group": "B_geo_lookup",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B04005N",
+      "DT_1IN1503"
+    ],
+    "primary_gold_table_id": "DT_1B04005N",
+    "hard_negative_ids": [
+      "DT_1B040A3"
+    ],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_gold_queries",
+    "review_confidence": "high",
+    "review_note": "노형동=읍면동. Q025 이관. 시군구 전용 DT_1B040A3은 HN.",
+    "evidence_source": [
+      "xlsx:no=16",
+      "chatting_pk=22017",
+      "gold:Q025"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O007",
+    "query": "서울 인구 변화 추이",
+    "query_group": "C_trend",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1B04005N",
+      "DT_1IN1502"
+    ],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_gold_queries",
+    "review_confidence": "high",
+    "review_note": "전문가: 서울 시도 추이는 월/년 주민등록 DT_1B040A3. 총조사는 공표 간격이 커서 추이에 HN. 읍면동·1세별은 질의에 없음. O008의 DT_1B04006은 성별 축이 명시된 경우만 허용.",
+    "evidence_source": [
+      "xlsx:no=1551",
+      "chatting_pk=10688",
+      "gold:Q022",
+      "gold:Q023",
+      "catalog:DT_1IN1502"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O008",
+    "query": "최근 5년간 대전시 성별 인구수를 알려줘",
+    "query_group": "C_trend",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3",
+      "DT_1B04006"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1B04005N"
+    ],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_gold_queries",
+    "review_confidence": "high",
+    "review_note": "대전시·성별·최근 5년. 주민등록 월/년 시계열. 총조사는 공표 주기 때문에 제외.",
+    "evidence_source": [
+      "xlsx:no=168",
+      "chatting_pk=20979",
+      "gold:Q008",
+      "gold:Q019",
+      "gold:Q022"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O009",
+    "query": "2056년 우리나라의 예상 인구부양비는",
+    "query_group": "C_trend",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1BPA002"
+    ],
+    "primary_gold_table_id": "DT_1BPA002",
+    "hard_negative_ids": [
+      "DT_1IN2030",
+      "DT_1BPB002"
+    ],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "2056·전국 부양비 = 장래추계 전국 주요지표 DT_1BPA002. 총조사·시도 추계는 HN.",
+    "evidence_source": [
+      "xlsx:no=852",
+      "chatting_pk=16553",
+      "catalog:DT_1BPA002"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O010",
+    "query": "계룡인구와 진주 인구 비교",
+    "query_group": "D_compare",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3",
+      "DT_1B04006"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1B04005N"
+    ],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_gold_queries",
+    "review_confidence": "high",
+    "review_note": "계룡·진주=시군구 두 지역 비교. Q026. 한 표에서 비교 가능하므로 single_table.",
+    "evidence_source": [
+      "xlsx:no=48",
+      "chatting_pk=21893",
+      "gold:Q026"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O011",
+    "query": "2026년 기준 성남시와 용인시 인구 비교해줘.",
+    "query_group": "D_compare",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3",
+      "DT_1B04006"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1B04005N"
+    ],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_gold_queries",
+    "review_confidence": "high",
+    "review_note": "2026년 시군구 비교. Q022가 DT_1B040A3 시계열에 2026을 포함, Q026이 시군구 비교.",
+    "evidence_source": [
+      "xlsx:no=320",
+      "chatting_pk=20045",
+      "gold:Q022",
+      "gold:Q026"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O012",
+    "query": "출산율과 사망율 비교해줘",
+    "query_group": "D_compare",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B8000F",
+      "DT_1B8000H"
+    ],
+    "primary_gold_table_id": "DT_1B8000F",
+    "hard_negative_ids": [
+      "DT_1B8000G",
+      "DT_1B81A17"
+    ],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "전문가: 출산율×사망율 비교는 같은 단위의 조출생률·조사망률(동태율 DT_1B8000F·H). 합계출산율 DT_1B81A17은 단위가 달라 HN. 건수 표 DT_1B8000G도 HN. 시군구 동태율은 지역 미지정이라 미포함. 대중은 동태율 표 1 hit면 허용(뉴스의 합계출산율과는 다를 수 있음).",
+    "evidence_source": [
+      "xlsx:no=44",
+      "chatting_pk=21904",
+      "catalog:DT_1B8000F",
+      "catalog:DT_1B8000H"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O013",
+    "query": "인구추계 관련 통계표 추천해줘",
+    "query_group": "E_table_search",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1BPA001",
+      "DT_1BPA002",
+      "DT_1BPA003",
+      "DT_1BPA004"
+    ],
+    "primary_gold_table_id": "DT_1BPA001",
+    "hard_negative_ids": [
+      "DT_1BZ05011",
+      "DT_1B040A3",
+      "DT_1BPB001"
+    ],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "medium",
+    "review_note": "전문가: 인구추계=장래인구추계 전국 인구 규모·구조·변동요인(DT_1BPA001–004). 장래가구추계·주민등록·시도 추계는 HN. 추천 질의라 생명표·시나리오까지 닫힌 집합으로 두지 않음. 대중은 넷 중 1 hit면 허용. exact-set 지표에는 쓰지 말 것.",
+    "evidence_source": [
+      "xlsx:no=848",
+      "chatting_pk=16652",
+      "catalog:DT_1BPA001",
+      "catalog:DT_1BPA002",
+      "catalog:DT_1BPA003",
+      "catalog:DT_1BPA004",
+      "catalog:DT_1BPB001"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O014",
+    "query": "청년 1인가구 관련 통계가 있으면 모두 찾아줘",
+    "query_group": "E_table_search",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1PL1502",
+      "DT_1PL1509",
+      "DT_1PR2008"
+    ],
+    "primary_gold_table_id": "DT_1PL1502",
+    "hard_negative_ids": [
+      "DT_1PL1501",
+      "DT_1PR1508"
+    ],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "전문가: 청년은 연령 축이 있는 1인가구 표. 전수 DT_1PL1502·DT_1PL1509, 표본 DT_1PR2008(연령+점유). 연령 없는 DT_1PL1501·구 연도 표본 DT_1PR1508은 HN. 청년 공식 연령은 표에 없으므로 축만 요구. 대중은 셋 중 1 hit면 허용.",
+    "evidence_source": [
+      "xlsx:no=319",
+      "chatting_pk=20055",
+      "catalog:DT_1PL1502",
+      "catalog:DT_1PL1509",
+      "catalog:DT_1PR2008"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O015",
+    "query": "외국인 관련 통계는 뭐가 있어",
+    "query_group": "E_table_search",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [
+      "DT_1B040A9C",
+      "TX_11025_A001_A",
+      "DT_1JA1501"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "전문가: '외국인 관련 통계는 뭐가 있어'는 등록/체류/주민/총조사 정의가 없어 표를 확정하지 않음(Q047). clarify. 대중은 아무 외국인 표나 나와도 체감될 수 있으나, 전문가 Gold는 표 없음.",
+    "evidence_source": [
+      "xlsx:no=1573",
+      "chatting_pk=10545",
+      "catalog:TX_11025_A001_A",
+      "catalog:DT_1JA1501",
+      "catalog:DT_1B040A7"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O016",
+    "query": "대한민국의 연령대별 인구수",
+    "query_group": "F_multi_axis",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1IN1503",
+      "DT_1B04006"
+    ],
+    "primary_gold_table_id": "DT_1IN1503",
+    "hard_negative_ids": [
+      "DT_1SN1005",
+      "DT_1GO950G",
+      "DT_1IN3014"
+    ],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_gold_queries",
+    "review_confidence": "high",
+    "review_note": "연령대별 인구. Q002·Q009 이관.",
+    "evidence_source": [
+      "xlsx:no=593",
+      "chatting_pk=18399",
+      "gold:Q002",
+      "gold:Q009"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O017",
+    "query": "전입 전출과 순이동을 시군구 성별 연령 5세 단위로 비교하는 통계표",
+    "query_group": "F_multi_axis",
+    "expected_action": "multi_table",
+    "gold_table_ids": [
+      "DT_1B26001",
+      "DT_1B26002"
+    ],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [
+      "DT_1B26001_A04",
+      "DT_1B26001_A03",
+      "DT_1B26003"
+    ],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "전문가: 시군구×성×5세에서 전입·전출은 DT_1B26001(이동자수), 순이동은 DT_1B26002. Q005가 순이동 표를 전입 Gold의 HN으로 둔 것과 같음. 두 표가 모두 필요하므로 multi_table. 시도·성별 없는 축·OD행렬은 HN. 대중은 둘 중 1 hit면 허용.",
+    "evidence_source": [
+      "xlsx:no=250",
+      "chatting_pk=20433",
+      "catalog:DT_1B26001",
+      "catalog:DT_1B26002"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O018",
+    "query": "가구주의 성별과 거처 점유형태를 함께 보는 총조사가구 통계표",
+    "query_group": "F_multi_axis",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [
+      "DT_1GAOO09",
+      "DT_1JC1514",
+      "DT_1PE2010"
+    ],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "전문가: 현행 총조사에 가구주 성×점유형태 한 표가 없음. 2000년 DT_1GAOO09는 시점이 달라 정답이 아님(HN). 현행은 축이 갈라진 DT_1JC1514·DT_1PE2010도 한 표를 충족하지 못해 HN. no_exact_table.",
+    "evidence_source": [
+      "xlsx:no=249",
+      "chatting_pk=20434",
+      "catalog:DT_1GAOO09"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O019",
+    "query": "2025년 국제인구이동의 총규모와 전년 대비 증감폭은 얼마인가요?",
+    "query_group": "G_value_intent",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B28025"
+    ],
+    "primary_gold_table_id": "DT_1B28025",
+    "hard_negative_ids": [
+      "DT_1B26001",
+      "DT_1B28022"
+    ],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "국제이동 총량 DT_1B28025(REC=Y). 국내이동은 HN. 증감 계산은 value_intent라 표 적중만 평가.",
+    "evidence_source": [
+      "xlsx:no=11",
+      "chatting_pk=22032",
+      "catalog:DT_1B28025"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O020",
+    "query": "2026년 4월 출생아 수의 전년 동월 대비 증가율은 얼마인가요?",
+    "query_group": "G_value_intent",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B8000G",
+      "DT_1B81A23"
+    ],
+    "primary_gold_table_id": "DT_1B8000G",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_gold_queries",
+    "review_confidence": "high",
+    "review_note": "월별 출생아. Q004·Q020. 증가율 계산은 평가 밖.",
+    "evidence_source": [
+      "xlsx:no=184",
+      "chatting_pk=20830",
+      "gold:Q004",
+      "gold:Q020"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O021",
+    "query": "2026년 4월 출생, 사망, 혼인, 이혼 건수의 전년 대비 증감폭은 얼마인가요?",
+    "query_group": "G_value_intent",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B8000G"
+    ],
+    "primary_gold_table_id": "DT_1B8000G",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_gold_queries",
+    "review_confidence": "high",
+    "review_note": "DT_1B8000G 표명이 월·분기·연간 인구동향(출생,사망,혼인,이혼). 네 건수를 한 표에서 제공. 증감 계산은 평가 밖.",
+    "evidence_source": [
+      "xlsx:no=176",
+      "chatting_pk=20910",
+      "gold:Q004",
+      "gold:Q020"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O022",
+    "query": "내가 세종으로 이사를 가고 싶은데 판단할 수 있는 통계를 보여줄 수 있어",
+    "query_group": "H_boundary",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [
+      "DT_1B040A3",
+      "DT_1B26003_*",
+      "DT_1PE2010"
+    ],
+    "validation_status": "mapped_from_gold_queries_empty",
+    "review_confidence": "high",
+    "review_note": "목적만 있고 지표·기간·단위 없음. clarify. 엑셀은 positive_boundary.",
+    "evidence_source": [
+      "xlsx:no=80",
+      "chatting_pk=21712",
+      "gold:Q043",
+      "gold:Q044",
+      "gold:Q045"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O023",
+    "query": "울산에는 무슨 통계가 있어?",
+    "query_group": "H_boundary",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [
+      "DT_1B040A3",
+      "DT_1IN15*",
+      "DT_1B8000*",
+      "DT_1B260*",
+      "DT_1BPB*"
+    ],
+    "validation_status": "mapped_from_gold_queries_empty",
+    "review_confidence": "high",
+    "review_note": "전문가: 지역만 있고 주제가 없음. clarify. 인구 대표 표를 임의로 Gold에 두지 않음.",
+    "evidence_source": [
+      "xlsx:no=1304",
+      "chatting_pk=12741",
+      "gold:Q043"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O024",
+    "query": "우리나라 장애인이 몇명인가요",
+    "query_group": "H_boundary",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [
+      "DT_1DP204*",
+      "DT_1DH205*"
+    ],
+    "validation_status": "mapped_from_gold_queries_empty",
+    "review_confidence": "high",
+    "review_note": "전문가: 등록 장애인 vs 총조사 장애인 vs 실태조사 모집단이 미지정. clarify. 인구 총조사 장애인 가구를 임의 Gold로 두지 않음.",
+    "evidence_source": [
+      "xlsx:no=50",
+      "chatting_pk=21891",
+      "gold:Q043"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O025",
+    "query": "범죄율",
+    "query_group": "I_domain_negative",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_gold_queries_empty",
+    "review_confidence": "high",
+    "review_note": "인구 도메인 아님. 인구 검색 결과는 비어야 함.",
+    "evidence_source": [
+      "xlsx:no=1492",
+      "chatting_pk=10914",
+      "gold:Q048",
+      "gold:Q049",
+      "gold:Q050"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O026",
+    "query": "실업률",
+    "query_group": "I_domain_negative",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_gold_queries_empty",
+    "review_confidence": "high",
+    "review_note": "노동 도메인. 조사명 '경제활동인구'에 인구가 들어가 함정. 인구 검색 결과는 비어야 함.",
+    "evidence_source": [
+      "xlsx:no=1287",
+      "chatting_pk=12837",
+      "gold:Q048"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O027",
+    "query": "커피",
+    "query_group": "I_domain_negative",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_gold_queries_empty",
+    "review_confidence": "high",
+    "review_note": "인구 통계 아님(ambiguous_short). 인구 검색 결과는 비어야 함.",
+    "evidence_source": [
+      "xlsx:no=573",
+      "chatting_pk=18504",
+      "gold:Q048"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "O029",
+    "query": "몇명이야?",
+    "query_group": "J_clarify",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_gold_queries_empty",
+    "review_confidence": "high",
+    "review_note": "지시 대상 없는 발화. clarify — 대상·지표·기간을 되물어야 함.",
+    "evidence_source": [
+      "xlsx:no=1146",
+      "chatting_pk=14060"
+    ],
+    "scope_category": "인구"
+  }
+]

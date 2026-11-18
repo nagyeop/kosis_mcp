@@ -1,0 +1,411 @@
+[
+  {
+    "query_id": "O028",
+    "query": "api 사용법",
+    "query_group": "J_gate_exclude",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_gold_queries_empty",
+    "review_confidence": "high",
+    "review_note": "howto. 검색 라우팅 제외.",
+    "evidence_source": [
+      "xlsx:no=522",
+      "chatting_pk=18832"
+    ],
+    "source_set": "ops_gold_queries"
+  },
+  {
+    "query_id": "O030",
+    "query": "인구동향조사는 어떻게 작성되는거야?",
+    "query_group": "J_gate_exclude",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "mapped_from_gold_queries_empty",
+    "review_confidence": "high",
+    "review_note": "조사 작성 방법=table_meta. 검색 골드 제외. 판단 필요(약): E2E에서 explain_statistic을 정답 경로로 볼지.",
+    "evidence_source": [
+      "xlsx:no=42",
+      "chatting_pk=21907"
+    ],
+    "source_set": "ops_gold_queries"
+  },
+  {
+    "query_id": "E002",
+    "query": "그런데 연도는 2023년으로 부탁해",
+    "query_group": "followup",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:followup; was E058; xlsx complexity=D_문맥의존(멀티턴추정); survey_group=0_복합서술형(미분류); query_type=search; tier=review_needed | catalog:선행 표 없이 후속 지시. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=1643",
+      "chatting_pk=10094"
+    ],
+    "source_set": "edge_queries"
+  },
+  {
+    "query_id": "E003",
+    "query": "그 중 실제 이름 하나만 알려주라",
+    "query_group": "followup",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:followup; was E059; xlsx complexity=D_문맥의존(멀티턴추정); survey_group=0_복합서술형(미분류); query_type=search; tier=review_needed | catalog:선행 표 없이 후속 지시. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=1700",
+      "chatting_pk=9590"
+    ],
+    "source_set": "edge_queries"
+  },
+  {
+    "query_id": "E004",
+    "query": "네가 찾아준 자료들은 전부 시도 또는 시군구 기준이라 내가 찾는 부산시 내의 구나 동 기준의 통계를 찾기가 어려워.",
+    "query_group": "followup",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:followup; was E060; xlsx complexity=B_다축복합(성별x연령x지역등); survey_group=0_복합서술형(미분류); query_type=exclude:context_dependent; tier=exclude:context_dependent | catalog:선행 표 없이 후속 지시. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=1585",
+      "chatting_pk=10484"
+    ],
+    "source_set": "edge_queries"
+  },
+  {
+    "query_id": "E005",
+    "query": "아니 대전 동구, 중구, 이렇게 구마다 비교해야 한다구요",
+    "query_group": "followup",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:followup; was E061; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=exclude:context_dependent; tier=exclude:context_dependent | catalog:선행 표 없이 후속 지시. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=355",
+      "chatting_pk=19831"
+    ],
+    "source_set": "edge_queries"
+  },
+  {
+    "query_id": "E006",
+    "query": "용인시의 구별로 통계를 보고싶으면 어떻게 해야해?",
+    "query_group": "followup",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:followup; was E062; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=exclude:context_dependent; tier=exclude:context_dependent | catalog:선행 표 없이 후속 지시. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=918",
+      "chatting_pk=15812"
+    ],
+    "source_set": "edge_queries"
+  },
+  {
+    "query_id": "E007",
+    "query": "비슷한 통계들 중 좀 더 최근 자료는 없어?",
+    "query_group": "followup",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:followup; was E063; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=exclude:context_dependent; tier=exclude:context_dependent | catalog:선행 표 없이 후속 지시. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=1047",
+      "chatting_pk=14636"
+    ],
+    "source_set": "edge_queries"
+  },
+  {
+    "query_id": "E008",
+    "query": "이건 도잖아... 난 읍면동으로 알아야해",
+    "query_group": "followup",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:followup; was E064; xlsx complexity=E_단일축조회(지역+지표문장형); survey_group=0_복합서술형(미분류); query_type=exclude:context_dependent; tier=exclude:context_dependent | catalog:선행 표 없이 후속 지시. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=879",
+      "chatting_pk=16217"
+    ],
+    "source_set": "edge_queries"
+  },
+  {
+    "query_id": "E009",
+    "query": "조금 더 최근 자료들은 ㅇㅄ는 거야?",
+    "query_group": "followup",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:followup; was E066; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=exclude:context_dependent; tier=exclude:context_dependent | catalog:선행 표 없이 후속 지시. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=216",
+      "chatting_pk=20670"
+    ],
+    "source_set": "edge_queries"
+  },
+  {
+    "query_id": "E010",
+    "query": "인구총조사와 수치가 다른 이유는",
+    "query_group": "followup",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:followup; was E068; xlsx complexity=F_기타서술형; survey_group=6_가구총조사; query_type=exclude:context_dependent; tier=exclude:context_dependent | catalog:선행 표 없이 후속 지시. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=769",
+      "chatting_pk=17365"
+    ],
+    "source_set": "edge_queries"
+  },
+  {
+    "query_id": "E011",
+    "query": "인구 서머세미나가 저출산 등 우리 사회의 인구 문제 해결에 어떤 실질적 도움이 될까요?",
+    "query_group": "gate",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:gate; was E180; xlsx complexity=F_기타서술형; survey_group=1_생애사건(출생사망혼인이혼); query_type=exclude:event_admin; tier=exclude:event_admin | catalog:검색 게이트/메타. 인구 통계표 매핑 대상 아님.",
+    "evidence_source": [
+      "xlsx:no=21",
+      "chatting_pk=21968"
+    ],
+    "source_set": "edge_queries"
+  },
+  {
+    "query_id": "E012",
+    "query": "제13회 인구 서머세미나의 참가 국가 수와 규모, 주요 교육 과정은 어떻게 되나요?",
+    "query_group": "gate",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:gate; was E181; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=exclude:event_admin; tier=exclude:event_admin | catalog:검색 게이트/메타. 인구 통계표 매핑 대상 아님.",
+    "evidence_source": [
+      "xlsx:no=23",
+      "chatting_pk=21966"
+    ],
+    "source_set": "edge_queries"
+  },
+  {
+    "query_id": "E013",
+    "query": "엑셀이나 csv 파일로 돼있는 자료를 찾아줘",
+    "query_group": "gate",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:gate; was E186; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=exclude:howto_query; tier=exclude:howto_query | catalog:검색 게이트/메타. 인구 통계표 매핑 대상 아님.",
+    "evidence_source": [
+      "xlsx:no=434",
+      "chatting_pk=19404"
+    ],
+    "source_set": "edge_queries"
+  },
+  {
+    "query_id": "E014",
+    "query": "숫자를 입력하면 시각화 그래프를 그려주는 서비스는 어떻게 이용하나요?",
+    "query_group": "gate",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:gate; was E187; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=exclude:howto_query; tier=exclude:howto_query | catalog:검색 게이트/메타. 인구 통계표 매핑 대상 아님.",
+    "evidence_source": [
+      "xlsx:no=926",
+      "chatting_pk=15713"
+    ],
+    "source_set": "edge_queries"
+  },
+  {
+    "query_id": "E015",
+    "query": "여수시 인구 격자 통계 어디서 볼 수 있어?",
+    "query_group": "gate",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:gate; was E189; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=exclude:howto_query; tier=exclude:howto_query | catalog:검색 게이트/메타. 인구 통계표 매핑 대상 아님.",
+    "evidence_source": [
+      "xlsx:no=1030",
+      "chatting_pk=14816"
+    ],
+    "source_set": "edge_queries"
+  },
+  {
+    "query_id": "E016",
+    "query": "행정구역선 shp파일좀 받을수 있을까?",
+    "query_group": "gate",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:gate; was E192; xlsx complexity=E_단일축조회(지역+지표문장형); survey_group=0_복합서술형(미분류); query_type=exclude:howto_query; tier=exclude:howto_query | catalog:검색 게이트/메타. 인구 통계표 매핑 대상 아님.",
+    "evidence_source": [
+      "xlsx:no=1262",
+      "chatting_pk=13124"
+    ],
+    "source_set": "edge_queries"
+  },
+  {
+    "query_id": "E017",
+    "query": "국가통계포털에 수록된 국가승인통계와 통계표는 각각 몇 종과 몇 개인가요?",
+    "query_group": "gate",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:gate; was E194; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=exclude:table_meta; tier=exclude:table_meta | catalog:검색 게이트/메타. 인구 통계표 매핑 대상 아님.",
+    "evidence_source": [
+      "xlsx:no=3",
+      "chatting_pk=22054"
+    ],
+    "source_set": "edge_queries"
+  },
+  {
+    "query_id": "E018",
+    "query": "국가통계포털 AI 서비스의 도입 현황과 기대 효과는 무엇인가요?",
+    "query_group": "gate",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:gate; was E196; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=exclude:meta_query; tier=exclude:meta_query | catalog:검색 게이트/메타. 인구 통계표 매핑 대상 아님.",
+    "evidence_source": [
+      "xlsx:no=30",
+      "chatting_pk=21931"
+    ],
+    "source_set": "edge_queries"
+  },
+  {
+    "query_id": "E019",
+    "query": "최근 통계 자료 중 가장 많이 조회된 항목은?",
+    "query_group": "gate",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:gate; was E200; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=exclude:most_viewed; tier=exclude:most_viewed | catalog:검색 게이트/메타. 인구 통계표 매핑 대상 아님.",
+    "evidence_source": [
+      "xlsx:no=12",
+      "chatting_pk=22028"
+    ],
+    "source_set": "edge_queries"
+  },
+  {
+    "query_id": "E020",
+    "query": "우리나라의 고령화 현황에 대한 통계가 포함된 보고서를 추천해 주세요.",
+    "query_group": "gate",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:gate; was E202; xlsx complexity=F_기타서술형; survey_group=5_연령구조(고령화포함); query_type=exclude:report_request; tier=exclude:report_request | catalog:검색 게이트/메타. 인구 통계표 매핑 대상 아님.",
+    "evidence_source": [
+      "xlsx:no=1510",
+      "chatting_pk=10838"
+    ],
+    "source_set": "edge_queries"
+  },
+  {
+    "query_id": "E021",
+    "query": "https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1IN15B3",
+    "query_group": "gate",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:gate; was E205; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=exclude:non_query(URL/피드백); tier=exclude:other | catalog:검색 게이트/메타. 인구 통계표 매핑 대상 아님.",
+    "evidence_source": [
+      "xlsx:no=1267",
+      "chatting_pk=13095"
+    ],
+    "source_set": "edge_queries"
+  },
+  {
+    "query_id": "E022",
+    "query": "통계추천 아이콘 누르고 \"최근 출산율 추이\"나 \"지역별 고용률\" 같은 질문을 던져보니, 정말 딱 맞는 표들을 골라서 보여주더라고요. 가끔 더 세부적인 게 필요할 때도 있지만, 대부분 첫 시도에서 원하는 걸 캐치해줘서 시간 엄청 절약됐어요!",
+    "query_group": "gate",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:gate; was E206; xlsx complexity=E_단일축조회(지역+지표문장형); survey_group=0_복합서술형(미분류); query_type=exclude:non_query(URL/피드백); tier=exclude:other | catalog:검색 게이트/메타. 인구 통계표 매핑 대상 아님.",
+    "evidence_source": [
+      "xlsx:no=1347",
+      "chatting_pk=12461"
+    ],
+    "source_set": "edge_queries"
+  },
+  {
+    "query_id": "E126",
+    "query": "이 표 엑셀로 받아줘",
+    "query_group": "followup",
+    "expected_action": "exclude",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "synthesized_empty",
+    "review_confidence": "high",
+    "review_note": "synth:문맥의존엑셀; 대상 표가 선행 턴에만 있음. exclude.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps"
+    ],
+    "source_set": "edge_queries"
+  }
+]

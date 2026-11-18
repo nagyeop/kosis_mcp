@@ -1,0 +1,1078 @@
+[
+  {
+    "query_id": "Q001",
+    "query": "시도별 인구밀도를 볼 수 있는 통계표 찾아줘",
+    "query_group": "A_basic",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B08024"
+    ],
+    "primary_gold_table_id": "DT_1B08024",
+    "hard_negative_ids": [
+      "DT_1B040A27",
+      "DT_358005_003",
+      "DT_1IN2501"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_validated",
+    "review_confidence": "high",
+    "review_note": "인구밀도(인구주택총조사기준)-시도 표가 기존 인간검증 Gold로 확정됨.",
+    "evidence_source": [
+      "H007"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q002",
+    "query": "연령대에 따라 인구가 어떻게 나뉘는지 볼 수 있는 통계표 찾아줘",
+    "query_group": "A_basic",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1IN1503",
+      "DT_1B04006"
+    ],
+    "primary_gold_table_id": "DT_1IN1503",
+    "hard_negative_ids": [
+      "DT_1SN1005",
+      "DT_1GO950G",
+      "DT_1IN3014"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_validated",
+    "review_confidence": "high",
+    "review_note": "연령·성별 총조사인구와 주민등록 1세별 인구 모두 질의를 충족하는 허용 Gold.",
+    "evidence_source": [
+      "H016",
+      "H020",
+      "G063"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q003",
+    "query": "지역마다 사람들이 얼마나 빽빽하게 사는지 볼 수 있는 표 찾아줘",
+    "query_group": "B_paraphrase",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B08024"
+    ],
+    "primary_gold_table_id": "DT_1B08024",
+    "hard_negative_ids": [
+      "DT_1B040A27",
+      "DT_358005_003",
+      "DT_1IN2501"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_validated_semantic_rewrite",
+    "review_confidence": "high",
+    "review_note": "'빽빽하게'를 인구밀도로 연결하는 자연어 표현불일치 테스트.",
+    "evidence_source": [
+      "H007"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q004",
+    "query": "한 해에 태어난 아기가 몇 명인지 볼 수 있는 표가 있어?",
+    "query_group": "B_paraphrase",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B8000G",
+      "DT_1B81A23"
+    ],
+    "primary_gold_table_id": "DT_1B8000G",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "prior_metadata_crosscheck",
+    "review_confidence": "medium",
+    "review_note": "인구동태 출생 수를 제공하는 복수의 허용 통계표가 있어 다중 Gold로 처리.",
+    "evidence_source": [
+      "B002",
+      "H033"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q005",
+    "query": "다른 지역에서 이사 들어온 사람이 몇 명인지 알고 싶어",
+    "query_group": "B_paraphrase",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B26001",
+      "DT_1B26001_A02",
+      "DT_1B26001_A04",
+      "DT_1B26A01"
+    ],
+    "primary_gold_table_id": "DT_1B26001",
+    "hard_negative_ids": [
+      "DT_1B26002",
+      "DT_1B26003_A02"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_and_metadata_validated",
+    "review_confidence": "high",
+    "review_note": "'이사 들어온 사람'을 총전입으로 연결. 총전입을 포함하는 이동자수 표들을 허용 Gold로 설정.",
+    "evidence_source": [
+      "H027",
+      "G058"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q006",
+    "query": "결혼해서 한국에 온 외국인이 얼마나 되는지 볼 수 있는 통계 찾아줘",
+    "query_group": "B_paraphrase",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A16",
+      "DT_1B040A17",
+      "TX_11025_A008"
+    ],
+    "primary_gold_table_id": "DT_1B040A16",
+    "hard_negative_ids": [
+      "DT_1B040A7",
+      "DT_1B040A9C"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_metadata_crosscheck",
+    "review_confidence": "high",
+    "review_note": "'결혼해서 한국에 온 외국인'을 결혼이민자/국제결혼 이주자로 연결.",
+    "evidence_source": [
+      "P6S046",
+      "phase5_metadata"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q007",
+    "query": "혼자 사는 가구가 몇 가구인지 볼 수 있는 통계표 찾아줘",
+    "query_group": "B_paraphrase",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1PL1501",
+      "DT_1PL1502",
+      "DT_1PL1509",
+      "DT_1JC1511",
+      "DT_1JC1516"
+    ],
+    "primary_gold_table_id": "DT_1PL1502",
+    "hard_negative_ids": [
+      "DT_1PR1508",
+      "DT_1PR2008",
+      "DT_1PL1008"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_validated",
+    "review_confidence": "high",
+    "review_note": "'혼자 사는 가구'를 1인가구로 연결하는 인간검증 Gold 계열.",
+    "evidence_source": [
+      "H011",
+      "H024"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q008",
+    "query": "남자와 여자 인구를 나눠 볼 수 있는 표 찾아줘",
+    "query_group": "C_field_boundary",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3",
+      "DT_1IN1503"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "prior_human_crosscheck",
+    "review_confidence": "high",
+    "review_note": "성별이 항목/분류축으로 나타나는 구조 차이를 허용하도록 주민등록/총조사 표를 모두 Gold 처리.",
+    "evidence_source": [
+      "H015",
+      "H016"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q009",
+    "query": "연령대별 남녀 인구를 같이 볼 수 있는 표가 있어?",
+    "query_group": "C_field_boundary",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1IN1503",
+      "DT_1B04006"
+    ],
+    "primary_gold_table_id": "DT_1IN1503",
+    "hard_negative_ids": [
+      "DT_1SN1005",
+      "DT_1GO950G",
+      "DT_1IN3014"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_validated",
+    "review_confidence": "high",
+    "review_note": "성별+연령을 함께 제공하는 총조사/주민등록 인구표.",
+    "evidence_source": [
+      "H020"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q010",
+    "query": "외국인 인구를 성별과 현재 국적별로 볼 수 있는 표 찾아줘",
+    "query_group": "C_field_boundary",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1JA1503",
+      "DT_1JA1003",
+      "DT_1IN0515"
+    ],
+    "primary_gold_table_id": "DT_1JA1503",
+    "hard_negative_ids": [
+      "DT_1IN1503"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_metadata_crosscheck",
+    "review_confidence": "high",
+    "review_note": "성/현재 국적별 외국인 표가 메타데이터에서 확인됨. 기존 문구보다 Gold 경계가 명확해지도록 수정.",
+    "evidence_source": [
+      "phase5_results_foreigner"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q011",
+    "query": "가구원 수에 따라 가구가 얼마나 있는지 볼 수 있는 표 찾아줘",
+    "query_group": "C_field_boundary",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1JC1502",
+      "DT_1JC1511",
+      "DT_1JC1516"
+    ],
+    "primary_gold_table_id": "DT_1JC1502",
+    "hard_negative_ids": [
+      "DT_1DH2050"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_metadata_crosscheck",
+    "review_confidence": "high",
+    "review_note": "가구원수별 가구 및 관련 현행 전수기본표가 확인됨.",
+    "evidence_source": [
+      "phase5_results_household_size"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q012",
+    "query": "혼인상태별로 인구를 볼 수 있는 통계표 찾아줘",
+    "query_group": "C_field_boundary",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1PM2007",
+      "DT_1PM1508"
+    ],
+    "primary_gold_table_id": "DT_1PM2007",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "profile_metadata_crosscheck",
+    "review_confidence": "high",
+    "review_note": "성별/연령별/혼인상태별 인구 표가 2015·2020 계열에 존재.",
+    "evidence_source": [
+      "profile_summary"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q013",
+    "query": "2009년에 등록외국인을 국적별로 볼 수 있는 표 찾아줘",
+    "query_group": "D_long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A7A"
+    ],
+    "primary_gold_table_id": "DT_1B040A7A",
+    "hard_negative_ids": [
+      "DT_1B040A7",
+      "DT_1B040A9C"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_validated",
+    "review_confidence": "high",
+    "review_note": "2009년 국적별 등록외국인을 직접 제공하는 인간검증 Gold.",
+    "evidence_source": [
+      "H036"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q014",
+    "query": "등록외국인을 체류자격별로 나눠 볼 수 있는 표가 있어?",
+    "query_group": "D_long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A7",
+      "DT_1B040A11",
+      "DT_1B040A11A"
+    ],
+    "primary_gold_table_id": "DT_1B040A7",
+    "hard_negative_ids": [
+      "DT_1B040A9C"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_and_blind_crosscheck",
+    "review_confidence": "high",
+    "review_note": "체류자격 축을 포함하는 등록외국인 현황 계열.",
+    "evidence_source": [
+      "H038",
+      "P6S021"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q015",
+    "query": "다문화가구를 가구 구성 유형별로 확인할 수 있는 표 찾아줘",
+    "query_group": "D_long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1JD1505",
+      "DT_1JD1001"
+    ],
+    "primary_gold_table_id": "DT_1JD1505",
+    "hard_negative_ids": [
+      "DT_1JD1014",
+      "DT_1JD1011"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_validated",
+    "review_confidence": "high",
+    "review_note": "다문화가구 구성 축을 가진 총조사 표.",
+    "evidence_source": [
+      "H039"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q016",
+    "query": "외국인 주민을 국적과 성별로 나눠 볼 수 있는 통계표 찾아줘",
+    "query_group": "D_long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "TX_11025_A036"
+    ],
+    "primary_gold_table_id": "TX_11025_A036",
+    "hard_negative_ids": [
+      "TX_11025_A001A",
+      "DT_1B040A9C"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_blind_metadata_validated",
+    "review_confidence": "high",
+    "review_note": "시군구별/성별 거주 외국인 현황(2006)이 행정구역·국적·성 축을 직접 포함.",
+    "evidence_source": [
+      "B079"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q017",
+    "query": "결혼이민자를 출신국적별로 확인할 수 있는 표 찾아줘",
+    "query_group": "D_long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A16",
+      "TX_11025_A008"
+    ],
+    "primary_gold_table_id": "DT_1B040A16",
+    "hard_negative_ids": [
+      "DT_1B040A17"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_metadata_crosscheck",
+    "review_confidence": "high",
+    "review_note": "국적(지역)별 결혼이민자 현황 및 국적별 국제결혼 이주자 표.",
+    "evidence_source": [
+      "phase5_metadata",
+      "P6S046"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q018",
+    "query": "2020년 시도별 인구밀도를 볼 수 있는 통계표 찾아줘",
+    "query_group": "E_time_exact",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B08024"
+    ],
+    "primary_gold_table_id": "DT_1B08024",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "prior_human_validated",
+    "review_confidence": "high",
+    "review_note": "DT_1B08024가 1966~2024년 시도별 인구밀도를 제공.",
+    "evidence_source": [
+      "H007"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q019",
+    "query": "2024년 주민등록인구를 월별로 볼 수 있는 표 찾아줘",
+    "query_group": "E_time_exact",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3",
+      "DT_1B04006",
+      "DT_1B04005N"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "prior_human_validated",
+    "review_confidence": "high",
+    "review_note": "주민등록인구 현행 주요 표들이 월·년 주기를 제공.",
+    "evidence_source": [
+      "H015",
+      "H020"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q020",
+    "query": "2015년부터 2024년까지 출생아 수를 연도별로 볼 수 있는 표 찾아줘",
+    "query_group": "E_time_exact",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B8000G"
+    ],
+    "primary_gold_table_id": "DT_1B8000G",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "prior_blind_metadata_validated",
+    "review_confidence": "high",
+    "review_note": "월·분기·연간 인구동향 표가 출생을 포함하고 해당 기간을 포괄.",
+    "evidence_source": [
+      "B002"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q021",
+    "query": "2023년 시도별 순이동자 수를 볼 수 있는 통계표 찾아줘",
+    "query_group": "E_time_exact",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B26003_A01",
+      "DT_1B26001_A04"
+    ],
+    "primary_gold_table_id": "DT_1B26003_A01",
+    "hard_negative_ids": [
+      "DT_1B26002"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_blind_and_human_crosscheck",
+    "review_confidence": "high",
+    "review_note": "시도 단위 이동/순이동을 제공하는 표.",
+    "evidence_source": [
+      "P6S022",
+      "H028"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q022",
+    "query": "2010년과 2020년의 시도별 인구를 동일한 통계표에서 비교할 수 있는 표 찾아줘",
+    "query_group": "E_time_exact",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1B04005N"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_metadata_crosscheck",
+    "review_confidence": "high",
+    "review_note": "1992~2026 주민등록인구 계열로 두 연도를 동일 표에서 비교 가능.",
+    "evidence_source": [
+      "H015"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q023",
+    "query": "시도별 주민등록인구를 볼 수 있는 표 찾아줘",
+    "query_group": "F_geo_exact",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1B04005N"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_validated",
+    "review_confidence": "high",
+    "review_note": "시도 합계를 포함하는 주민등록인구 현행표.",
+    "evidence_source": [
+      "H015"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q024",
+    "query": "시군구별 주민등록인구를 확인할 수 있는 표 찾아줘",
+    "query_group": "F_geo_exact",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3",
+      "DT_1B04006"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1B04005N"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_validated",
+    "review_confidence": "high",
+    "review_note": "시군구별 주민등록인구를 제공하는 인간검증 표.",
+    "evidence_source": [
+      "H015",
+      "G063"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q025",
+    "query": "읍면동별 인구를 확인할 수 있는 통계표 찾아줘",
+    "query_group": "F_geo_exact",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B04005N",
+      "DT_1IN1503"
+    ],
+    "primary_gold_table_id": "DT_1B04005N",
+    "hard_negative_ids": [
+      "DT_1B040A3"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_validated",
+    "review_confidence": "high",
+    "review_note": "주민등록/총조사 읍면동 인구표를 허용 Gold로 설정.",
+    "evidence_source": [
+      "H016"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q026",
+    "query": "서울특별시 각 구의 인구를 비교할 수 있는 표 찾아줘",
+    "query_group": "F_geo_exact",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3",
+      "DT_1B04006"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1B04005N"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_validated",
+    "review_confidence": "high",
+    "review_note": "서울 시군구 비교가 가능한 주민등록인구 표.",
+    "evidence_source": [
+      "H015"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q027",
+    "query": "경기도 시군별 65세 이상 인구를 확인할 수 있는 표 찾아줘",
+    "query_group": "F_geo_exact",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B04006"
+    ],
+    "primary_gold_table_id": "DT_1B04006",
+    "hard_negative_ids": [
+      "DT_1B040A3"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_validated",
+    "review_confidence": "high",
+    "review_note": "시군구·1세별 주민등록인구에서 경기도 및 65세 이상 합산 가능.",
+    "evidence_source": [
+      "H020",
+      "G063"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q028",
+    "query": "주민등록 기준 시군구별 인구를 볼 수 있는 표 찾아줘",
+    "query_group": "G_hard_negative",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3",
+      "DT_1B04006"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1IN1503"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_validated",
+    "review_confidence": "high",
+    "review_note": "주민등록 기준을 명시해 인구총조사 계열을 hard negative로 둠.",
+    "evidence_source": [
+      "H015",
+      "H016"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q029",
+    "query": "인구총조사 기준 시도별 인구밀도를 볼 수 있는 표 찾아줘",
+    "query_group": "G_hard_negative",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B08024"
+    ],
+    "primary_gold_table_id": "DT_1B08024",
+    "hard_negative_ids": [
+      "DT_1B040A3"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_validated",
+    "review_confidence": "high",
+    "review_note": "인구주택총조사기준 인구밀도 표와 주민등록인구를 구분.",
+    "evidence_source": [
+      "H007"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q030",
+    "query": "월별 인구이동을 볼 수 있는 통계표 찾아줘",
+    "query_group": "G_hard_negative",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B26001",
+      "DT_1B26002",
+      "DT_1B26003"
+    ],
+    "primary_gold_table_id": "DT_1B26001",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "prior_human_validated",
+    "review_confidence": "high",
+    "review_note": "국내인구이동 주요 표들이 월/분기/년 주기를 제공.",
+    "evidence_source": [
+      "H027",
+      "H029",
+      "H030"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q031",
+    "query": "현재 시군구별 주민등록인구 통계표를 찾아줘. 읍면동 단위 표는 제외해줘",
+    "query_group": "G_hard_negative",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3",
+      "DT_1B04006"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1B04005N",
+      "DT_1B04005"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_validated_reframed",
+    "review_confidence": "high",
+    "review_note": "기존 '구계열 제외'보다 데이터에 근거한 시군구 vs 읍면동 hard negative로 수정.",
+    "evidence_source": [
+      "H015",
+      "H020",
+      "profile_summary"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q032",
+    "query": "주민등록 기준의 시도별 인구 통계표를 찾아줘. 인구총조사 기준 표는 제외해줘",
+    "query_group": "G_hard_negative",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1IN1503"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_validated_reframed",
+    "review_confidence": "high",
+    "review_note": "검증근거가 부족했던 '시계열 보정 전' 대신 조사기준 충돌을 명시.",
+    "evidence_source": [
+      "H015",
+      "H016"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q033",
+    "query": "2024년 시군구별 결혼이민자를 성별로 볼 수 있는 통계표 찾아줘",
+    "query_group": "H_multi_constraint",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A17"
+    ],
+    "primary_gold_table_id": "DT_1B040A17",
+    "hard_negative_ids": [
+      "DT_1B040A16",
+      "DT_1B040A7"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_blind_validated",
+    "review_confidence": "high",
+    "review_note": "시군구별 결혼이민자 현황, 성별 축, 2024년을 직접 충족.",
+    "evidence_source": [
+      "B013"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q034",
+    "query": "2020년 등록외국인을 국적과 체류자격별로 확인할 수 있는 표 찾아줘",
+    "query_group": "H_multi_constraint",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A7"
+    ],
+    "primary_gold_table_id": "DT_1B040A7",
+    "hard_negative_ids": [
+      "DT_1B040A9C",
+      "DT_1B040A11"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_metadata_validated",
+    "review_confidence": "high",
+    "review_note": "국적(지역) 및 체류자격별 등록외국인 현황이 두 조건을 동시에 충족.",
+    "evidence_source": [
+      "H038"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q035",
+    "query": "2023년 시도별 고령인구를 남녀로 나눠 볼 수 있는 표 찾아줘",
+    "query_group": "H_multi_constraint",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1IN1503",
+      "DT_1B04006"
+    ],
+    "primary_gold_table_id": "DT_1IN1503",
+    "hard_negative_ids": [
+      "DT_1GO950B"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_crosscheck",
+    "review_confidence": "high",
+    "review_note": "2023년, 시도, 65세 이상, 남녀 조건을 연령/성별 인구표에서 충족 가능.",
+    "evidence_source": [
+      "H020"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q036",
+    "query": "2022년 시군구별 1인가구를 연령별로 볼 수 있는 표가 있어?",
+    "query_group": "H_multi_constraint",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1PL1502",
+      "DT_1PR1501",
+      "DT_1PR2001"
+    ],
+    "primary_gold_table_id": "DT_1PL1502",
+    "hard_negative_ids": [
+      "DT_1SL1003",
+      "DT_1PR1508",
+      "DT_1PR2008"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_validated",
+    "review_confidence": "high",
+    "review_note": "성 및 연령별 1인가구-시군구 표가 2015~2024 제공.",
+    "evidence_source": [
+      "H024"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q037",
+    "query": "2021년 지역별 등록외국인을 국적과 성별로 비교할 수 있는 표 찾아줘",
+    "query_group": "H_multi_constraint",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A7",
+      "DT_1B040A9C"
+    ],
+    "primary_gold_table_id": "DT_1B040A7",
+    "hard_negative_ids": [
+      "TX_11025_A001A"
+    ],
+    "candidate_pool": [],
+    "validation_status": "prior_human_validated_reframed",
+    "review_confidence": "high",
+    "review_note": "'외국인 주민'보다 Gold와 일치하는 '등록외국인'으로 용어를 정밀화.",
+    "evidence_source": [
+      "H037"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q038",
+    "query": "시도별 다문화 혼인 비중과 다문화 이혼 비중을 함께 비교하고 싶어",
+    "query_group": "I_multi_table",
+    "expected_action": "multi_table",
+    "gold_table_ids": [
+      "DT_1BB0002",
+      "DT_1BB0004"
+    ],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "prior_blind_action_validated",
+    "review_confidence": "high",
+    "review_note": "기존 blind action set에서 검증된 multi-table pair.",
+    "evidence_source": [
+      "B095"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q039",
+    "query": "국적처리 연도별 추이와 연령·취득유형별 현황을 같이 보고 싶어",
+    "query_group": "I_multi_table",
+    "expected_action": "multi_table",
+    "gold_table_ids": [
+      "DT_1B040A18",
+      "DT_1B040A20"
+    ],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "prior_blind_action_validated",
+    "review_confidence": "high",
+    "review_note": "기존 blind action set에서 검증된 multi-table pair.",
+    "evidence_source": [
+      "B097"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q040",
+    "query": "시도별 주민등록인구와 인구밀도를 함께 비교하고 싶어",
+    "query_group": "I_multi_table",
+    "expected_action": "multi_table",
+    "gold_table_ids": [
+      "DT_1B040A3",
+      "DT_1B08024"
+    ],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "cross_table_metadata_pair",
+    "review_confidence": "high",
+    "review_note": "주민등록인구와 인구총조사기준 인구밀도는 서로 다른 확정 표를 결합해야 함.",
+    "evidence_source": [
+      "H015",
+      "H007"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q041",
+    "query": "읍면동별 외국인 주민현황과 다문화가구 현황을 함께 비교하고 싶어",
+    "query_group": "I_multi_table",
+    "expected_action": "multi_table",
+    "gold_table_ids": [
+      "DT_110025_A033_A",
+      "DT_110025_A045_A"
+    ],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "profile_metadata_pair",
+    "review_confidence": "high",
+    "review_note": "동일 외국인주민 조사 내 별도 '읍면동별 외국인 주민현황'과 '읍면동별 다문화가구 현황' 표.",
+    "evidence_source": [
+      "profile_summary"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q042",
+    "query": "시군구별 순이동자수와 출생아 수를 함께 비교하고 싶어",
+    "query_group": "I_multi_table",
+    "expected_action": "multi_table",
+    "gold_table_ids": [
+      "DT_1B26002",
+      "DT_1B81A23"
+    ],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "cross_survey_metadata_pair",
+    "review_confidence": "high",
+    "review_note": "국내인구이동통계의 순이동과 인구동향조사의 출생아를 결합하는 명확한 복수표 질의.",
+    "evidence_source": [
+      "H029",
+      "H033"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q043",
+    "query": "요즘 애들이 얼마나 줄었는지 보고 싶어",
+    "query_group": "J_clarify",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "prior_human_action_validated",
+    "review_confidence": "high",
+    "review_note": "아동 연령 기준과 비교 기간이 불명확.",
+    "evidence_source": [
+      "H046"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q044",
+    "query": "노인이 많은 지역을 찾아줘",
+    "query_group": "J_clarify",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "prior_human_action_validated",
+    "review_confidence": "high",
+    "review_note": "노인 기준, 절대수/비율, 지역수준이 불명확.",
+    "evidence_source": [
+      "H047"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q045",
+    "query": "사람들이 서울로 얼마나 몰리고 있는지 보고 싶어",
+    "query_group": "J_clarify",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "prior_human_action_validated",
+    "review_confidence": "high",
+    "review_note": "전입/순이동과 기간 기준이 불명확.",
+    "evidence_source": [
+      "H048"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q046",
+    "query": "혼자 사는 사람 통계 보여줘",
+    "query_group": "J_clarify",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "prior_human_action_validated",
+    "review_confidence": "high",
+    "review_note": "1인가구/1인세대/독거노인 등의 정의가 불명확.",
+    "evidence_source": [
+      "H049"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q047",
+    "query": "외국인이 어디에 많이 사는지 알려줘",
+    "query_group": "J_clarify",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "prior_human_action_validated",
+    "review_confidence": "high",
+    "review_note": "등록외국인/체류외국인/외국인주민, 지역단위, 연도가 불명확.",
+    "evidence_source": [
+      "H050"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q048",
+    "query": "2024년 시군구별 단기체류외국인을 국적·연령·체류자격까지 한 표에서 보고 싶어",
+    "query_group": "K_no_exact",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "prior_blind_no_exact_validated",
+    "review_confidence": "high",
+    "review_note": "기존 blind action set B098에서 no_exact로 검증.",
+    "evidence_source": [
+      "B098"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q049",
+    "query": "2024년 읍면동별 다문화가구를 자녀 연령과 주택 점유형태까지 한 표에서 보고 싶어",
+    "query_group": "K_no_exact",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "prior_blind_no_exact_validated",
+    "review_confidence": "high",
+    "review_note": "기존 blind action set B099에서 no_exact로 검증.",
+    "evidence_source": [
+      "B099"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "Q050",
+    "query": "2024년 시도별 쌍태아 출생을 부모 국적과 소득수준까지 같이 보고 싶어",
+    "query_group": "K_no_exact",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "candidate_pool": [],
+    "validation_status": "prior_blind_no_exact_validated",
+    "review_confidence": "high",
+    "review_note": "기존 blind action set B100에서 no_exact로 검증.",
+    "evidence_source": [
+      "B100"
+    ],
+    "scope_category": "인구"
+  }
+]

@@ -13,6 +13,10 @@ from langfuse import Evaluation
 from kosis_mcp.eval import metrics
 
 
+# 2: ranked(검색) vs selected(결정) 분리, action 점수는 action을 내는 tool만
+EVALUATOR_VERSION = "2"
+
+
 def item_evaluator(
     *,
     input: Any,
@@ -21,9 +25,16 @@ def item_evaluator(
     metadata: Any = None,
     **kwargs: Any,
 ) -> list[Evaluation]:
+    """Retrieval metrics read ranked_table_ids (tables + candidates); decision
+    metrics read selected_table_ids; action metrics apply only to tools that
+    return an action."""
     exp = expected_output or {}
     out = output if isinstance(output, dict) else {}
     ranked = out.get("ranked_table_ids") or []
+    selected = out.get("selected_table_ids")
+    if selected is None:
+        selected = ranked[:1]
+    decides_action = out.get("response_family") == "action"
     predicted = out.get("predicted_action", "unknown")
     expected_action = exp.get("expected_action", "")
     gold = exp.get("gold_table_ids") or []
@@ -36,16 +47,21 @@ def item_evaluator(
         scores.extend(
             [
                 Evaluation(name="recall_at_5", value=metrics.recall_at_k(ranked, gold, k=5)),
-                Evaluation(name="top1", value=metrics.top1(ranked, primary, gold)),
                 Evaluation(name="mrr_at_10", value=metrics.mrr_at_k(ranked, gold, k=10)),
                 Evaluation(name="ndcg_at_10", value=metrics.ndcg_at_k(ranked, gold, k=10)),
+                Evaluation(name="top1", value=metrics.top1(selected, primary, gold)),
+                Evaluation(name="top1_any_gold", value=metrics.top1(selected, "", gold)),
             ]
         )
 
     if expected_action == "multi_table":
         scores.extend(
             [
-                Evaluation(name="multi_exact_set", value=float(set(ranked) == set(gold))),
+                Evaluation(name="multi_exact_set", value=float(set(selected) == set(gold))),
+                Evaluation(
+                    name="multi_selected_recall",
+                    value=metrics.multi_gold_recall(selected, gold),
+                ),
                 Evaluation(
                     name="multi_gold_recall",
                     value=metrics.multi_gold_recall(ranked, gold),
@@ -54,34 +70,23 @@ def item_evaluator(
         )
 
     if hard_negatives:
-        scores.append(
-            Evaluation(
-                name="hn_violation",
-                value=metrics.hn_violation(ranked, hard_negatives, k=10),
-            )
+        scores.extend(
+            [
+                Evaluation(
+                    name="hn_violation",
+                    value=metrics.hn_violation(ranked, hard_negatives, k=10),
+                ),
+                Evaluation(
+                    name="hn_selected",
+                    value=metrics.hn_violation(selected, hard_negatives, k=len(selected)),
+                ),
+            ]
         )
 
-    scores.append(
-        Evaluation(
-            name="overall_action",
-            value=float(predicted == expected_action),
-            comment=(
-                "clarify/exclude/multi action heuristic limited"
-                if expected_action in ("clarify", "exclude", "multi_table")
-                else None
-            ),
-        )
-    )
-
-    if expected_action in ("clarify", "exclude", "no_exact_table"):
-        scores.append(
-            Evaluation(
-                name="special_action",
-                value=float(predicted == expected_action),
-                comment="clarify/exclude: known limitation in direct_* modes"
-                if expected_action in ("clarify", "exclude")
-                else None,
-            )
-        )
+    if decides_action:
+        matched = float(predicted == expected_action)
+        scores.append(Evaluation(name="overall_action", value=matched))
+        if expected_action in ("clarify", "exclude", "no_exact_table"):
+            scores.append(Evaluation(name="special_action", value=matched))
 
     return scores

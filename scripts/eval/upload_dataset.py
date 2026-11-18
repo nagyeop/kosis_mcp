@@ -12,10 +12,11 @@ from langfuse import Langfuse
 
 ROOT = Path(__file__).resolve().parents[2]
 TESTSET = ROOT / "tests" / "testset"
+# v2: exclude 항목 분리(routing_excluded_queries.json), scope_category 라벨 추가
 DATASETS: dict[str, Path] = {
-    "population-search-gold-v1": TESTSET / "gold_queries.json",
-    "population-search-ops-gold-v1": TESTSET / "ops_gold_queries.json",
-    "population-search-edge-v1": TESTSET / "edge_queries.json",
+    "population-search-gold-v2": TESTSET / "gold_queries.json",
+    "population-search-ops-gold-v2": TESTSET / "ops_gold_queries.json",
+    "population-search-edge-v2": TESTSET / "edge_queries.json",
 }
 
 
@@ -49,8 +50,13 @@ def upload_dataset(
             query_id = row["query_id"]
             langfuse.create_dataset_item(
                 dataset_name=dataset_name,
-                id=query_id,
-                input={"query": row["query"], "query_id": query_id},
+                # item ids are unique per Langfuse project across datasets
+                id=f"{dataset_name}:{query_id}",
+                input={
+                    "query": row["query"],
+                    "query_id": query_id,
+                    "category": row.get("scope_category"),
+                },
                 expected_output={
                     "expected_action": row["expected_action"],
                     "gold_table_ids": row["gold_table_ids"],
@@ -75,7 +81,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Upload gold queries to Langfuse dataset")
     parser.add_argument(
         "--dataset",
-        default="population-search-gold-v1",
+        default="population-search-gold-v2",
         help="Langfuse dataset name",
     )
     parser.add_argument(

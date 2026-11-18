@@ -1,0 +1,2419 @@
+[
+  {
+    "query_id": "E001",
+    "query": "그거말고 좀 디테일한 연령대별 구간별로 없나요?",
+    "query_group": "followup",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:followup; was E001; xlsx complexity=B_다축복합(성별x연령x지역등); survey_group=0_복합서술형(미분류); query_type=search; tier=positive_core | catalog:선행 표 없이 후속 지시. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=134",
+      "chatting_pk=21334"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E023",
+    "query": "산업별(직업종류별) 인구 구성을 보고 싶어. 시도(시군구)/산업분류별 1인 이상 종사자 주요 지표를 찾고 싶어. 특히 전국, 인천시, 인천 동구의 자료가 다 나오는.",
+    "query_group": "out_of_domain",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [
+      "DT_1IN4007",
+      "DT_1PC1009"
+    ],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:out_of_domain; was E004; xlsx complexity=B_다축복합(성별x연령x지역등); survey_group=0_복합서술형(미분류); query_type=search; tier=positive_core | catalog:인구 카탈로그 밖 주제. 표 확정하지 않음. HN: 총조사 산업별 인구·취업은 1인 이상 종사자(사업체)가 아님.",
+    "evidence_source": [
+      "xlsx:no=1120",
+      "chatting_pk=14194"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E024",
+    "query": "2024년 일자리 이동통계의 유지·진입·이동률을 성별 및 연령별로 비교 분석해줘.",
+    "query_group": "out_of_domain",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [
+      "DT_1B26001"
+    ],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:out_of_domain; was E008; xlsx complexity=B_다축복합(성별x연령x지역등); survey_group=0_복합서술형(미분류); query_type=search; tier=negative_candidate | catalog:인구 카탈로그 밖 주제. 표 확정하지 않음. HN: 국내 인구이동 ≠ 일자리 이동통계.",
+    "evidence_source": [
+      "xlsx:no=341",
+      "chatting_pk=19899"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E025",
+    "query": "연령대별 범죄",
+    "query_group": "out_of_domain",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:out_of_domain; was E011; xlsx complexity=A_초단문(지역/지표단독); survey_group=0_복합서술형(미분류); query_type=search; tier=negative_candidate | catalog:인구 카탈로그 밖 주제. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=692",
+      "chatting_pk=17943"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E026",
+    "query": "미세플라스틱 세대별 축적량차이 통계 어떻게봐야해?",
+    "query_group": "out_of_domain",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:out_of_domain; was E055; xlsx complexity=E_단일축조회(지역+지표문장형); survey_group=0_복합서술형(미분류); query_type=search; tier=negative_candidate | catalog:인구 카탈로그 밖 주제. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=738",
+      "chatting_pk=17716"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E027",
+    "query": "연령별 경제활동인구 및 고용률",
+    "query_group": "out_of_domain",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [
+      "DT_1B040A3",
+      "DT_1IN1502"
+    ],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:out_of_domain; was E056; xlsx complexity=E_단일축조회(지역+지표문장형); survey_group=0_복합서술형(미분류); query_type=search; tier=negative_candidate | catalog:인구 카탈로그 밖 주제. 표 확정하지 않음. HN: 경제활동인구는 노동 조사. 주민등록·총조사 인구는 함정.",
+    "evidence_source": [
+      "xlsx:no=1088",
+      "chatting_pk=14379"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E028",
+    "query": "최근 5년간 한국 골프 참여 인구 추이를 알려줘",
+    "query_group": "out_of_domain",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:out_of_domain; was E121; xlsx complexity=F_기타서술형; survey_group=8_인구추이(비계산trend); query_type=search; tier=positive_core | catalog:인구 카탈로그 밖 주제. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=333",
+      "chatting_pk=19974"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E029",
+    "query": "2026년 5월 온라인쇼핑이 급증한 원인은 무엇이며, 이것이 향후 우리 소비 생활에 어떤 변화를 가져올까요?",
+    "query_group": "out_of_domain",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:out_of_domain; was E139; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=search; tier=negative_candidate:value_intent | catalog:인구 카탈로그 밖 주제. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=8",
+      "chatting_pk=22043"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E030",
+    "query": "고용이 늘었나?",
+    "query_group": "out_of_domain",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [
+      "DT_1B040A3"
+    ],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:out_of_domain; was E140; xlsx complexity=A_초단문(지역/지표단독); survey_group=0_복합서술형(미분류); query_type=search; tier=negative_candidate:value_intent | catalog:인구 카탈로그 밖 주제. 표 확정하지 않음. HN: 고용≠총인구.",
+    "evidence_source": [
+      "xlsx:no=88",
+      "chatting_pk=21681"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E031",
+    "query": "5월 소비자물가지수와 주요 지표들의 전월 및 전년 동월 대비 증감률을 비교해줘.",
+    "query_group": "out_of_domain",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:out_of_domain; was E148; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=search; tier=negative_candidate:value_intent | catalog:인구 카탈로그 밖 주제. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=359",
+      "chatting_pk=19766"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E032",
+    "query": "김해시 고용률",
+    "query_group": "out_of_domain",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [
+      "DT_1B040A3"
+    ],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:out_of_domain; was E212; xlsx complexity=A_초단문(지역/지표단독); survey_group=0_복합서술형(미분류); query_type=search; tier=negative_candidate | catalog:인구 카탈로그 밖 주제. 표 확정하지 않음. HN: 고용률≠김해 총인구.",
+    "evidence_source": [
+      "xlsx:no=47",
+      "chatting_pk=21894"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E033",
+    "query": "최근 귀농어 인구는 늘고 귀촌은 줄어든 배경과 이것이 우리 사회에 미칠 영향은 무엇인가요?",
+    "query_group": "out_of_domain",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [
+      "DT_1IN6002",
+      "DT_1GA5503"
+    ],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:out_of_domain; was E214; xlsx complexity=F_기타서술형; survey_group=7_현재인구수(단순조회); query_type=search; tier=negative_candidate | catalog:인구 카탈로그 밖 주제. 표 확정하지 않음. HN: 1960년대 농/비농 총조사 ≠ 귀농어·귀촌.",
+    "evidence_source": [
+      "xlsx:no=153",
+      "chatting_pk=21138"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E034",
+    "query": "경제활동인구조사의 고용보험 가입률 찾아줘",
+    "query_group": "out_of_domain",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [
+      "DT_1B040A3"
+    ],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:out_of_domain; was E216; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=search; tier=negative_candidate | catalog:인구 카탈로그 밖 주제. 표 확정하지 않음. HN: 경제활동인구조사 고용보험 ≠ 인구 표.",
+    "evidence_source": [
+      "xlsx:no=775",
+      "chatting_pk=17337"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E035",
+    "query": "장애인 관련 통계는 어떤 것들이 있는지?",
+    "query_group": "ambiguous",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:ambiguous; was E016; xlsx complexity=C_막연한주제형; survey_group=0_복합서술형(미분류); query_type=search; tier=positive_boundary | catalog:주제·정의 미지정. clarify. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=130",
+      "chatting_pk=21394"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E036",
+    "query": "주거점유형태 관련 통계중에 전세, 반전세, 월세를 따로 구분한 통계가 있어?",
+    "query_group": "ambiguous",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:ambiguous; was E020; xlsx complexity=C_막연한주제형; survey_group=6_가구총조사; query_type=search; tier=positive_boundary | catalog:주제·정의 미지정. clarify. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=849",
+      "chatting_pk=16612"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E037",
+    "query": "어떤 통계분석 방법을 쓰는 걸 추천해? 앞으로의 변화를 관찰하고 싶어",
+    "query_group": "ambiguous",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:ambiguous; was E022; xlsx complexity=C_막연한주제형; survey_group=0_복합서술형(미분류); query_type=search; tier=positive_boundary | catalog:주제·정의 미지정. clarify. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=1000",
+      "chatting_pk=15088"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E038",
+    "query": "내가 사회문제에 대한 통계를 찾아서 과제를 해야하는데... 한 통계안에 여러 열을 비교할 수 있을만한 통계가 있을까? csv 파일로!",
+    "query_group": "ambiguous",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:ambiguous; was E029; xlsx complexity=C_막연한주제형; survey_group=0_복합서술형(미분류); query_type=search; tier=review_needed | catalog:주제·정의 미지정. clarify. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=401",
+      "chatting_pk=19627"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E039",
+    "query": "우리나라 유학생들이 평균적으로 얼마정도의 학비를 지불하는지 알고 싶어. 그런데 여기에 유학생들이 진학하는 단과대/학과의 비율에 따라 가중치를 매겨서 평균을 내고 싶어.",
+    "query_group": "ambiguous",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:ambiguous; was E057; xlsx complexity=D_문맥의존(멀티턴추정); survey_group=0_복합서술형(미분류); query_type=search; tier=positive_boundary | catalog:주제·정의 미지정. clarify. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=197",
+      "chatting_pk=20783"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E040",
+    "query": "순창군",
+    "query_group": "ambiguous",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:ambiguous; was E074; xlsx complexity=A_초단문(지역/지표단독); survey_group=9_지역명단독(문맥의존추정); query_type=search; tier=negative_candidate:ambiguous_short | catalog:주제·정의 미지정. clarify. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=477",
+      "chatting_pk=19173"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E041",
+    "query": "의성 고령화율·면적·재정규모 기본 수치",
+    "query_group": "ambiguous",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:ambiguous; was E097; xlsx complexity=F_기타서술형; survey_group=5_연령구조(고령화포함); query_type=search; tier=positive_core | catalog:주제·정의 미지정. clarify. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=507",
+      "chatting_pk=18928"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E042",
+    "query": "도시문제",
+    "query_group": "ambiguous",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:ambiguous; was E155; xlsx complexity=A_초단문(지역/지표단독); survey_group=0_복합서술형(미분류); query_type=search; tier=positive_boundary | catalog:주제·정의 미지정. clarify. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=108",
+      "chatting_pk=21549"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E043",
+    "query": "1인당 자동차 통계를 알려줘(우리나라 운전자수 통계를 알려줘)",
+    "query_group": "ambiguous",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:ambiguous; was E156; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=search; tier=positive_boundary | catalog:주제·정의 미지정. clarify. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=115",
+      "chatting_pk=21512"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E044",
+    "query": "청각장애인에 대한 사회적 인식",
+    "query_group": "ambiguous",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:ambiguous; was E157; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=search; tier=positive_boundary | catalog:주제·정의 미지정. clarify. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=128",
+      "chatting_pk=21397"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E045",
+    "query": "사람들이 흥미를 가질법한 재미있는 통계 추천해줘",
+    "query_group": "ambiguous",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:ambiguous; was E161; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=search; tier=positive_boundary | catalog:주제·정의 미지정. clarify. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=862",
+      "chatting_pk=16499"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E046",
+    "query": "2024년 기준 등록된 장애인 수",
+    "query_group": "ambiguous",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:ambiguous; was E164; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=search; tier=positive_boundary | catalog:주제·정의 미지정. clarify. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=1166",
+      "chatting_pk=13917"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E047",
+    "query": "부산의 지역 현안 중 시민들의 생활권과 밀접한 자료들을 찾아보고 싶은데",
+    "query_group": "ambiguous",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:ambiguous; was E165; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=search; tier=positive_boundary | catalog:주제·정의 미지정. clarify. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=1202",
+      "chatting_pk=13672"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E048",
+    "query": "내가 강서구에서 주점을 오픈할 계획인데 사용할 수 있는 데이터를 추천해줘",
+    "query_group": "ambiguous",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:ambiguous; was E166; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=search; tier=positive_boundary | catalog:주제·정의 미지정. clarify. 표 확정하지 않음.",
+    "evidence_source": [
+      "xlsx:no=1312",
+      "chatting_pk=12664"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E049",
+    "query": "그냥 연령별 인구를 알고 싶은건데?",
+    "query_group": "surface",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1IN1503",
+      "DT_1B04006"
+    ],
+    "primary_gold_table_id": "DT_1B04006",
+    "hard_negative_ids": [
+      "DT_1B040A3",
+      "DT_1SN1005",
+      "DT_1GO950G"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:surface; was E033; xlsx complexity=E_단일축조회(지역+지표문장형); survey_group=5_연령구조(고령화포함); query_type=search; tier=positive_core | 연령별 인구. primary=시군구 1세별 주민등록 DT_1B04006. 총조사 읍면동 DT_1IN1503은 허용 gold. HN: 총인구·가구주관계·고령자표는 연령별 인구가 아님.",
+    "evidence_source": [
+      "xlsx:no=51",
+      "chatting_pk=21888",
+      "catalog:DT_1IN1503",
+      "catalog:DT_1B04006"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E050",
+    "query": "#주민등록 세대수가 뭐야?",
+    "query_group": "surface",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040B3"
+    ],
+    "primary_gold_table_id": "DT_1B040B3",
+    "hard_negative_ids": [
+      "DT_1IN1502",
+      "DT_1B040A3"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:surface; was E049; xlsx complexity=E_단일축조회(지역+지표문장형); survey_group=6_가구총조사; query_type=search; tier=positive_core | 주민등록세대수 전용. HN: 총조사 가구·주민등록 인구 ≠ 세대수.",
+    "evidence_source": [
+      "xlsx:no=688",
+      "chatting_pk=17952",
+      "catalog:DT_1B040B3"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E051",
+    "query": "부산인구",
+    "query_group": "surface",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3",
+      "DT_1IN1502"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1B04006",
+      "DT_1B04005N"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:surface; was E071; xlsx complexity=A_초단문(지역/지표단독); survey_group=9_지역명단독(문맥의존추정); query_type=search; tier=positive_core | 부산=시도 인구. 주민등록 우선, 총조사 허용. HN: 1세별·읍면동은 질의에 없는 축.",
+    "evidence_source": [
+      "xlsx:no=49",
+      "chatting_pk=21892",
+      "catalog:DT_1B040A3",
+      "catalog:DT_1IN1502"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E052",
+    "query": "주민등록인구",
+    "query_group": "surface",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1IN1502",
+      "DT_1IN1503"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:surface; was E073; xlsx complexity=A_초단문(지역/지표단독); survey_group=9_지역명단독(문맥의존추정); query_type=search; tier=positive_core | 조사명 주민등록인구. 대표 시군구 성별 인구수. HN: 주민등록 명시. 총조사는 조사 기준이 다름.",
+    "evidence_source": [
+      "xlsx:no=160",
+      "chatting_pk=21076",
+      "catalog:DT_1B040A3"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E053",
+    "query": "Can you help me find Population by sex, age group and educational attainment (Population aged 6 or more, Koreans) - Dong, Eup & Myeon",
+    "query_group": "surface",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1PM2006"
+    ],
+    "primary_gold_table_id": "DT_1PM2006",
+    "hard_negative_ids": [
+      "DT_1IN1503",
+      "DT_1B04006"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:surface; was E167; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=search; tier=positive_core | 영문 표명=성별/연령별/교육정도별 인구(6세이상, 내국인)-동읍면. 2020 표본. HN: 성·연령만 있고 교육정도 축이 없음.",
+    "evidence_source": [
+      "xlsx:no=142",
+      "chatting_pk=21288",
+      "catalog:DT_1PM2006"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E054",
+    "query": "인구",
+    "query_group": "surface",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3",
+      "DT_1IN1502"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1B04006",
+      "DT_1B04005N"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:surface; was E175; xlsx complexity=A_초단문(지역/지표단독); survey_group=0_복합서술형(미분류); query_type=search; tier=positive_core | 단문 인구. 주민등록·총조사 둘 다 적법. HN: 총인구 질의. 1세별·읍면동은 과잉 축.",
+    "evidence_source": [
+      "xlsx:no=471",
+      "chatting_pk=19213",
+      "catalog:DT_1B040A3",
+      "catalog:DT_1IN1502"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E055",
+    "query": "저출산",
+    "query_group": "surface",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B81A21"
+    ],
+    "primary_gold_table_id": "DT_1B81A21",
+    "hard_negative_ids": [
+      "DT_1B8000G",
+      "DT_1BPA101"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:surface; was E176; xlsx complexity=A_초단문(지역/지표단독); survey_group=1_생애사건(출생사망혼인이혼); query_type=search; tier=positive_core | 저출산 대표 지표=시도 합계출산율. HN: 출생 건수 동향·장래 합계출산율은 저출산 관측 지표가 아님.",
+    "evidence_source": [
+      "xlsx:no=664",
+      "chatting_pk=18074",
+      "catalog:DT_1B81A21"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E056",
+    "query": "출생률",
+    "query_group": "surface",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B8000F",
+      "DT_1B8000H"
+    ],
+    "primary_gold_table_id": "DT_1B8000F",
+    "hard_negative_ids": [
+      "DT_1B81A21",
+      "DT_1B8000G"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:surface; was E177; xlsx complexity=A_초단문(지역/지표단독); survey_group=1_생애사건(출생사망혼인이혼); query_type=search; tier=positive_core | 출생률=조출생률(동태율). 합계출산율과 단위가 다름. HN: 출생률=조출생률. 합계출산율·건수 동향은 다른 지표.",
+    "evidence_source": [
+      "xlsx:no=843",
+      "chatting_pk=16682",
+      "catalog:DT_1B8000F",
+      "catalog:DT_1B8000H"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E057",
+    "query": "다자녀",
+    "query_group": "surface",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1BC1601",
+      "DT_1PF2001"
+    ],
+    "primary_gold_table_id": "DT_1BC1601",
+    "hard_negative_ids": [
+      "DT_1SP1601",
+      "DT_1PL1502"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "medium",
+    "review_note": "curated:surface; was E178; xlsx complexity=A_초단문(지역/지표단독); survey_group=1_생애사건(출생사망혼인이혼); query_type=search; tier=positive_core | 다자녀 전용 표명 없음. 미성년 자녀수별 가구 DT_1BC1601, 출생자녀수별 기혼여성 DT_1PF2001. HN: 한부모·1인가구 ≠ 다자녀.",
+    "evidence_source": [
+      "xlsx:no=1171",
+      "chatting_pk=13837",
+      "catalog:DT_1BC1601",
+      "catalog:DT_1PF2001"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E058",
+    "query": "#인구",
+    "query_group": "surface",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3",
+      "DT_1IN1502"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1B04006",
+      "DT_1B04005N"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:surface; was E179; xlsx complexity=A_초단문(지역/지표단독); survey_group=0_복합서술형(미분류); query_type=search; tier=positive_core | 해시태그 인구. E054와 동일 축. HN: 총인구 질의. 1세별·읍면동은 과잉 축.",
+    "evidence_source": [
+      "xlsx:no=1289",
+      "chatting_pk=12832",
+      "catalog:DT_1B040A3",
+      "catalog:DT_1IN1502"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E059",
+    "query": "장래인구추계는 어떤 기준으로 예측하면 되나요?",
+    "query_group": "survey_basis",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1BPA401",
+      "DT_1BPA001"
+    ],
+    "primary_gold_table_id": "DT_1BPA401",
+    "hard_negative_ids": [
+      "DT_1IN1502",
+      "DT_1B040A3"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "medium",
+    "review_note": "curated:survey_basis; was E070; xlsx complexity=F_기타서술형; survey_group=4_장래추계; query_type=search; tier=positive_core | 추계 가정(시나리오) DT_1BPA401. 규모 표 DT_1BPA001. HN: 추계 기준 질의. 총조사·주민등록은 관측.",
+    "evidence_source": [
+      "xlsx:no=1272",
+      "chatting_pk=13039",
+      "catalog:DT_1BPA401",
+      "catalog:DT_1BPA001"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E060",
+    "query": "7월 1일 기준 추계인구와 11월 1일 기준 추계인구의 산정 방식 차이를 설명하고, 조사년도별 0~4세 및 24~29세 구간 성비 감소 원인을 함께 알려줘.",
+    "query_group": "survey_basis",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1BPA001",
+      "DT_1IN1503"
+    ],
+    "primary_gold_table_id": "DT_1BPA001",
+    "hard_negative_ids": [
+      "DT_1B040A3"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "medium",
+    "review_note": "curated:survey_basis; was E172; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=search; tier=positive_core | 7월 1일=장래추계 DT_1BPA001, 11월 1일=총조사 DT_1IN1503. 성비는 두 표 연령·성 축으로 계산. HN: 연말 주민등록 ≠ 7월1일 추계·11월1일 총조사.",
+    "evidence_source": [
+      "xlsx:no=853",
+      "chatting_pk=16552",
+      "catalog:DT_1BPA001",
+      "catalog:DT_1IN1503"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E061",
+    "query": "수도권의 연령별 인구 비율",
+    "query_group": "geo_grain",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1IN1503",
+      "DT_1B04006"
+    ],
+    "primary_gold_table_id": "DT_1B04006",
+    "hard_negative_ids": [
+      "DT_1B040A3",
+      "DT_1BPA001"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "medium",
+    "review_note": "curated:geo_grain; was E040; xlsx complexity=E_단일축조회(지역+지표문장형); survey_group=5_연령구조(고령화포함); query_type=search; tier=positive_core | 수도권 전용 표 없음. 서울·인천·경기 연령 합산. primary=DT_1B04006(시군구). DT_1IN1503은 읍면동 총조사라 허용만. HN: 총인구·전국 추계는 수도권 연령 비율이 아님.",
+    "evidence_source": [
+      "xlsx:no=526",
+      "chatting_pk=18780",
+      "catalog:DT_1IN1503",
+      "catalog:DT_1B04006"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E062",
+    "query": "화천에 대한 인구의 연령",
+    "query_group": "geo_grain",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1IN1503",
+      "DT_1B04006"
+    ],
+    "primary_gold_table_id": "DT_1B04006",
+    "hard_negative_ids": [
+      "DT_1B040A3",
+      "DT_1B04005N"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:geo_grain; was E051; xlsx complexity=E_단일축조회(지역+지표문장형); survey_group=0_복합서술형(미분류); query_type=search; tier=positive_core | 화천=시군구 연령. primary=DT_1B04006. DT_1IN1503은 읍면동 총조사라 허용만. HN: 시군구 연령. 총인구·읍면동 주민등록은 축 불일치.",
+    "evidence_source": [
+      "xlsx:no=847",
+      "chatting_pk=16654",
+      "catalog:DT_1IN1503",
+      "catalog:DT_1B04006"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E063",
+    "query": "1998년부터 2025년 12월까지 1. 경북 구미시의 각 연도별 총 인구 수, 만 0세 인구 수, 총 세대수와 2. 법정동인 봉곡동의 각 연도별 인구 수와 만 0세 인구 수, 세대수 3. 부곡동의 각 연도별 인구 수와 만 0세 인구 수, 세대수 찾아서 표로 정리해줘. 구미시, 봉곡동, 부곡동 각각 하나의 표로 만들어도 좋아",
+    "query_group": "geo_grain",
+    "expected_action": "multi_table",
+    "gold_table_ids": [
+      "DT_1B04006",
+      "DT_1B04005N",
+      "DT_1B040B3"
+    ],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [
+      "DT_1B040A3",
+      "DT_1IN1502"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "medium",
+    "review_note": "curated:geo_grain; was E054; xlsx complexity=E_단일축조회(지역+지표문장형); survey_group=6_가구총조사; query_type=search; tier=positive_core | 구미시+만0세+세대+법정동. 시군구 총인구 DT_1B040A3는 0세·동 없음. 시군구 1세 DT_1B04006 + 읍면동 DT_1B04005N + 세대 DT_1B040B3. 법정동 전용 표 없음. primary 없음. HN: 시군구 총인구·총조사는 0세·동·세대 시계열을 한 번에 못 줌.",
+    "evidence_source": [
+      "xlsx:no=1103",
+      "chatting_pk=14271",
+      "catalog:DT_1B04006",
+      "catalog:DT_1B040B3",
+      "catalog:DT_1B04005N"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E064",
+    "query": "시흥이 외국인 명수",
+    "query_group": "geo_grain",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "TX_11025_A001_A",
+      "DT_1B040A9C"
+    ],
+    "primary_gold_table_id": "TX_11025_A001_A",
+    "hard_negative_ids": [
+      "DT_1JA1501",
+      "TX_11025_A000_A"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:geo_grain; was E086; xlsx complexity=A_초단문(지역/지표단독); survey_group=3_외국인체류; query_type=search; tier=positive_core | 시흥=시군구 외국인. 외국인주민현황·등록외국인. HN: 총조사 외국인·시도 외국인주민은 시흥 현황이 아님.",
+    "evidence_source": [
+      "xlsx:no=720",
+      "chatting_pk=17819",
+      "catalog:TX_11025_A001_A",
+      "catalog:DT_1B040A9C"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E065",
+    "query": "파주시 운정신도시와 문산읍 인구변화 어케봐ㅔ",
+    "query_group": "geo_grain",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B04005N",
+      "DT_1B040A3"
+    ],
+    "primary_gold_table_id": "DT_1B04005N",
+    "hard_negative_ids": [
+      "DT_1IN1503"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "medium",
+    "review_note": "curated:geo_grain; was E127; xlsx complexity=F_기타서술형; survey_group=8_인구추이(비계산trend); query_type=search; tier=positive_core | 문산읍=읍면동. 운정신도시는 행정동 묶음. 파주시 시군구 DT_1B040A3. HN: 읍·신도시 변화는 주민등록 시계열. 총조사 5년 읍면동은 함정.",
+    "evidence_source": [
+      "xlsx:no=523",
+      "chatting_pk=18783",
+      "catalog:DT_1B04005N",
+      "catalog:DT_1B040A3"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E066",
+    "query": "시군구 연령별 인구",
+    "query_group": "axis_stack",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1IN1503",
+      "DT_1B04006"
+    ],
+    "primary_gold_table_id": "DT_1B04006",
+    "hard_negative_ids": [
+      "DT_1B040A3",
+      "DT_1B04005N"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:axis_stack; was E003; xlsx complexity=A_초단문(지역/지표단독); survey_group=5_연령구조(고령화포함); query_type=search; tier=positive_core | 시군구 연령별. primary=DT_1B04006. DT_1IN1503은 읍면동 총조사라 허용만. HN: 시군구 연령. 총인구·읍면동 5세는 축 불일치.",
+    "evidence_source": [
+      "xlsx:no=910",
+      "chatting_pk=15850",
+      "catalog:DT_1IN1503",
+      "catalog:DT_1B04006"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E067",
+    "query": "행정구역(시군구)별/5세별 주민등록인구",
+    "query_group": "axis_stack",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040M5_1",
+      "DT_1B04006"
+    ],
+    "primary_gold_table_id": "DT_1B040M5_1",
+    "hard_negative_ids": [
+      "DT_1B04005N",
+      "DT_1IN1503"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:axis_stack; was E005; xlsx complexity=B_다축복합(성별x연령x지역등); survey_group=0_복합서술형(미분류); query_type=search; tier=positive_core | 질의는 시군구 5세별 주민등록. 연말·시군구·5세 표는 없음. primary=시군구 5세 연앙 DT_1B040M5_1. 1세별 연말 DT_1B04006은 허용. 읍면동 5세 DT_1B04005N은 지역 단위가 다름. HN: 질의는 시군구 5세 주민등록. 읍면동 5세·총조사는 단위/조사가 다름.",
+    "evidence_source": [
+      "xlsx:no=1384",
+      "chatting_pk=12182",
+      "catalog:DT_1B04006",
+      "catalog:DT_1B040M5_1"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E068",
+    "query": "대한민국 전체 인구에 대해서 설명해줘. 성별, 연령대, 지역별 상세 자료 알려줘",
+    "query_group": "axis_stack",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1IN1503",
+      "DT_1B040A3",
+      "DT_1B04006"
+    ],
+    "primary_gold_table_id": "DT_1IN1503",
+    "hard_negative_ids": [
+      "DT_1BPA001",
+      "DT_1SN1005"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:axis_stack; was E006; xlsx complexity=B_다축복합(성별x연령x지역등); survey_group=0_복합서술형(미분류); query_type=search; tier=positive_core | 전국 성·연령·지역. 총조사 연령성 + 주민등록 지역·1세. HN: 추계·가구주관계표는 성·연령·지역 관측 인구가 아님.",
+    "evidence_source": [
+      "xlsx:no=1427",
+      "chatting_pk=11657",
+      "catalog:DT_1IN1503",
+      "catalog:DT_1B040A3",
+      "catalog:DT_1B04006"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E069",
+    "query": "대구 중구 1인가구 여성에 관한 통계를 찾고있어",
+    "query_group": "axis_stack",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1PL1502"
+    ],
+    "primary_gold_table_id": "DT_1PL1502",
+    "hard_negative_ids": [
+      "DT_1JC1511",
+      "DT_1B040A3",
+      "DT_1PR1508"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:axis_stack; was E026; xlsx complexity=C_막연한주제형; survey_group=6_가구총조사; query_type=search; tier=positive_core | 대구 중구=시군구, 1인가구 여성=성·연령별 1인가구. HN: 가구원수 표에서 1인 자르기·총인구·구세대 1인가구는 전용이 아님.",
+    "evidence_source": [
+      "xlsx:no=1124",
+      "chatting_pk=14162",
+      "catalog:DT_1PL1502"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E070",
+    "query": "2022년부터 2024년까지 외국인 현황을 시군구별로 보고싶은데 어떤 통계표가 있어?",
+    "query_group": "axis_stack",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "TX_11025_A001_A",
+      "DT_1B040A9C"
+    ],
+    "primary_gold_table_id": "TX_11025_A001_A",
+    "hard_negative_ids": [
+      "DT_1JA1501",
+      "DT_1B28022"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:axis_stack; was E028; xlsx complexity=C_막연한주제형; survey_group=3_외국인체류; query_type=search; tier=positive_core | 시군구 외국인 현황 시계열. HN: 총조사 외국인·국제이동 ≠ 시군구 외국인 현황.",
+    "evidence_source": [
+      "xlsx:no=1184",
+      "chatting_pk=13781",
+      "catalog:TX_11025_A001_A",
+      "catalog:DT_1B040A9C"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E071",
+    "query": "음성군의 연령층별 인구구조를 찾아줘",
+    "query_group": "axis_stack",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1IN1503",
+      "DT_1B04006",
+      "DT_1IN2030"
+    ],
+    "primary_gold_table_id": "DT_1B04006",
+    "hard_negative_ids": [
+      "DT_1B040A3",
+      "DT_1BPA002"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:axis_stack; was E039; xlsx complexity=E_단일축조회(지역+지표문장형); survey_group=0_복합서술형(미분류); query_type=search; tier=positive_core | 음성=시군구 연령 구조. primary=DT_1B04006. DT_1IN1503은 읍면동, DT_1IN2030은 지표 요약 허용. HN: 총인구·추계 지표는 시군구 연령 구조가 아님.",
+    "evidence_source": [
+      "xlsx:no=484",
+      "chatting_pk=19098",
+      "catalog:DT_1IN1503",
+      "catalog:DT_1B04006",
+      "catalog:DT_1IN2030"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E072",
+    "query": "체류 유형별 지역별 외국인 수 통계짜료있니?",
+    "query_group": "axis_stack",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A11"
+    ],
+    "primary_gold_table_id": "DT_1B040A11",
+    "hard_negative_ids": [
+      "TX_11025_A001_A",
+      "DT_1B040A9C"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:axis_stack; was E082; xlsx complexity=F_기타서술형; survey_group=3_외국인체류; query_type=search; tier=positive_core | 시군구·체류자격별 등록외국인. HN: 외국인주민·국적별 등록은 체류자격(유형) 축이 없음.",
+    "evidence_source": [
+      "xlsx:no=525",
+      "chatting_pk=18781",
+      "catalog:DT_1B040A11"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E073",
+    "query": "광명시 시흥시 별 외국인 거주자 2000~ 최근까지",
+    "query_group": "axis_stack",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "TX_11025_A001_A",
+      "DT_1B040A9C"
+    ],
+    "primary_gold_table_id": "TX_11025_A001_A",
+    "hard_negative_ids": [
+      "DT_1JA1501"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "medium",
+    "review_note": "curated:axis_stack; was E085; xlsx complexity=F_기타서술형; survey_group=3_외국인체류; query_type=search; tier=positive_core | 광명·시흥 시군구 외국인. 2000년대 초는 현행 _A 표가 아니라 구연도 표가 따로 있음. HN: 총조사 외국인은 2000~최근 현황 시계열이 아님.",
+    "evidence_source": [
+      "xlsx:no=719",
+      "chatting_pk=17821",
+      "catalog:TX_11025_A001_A",
+      "catalog:DT_1B040A9C"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E074",
+    "query": "안산, 수원, 인천, 의정부, 김해 외국인 숫자를 비교할수있는 통계가 있어?",
+    "query_group": "axis_stack",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "TX_11025_A001_A",
+      "DT_1B040A9C",
+      "TX_11025_A000_A"
+    ],
+    "primary_gold_table_id": "TX_11025_A001_A",
+    "hard_negative_ids": [
+      "DT_1JA1501",
+      "DT_1B040A3"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:axis_stack; was E087; xlsx complexity=F_기타서술형; survey_group=3_외국인체류; query_type=search; tier=positive_core | 시군구 비교 + 인천 시도 총괄. HN: 총조사 외국인·내국인 총인구로 다도시 외국인 비교 불가.",
+    "evidence_source": [
+      "xlsx:no=954",
+      "chatting_pk=15344",
+      "catalog:TX_11025_A001_A",
+      "catalog:DT_1B040A9C",
+      "catalog:TX_11025_A000_A"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E075",
+    "query": "연령별 인구 이동 통계",
+    "query_group": "axis_stack",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B26001"
+    ],
+    "primary_gold_table_id": "DT_1B26001",
+    "hard_negative_ids": [
+      "DT_1B04006",
+      "DT_1B28022"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:axis_stack; was E095; xlsx complexity=A_초단문(지역/지표단독); survey_group=5_연령구조(고령화포함); query_type=search; tier=positive_core | 시군구/성/연령(5세)별 이동자수. HN: 연령별 재고 인구·국제이동 ≠ 국내 연령별 이동.",
+    "evidence_source": [
+      "xlsx:no=476",
+      "chatting_pk=19186",
+      "catalog:DT_1B26001"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E076",
+    "query": "2025.12.31.기준 경상북도 문경시 65세 이상 노인인구",
+    "query_group": "axis_stack",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B04006"
+    ],
+    "primary_gold_table_id": "DT_1B04006",
+    "hard_negative_ids": [
+      "DT_1B040A3",
+      "DT_1BPA003"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:axis_stack; was E105; xlsx complexity=F_기타서술형; survey_group=5_연령구조(고령화포함); query_type=search; tier=positive_core | 2025-12-31 주민등록 연말. 문경 65세+=1세별 합산. 총조사는 11월 1일. HN: 총인구(연령 없음)·추계 고령인구.",
+    "evidence_source": [
+      "xlsx:no=1263",
+      "chatting_pk=13113",
+      "catalog:DT_1B04006"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E077",
+    "query": "금천구 60세 이상 인구 전입 수",
+    "query_group": "axis_stack",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B26001"
+    ],
+    "primary_gold_table_id": "DT_1B26001",
+    "hard_negative_ids": [
+      "DT_1B04006",
+      "DT_1B28022"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:axis_stack; was E110; xlsx complexity=F_기타서술형; survey_group=2_인구이동(전입전출); query_type=search; tier=positive_core | 금천구 60세+ 전입=시군구 성 연령 이동. HN: 재고 노인인구·국제이동 ≠ 전입.",
+    "evidence_source": [
+      "xlsx:no=20",
+      "chatting_pk=22011",
+      "catalog:DT_1B26001"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E078",
+    "query": "행정구역 가구규모 성별 통근 통학인구",
+    "query_group": "long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B90001",
+      "DT_1TOOO02"
+    ],
+    "primary_gold_table_id": "DT_1B90001",
+    "hard_negative_ids": [
+      "DT_1PA1001"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:long_tail; was E007; xlsx complexity=B_다축복합(성별x연령x지역등); survey_group=0_복합서술형(미분류); query_type=search; tier=negative_candidate | 표명 행정구역/가구규모/성별 통근·통학인구. 1995 DT_1B90001, 2000 DT_1TOOO02. 2015+ 표본에 가구규모×통근 한 표 없음. 이름 조회면 이 gold 허용. HN: 2015+ 통근표는 가구규모×성별 축이 없음.",
+    "evidence_source": [
+      "xlsx:no=252",
+      "chatting_pk=20431",
+      "catalog:DT_1B90001",
+      "catalog:DT_1TOOO02"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E079",
+    "query": "저출산과 청년인구를 연계해서 보고 싶어. 어떤 통계를 보면 좋을까?",
+    "query_group": "long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B81A21",
+      "DT_1BPA003"
+    ],
+    "primary_gold_table_id": "DT_1B81A21",
+    "hard_negative_ids": [
+      "DT_1B040A3",
+      "DT_1B8000G"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "medium",
+    "review_note": "curated:long_tail; was E015; xlsx complexity=C_막연한주제형; survey_group=1_생애사건(출생사망혼인이혼); query_type=search; tier=positive_core | 저출산=합계출산율. 청년인구=장래추계 연령계층 DT_1BPA003. 한 표 연계는 없음. HN: 총인구·출생 건수만으로는 저출산×청년 연계가 아님.",
+    "evidence_source": [
+      "xlsx:no=43",
+      "chatting_pk=21905",
+      "catalog:DT_1B81A21",
+      "catalog:DT_1BPA003"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E080",
+    "query": "행정구역별 2009년 주민등록인구에 대한 통계",
+    "query_group": "long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1IN1502",
+      "DT_1B04005N"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:long_tail; was E038; xlsx complexity=E_단일축조회(지역+지표문장형); survey_group=0_복합서술형(미분류); query_type=search; tier=positive_core | 2009 주민등록 시군구 인구. 동일 표 시계열. HN: 2009 주민등록. 총조사·읍면동은 기준/단위가 다름.",
+    "evidence_source": [
+      "xlsx:no=275",
+      "chatting_pk=20327",
+      "catalog:DT_1B040A3"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E081",
+    "query": "미래 지역별 인구 변화",
+    "query_group": "long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1BPB001",
+      "DT_1BPB003"
+    ],
+    "primary_gold_table_id": "DT_1BPB001",
+    "hard_negative_ids": [
+      "DT_1B040A3",
+      "DT_1BPA001"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:long_tail; was E069; xlsx complexity=A_초단문(지역/지표단독); survey_group=4_장래추계; query_type=search; tier=positive_core | 미래 지역별=장래인구추계 시도. HN: 관측 주민등록·전국 추계 ≠ 시도 장래인구.",
+    "evidence_source": [
+      "xlsx:no=1244",
+      "chatting_pk=13363",
+      "catalog:DT_1BPB001",
+      "catalog:DT_1BPB003"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E082",
+    "query": "생활인구",
+    "query_group": "out_of_domain",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [
+      "DT_1B040A3",
+      "DT_1T0502"
+    ],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:long_tail; was E075; xlsx complexity=A_초단문(지역/지표단독); survey_group=9_지역명단독(문맥의존추정); query_type=search; tier=positive_core | 서울생활인구 등 통신 빅데이터. 카탈로그 주간인구(통근통학)와 개념이 다름. 주민등록을 정답으로 두지 않음. HN: 생활인구≠주민등록·주간인구(통근통학).",
+    "evidence_source": [
+      "xlsx:no=831",
+      "chatting_pk=16866"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E083",
+    "query": "유동인구",
+    "query_group": "out_of_domain",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [
+      "DT_1B040A3",
+      "DT_1PA1001",
+      "DT_1T0502"
+    ],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:long_tail; was E076; xlsx complexity=A_초단문(지역/지표단독); survey_group=9_지역명단독(문맥의존추정); query_type=search; tier=positive_core | 상권·통신 유동인구. 인구 카탈로그 상주/등록/추계가 아님. HN: 유동인구≠상주·통근·주간인구.",
+    "evidence_source": [
+      "xlsx:no=861",
+      "chatting_pk=16502"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E084",
+    "query": "한부모가구",
+    "query_group": "long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1SP1601"
+    ],
+    "primary_gold_table_id": "DT_1SP1601",
+    "hard_negative_ids": [
+      "DT_1JC1515",
+      "DT_1PL1502"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:long_tail; was E078; xlsx complexity=A_초단문(지역/지표단독); survey_group=9_지역명단독(문맥의존추정); query_type=search; tier=negative_candidate:ambiguous_short | 한부모가구 전수표. HN: 세대구성 일반가구·1인가구 ≠ 한부모 전용.",
+    "evidence_source": [
+      "xlsx:no=1621",
+      "chatting_pk=10217",
+      "catalog:DT_1SP1601"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E085",
+    "query": "제주지역의 다문화지수에 대한 통계를 만들어보고 싶어",
+    "query_group": "ambiguous",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:long_tail; was E079; xlsx complexity=F_기타서술형; survey_group=3_외국인체류; query_type=search; tier=positive_core | 다문화는 인구 도메인이나 '다문화지수' 공표 표는 없음. 만들어보고 싶어=구성 지표 미지정. 다문화가구 표로 대체하지 않음.",
+    "evidence_source": [
+      "xlsx:no=133",
+      "chatting_pk=21365"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E086",
+    "query": "최근 다문화학생 수 변화를 알고 싶어",
+    "query_group": "out_of_domain",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [
+      "DT_1JD1501",
+      "DT_1B040A14"
+    ],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:long_tail; was E080; xlsx complexity=F_기타서술형; survey_group=3_외국인체류; query_type=search; tier=positive_core | 다문화학생=교육기본통계. 유학생·다문화가구원·외국인주민 자녀와 모집단이 다름. HN: 다문화학생≠다문화가구·유학생.",
+    "evidence_source": [
+      "xlsx:no=255",
+      "chatting_pk=20427"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E087",
+    "query": "외국인 유학생이 늘어나는 비율을 알고싶어요",
+    "query_group": "long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A14",
+      "TX_11025_A011_A"
+    ],
+    "primary_gold_table_id": "DT_1B040A14",
+    "hard_negative_ids": [
+      "TX_11025_A001_A",
+      "DT_1JD1501"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "curated:long_tail; was E081; xlsx complexity=F_기타서술형; survey_group=3_외국인체류; query_type=search; tier=positive_core | 유학생 현황. 체류외국인·외국인주민. HN: 외국인주민 총계·다문화가구 ≠ 유학생.",
+    "evidence_source": [
+      "xlsx:no=277",
+      "chatting_pk=20323",
+      "catalog:DT_1B040A14",
+      "catalog:TX_11025_A011_A"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E088",
+    "query": "체류 외국인 2025나 2026통계는 없는거니",
+    "query_group": "long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A5C",
+      "DT_1B040A5"
+    ],
+    "primary_gold_table_id": "DT_1B040A5C",
+    "hard_negative_ids": [
+      "TX_11025_A001_A",
+      "DT_1JA1501"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "medium",
+    "review_note": "curated:long_tail; was E083; xlsx complexity=F_기타서술형; survey_group=3_외국인체류; query_type=search; tier=positive_core | 체류외국인 현황 최신 계열 DT_1B040A5C. 2026 미공표면 시계열 상한. HN: 외국인주민·총조사 외국인 ≠ 체류외국인.",
+    "evidence_source": [
+      "xlsx:no=697",
+      "chatting_pk=17923",
+      "catalog:DT_1B040A5C",
+      "catalog:DT_1B040A5"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E089",
+    "query": "2025년 농림어가 인구의 고령화 현황을 요약해줘.",
+    "query_group": "out_of_domain",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [
+      "DT_1IN6002",
+      "DT_1GA5503",
+      "DT_1BPA003"
+    ],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:long_tail; was E103; xlsx complexity=F_기타서술형; survey_group=5_연령구조(고령화포함); query_type=search; tier=positive_core | 농림어가=농림어업총조사. 1960년대 총조사 농/비농 분할은 함정. 2025 고령화 요약은 인구 카탈로그 밖. HN: 농림어가≠총조사 농/비농·학령/고령 추계.",
+    "evidence_source": [
+      "xlsx:no=867",
+      "chatting_pk=16346"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E090",
+    "query": "작년 대비 맞벌이 가구와 1인 가구 수는 각각 얼마나 증가했나요?",
+    "query_group": "long_tail",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [
+      "DT_1PL1502"
+    ],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:long_tail; was E130; xlsx complexity=F_기타서술형; survey_group=0_복합서술형(미분류); query_type=search; tier=positive_core:value_intent | 맞벌이+1인가구 각각 증감. 맞벌이는 인구 카탈로그에 없음(지역별고용조사). 1인가구만 내보내는 것은 질의 미충족. HN: 1인가구만 반환은 맞벌이 축 미충족.",
+    "evidence_source": [
+      "xlsx:no=227",
+      "chatting_pk=20580"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E091",
+    "query": "요즘 저출산으로 인해서 학생 인구가 줄어들고 그로 인해 폐교하는 학교 수나 빈교실이 늘어나고 있는데, 이 정보를 보여줄 수 있는 통계자료 알려줄 수 있니?",
+    "query_group": "out_of_domain",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [
+      "DT_1BPA003",
+      "DT_1B81A21"
+    ],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "curated:long_tail; was E168; xlsx complexity=F_기타서술형; survey_group=1_생애사건(출생사망혼인이혼); query_type=search; tier=positive_core | 요청 산출은 폐교·빈교실(교육행정). 학령인구·합계출산율은 배경일 뿐 정답이 아님. HN: 폐교·빈교실≠학령인구·합계출산율.",
+    "evidence_source": [
+      "xlsx:no=737",
+      "chatting_pk=17719"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E092",
+    "query": "기간 측정치 (Period Measures)로 30~34세 여성 혼인율 (Currently Married)을 구할건데, 1970년부터 2020년까지 5년마다",
+    "query_group": "long_tail",
+    "expected_action": "multi_table",
+    "gold_table_ids": [
+      "DT_1IN7003",
+      "DT_1IN7503",
+      "DT_1IN8003",
+      "DT_1IN8503",
+      "DT_1IN9003",
+      "DT_1IN9503",
+      "DT_1PM0001",
+      "DT_1IN0508",
+      "DT_1IN1005",
+      "DT_1MR2060"
+    ],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [
+      "DT_1B83A15"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "medium",
+    "review_note": "curated:long_tail; was E174; xlsx complexity=F_기타서술형; survey_group=1_생애사건(출생사망혼인이혼); query_type=search; tier=positive_core | 유배우 재고는 총조사 성·연령·혼인상태. 1970–2020 5년 간격은 연도별 전수표 연결(multi_table). primary 없음. 혼인율(유량) DT_1B83A15와 다름. HN: 혼인율(유량) ≠ 유배우 재고(Currently Married).",
+    "evidence_source": [
+      "xlsx:no=1444",
+      "chatting_pk=11385",
+      "catalog:DT_1IN7003",
+      "catalog:DT_1IN7503",
+      "catalog:DT_1IN8003",
+      "catalog:DT_1IN8503",
+      "catalog:DT_1IN9003",
+      "catalog:DT_1IN9503",
+      "catalog:DT_1PM0001",
+      "catalog:DT_1IN0508",
+      "catalog:DT_1IN1005",
+      "catalog:DT_1MR2060"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E093",
+    "query": "시도별 기대수명",
+    "query_group": "long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B44",
+      "DT_1YL0301E"
+    ],
+    "primary_gold_table_id": "DT_1B44",
+    "hard_negative_ids": [
+      "DT_1BPB201",
+      "DT_1BPA202"
+    ],
+    "validation_status": "mapped_from_kosis_meta",
+    "review_confidence": "high",
+    "review_note": "synth:생명표; 시도별 관측 기대여명=간이생명표 DT_1B44. DT_1YL0301E(기대여명 시도)도 허용. 장래 생명표/시도 DT_1BPB201은 추계라 미포함. HN: 장래 생명표 ≠ 관측 기대여명.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "kosis:DT_1B44",
+      "kosis:DT_1YL0301E"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E094",
+    "query": "장래생명표 0세 기대여명",
+    "query_group": "long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1BPA202",
+      "DT_1BPA201"
+    ],
+    "primary_gold_table_id": "DT_1BPA202",
+    "hard_negative_ids": [
+      "DT_1B44",
+      "DT_1BPB201"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "synth:생명표; 질의 '장래생명표'+0세 기대여명. DT_1BPA202에 기대여명·0세 축. DT_1BPA201은 0세 기대수명 전용. HN: 관측 시도 생명표·시도 장래표 ≠ 전국 장래 0세.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1BPA202",
+      "catalog:DT_1BPA201"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E095",
+    "query": "영주귀국 사할린 동포 몇 명이야?",
+    "query_group": "long_tail",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [
+      "DT_182001_A002_2025",
+      "DT_182001_A004_2025"
+    ],
+    "validation_status": "catalog_empty",
+    "review_confidence": "high",
+    "review_note": "synth:사할린; 영주귀국사할린동포실태조사(2025) 연령표가 인원 분포. 공식 총인원 전수표는 카탈로그에 없음(표본). | 영주귀국 사할린 동포 총인원 전수표 없음. DT_182001_A002_2025는 표본 연령 비율(사례수)이라 몇 명 질의의 gold가 아님. HN: 표본 연령비율·세대표는 총인원 전수가 아님.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E096",
+    "query": "사할린동포 세대 현황",
+    "query_group": "long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_182001_A004_2025"
+    ],
+    "primary_gold_table_id": "DT_182001_A004_2025",
+    "hard_negative_ids": [
+      "DT_182001_A002_2025",
+      "DT_1B040B3"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "synth:사할린; 표명 일치 '사할린동포 세대'. HN: 연령 비율표·주민등록 세대 ≠ 사할린동포 세대.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_182001_A004_2025"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E097",
+    "query": "재외동포 현황",
+    "query_group": "long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_2KAA215"
+    ],
+    "primary_gold_table_id": "DT_2KAA215",
+    "hard_negative_ids": [
+      "DT_1B040A23"
+    ],
+    "validation_status": "mapped_from_kosis_meta",
+    "review_confidence": "high",
+    "review_note": "synth:재외동포; 국제통계연감 재외동포(국가별 총계·시민권·영주권). 신남방 분할표는 세계 전부가 아니라 미포함. 이민자 만족도 DT_2FR*는 다른 모집단. HN: 재외국민 거소신고 ≠ 재외동포.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "kosis:DT_2KAA215"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E098",
+    "query": "시도별 출생성비",
+    "query_group": "long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B81A19"
+    ],
+    "primary_gold_table_id": "DT_1B81A19",
+    "hard_negative_ids": [
+      "DT_1BPA002",
+      "DT_1IN2030"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "synth:성비; 시도/출산순위별 출생성비. HN: 추계 성비·중위연령 지표 ≠ 출생성비.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1B81A19"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E099",
+    "query": "시군구 중위연령",
+    "query_group": "long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1IN2030"
+    ],
+    "primary_gold_table_id": "DT_1IN2030",
+    "hard_negative_ids": [
+      "DT_1BPA002",
+      "DT_1BPB002"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "synth:중위연령; 시군구 주요지표 항목 T5 중위연령. HN: 장래 중위연령 추계 ≠ 총조사 시군구 관측.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1IN2030"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E100",
+    "query": "인구피라미드",
+    "query_group": "long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1IN1503",
+      "DT_1B04006"
+    ],
+    "primary_gold_table_id": "DT_1IN1503",
+    "hard_negative_ids": [
+      "DT_1IN2030",
+      "DT_1B040A3"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "synth:피라미드; 연령×성 표. 총조사 DT_1IN1503, 주민등록 1세별 DT_1B04006. 전용 '피라미드' 표명은 없음. HN: 지표 요약·성별 총인구는 피라미드(연령×성)가 아님.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1IN1503",
+      "catalog:DT_1B04006"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E101",
+    "query": "장래가구추계랑 장래인구추계 다른 거지? 가구추계만 줘",
+    "query_group": "long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1BZ0503",
+      "DT_1BZ05011",
+      "DT_1BZ0502"
+    ],
+    "primary_gold_table_id": "DT_1BZ0503",
+    "hard_negative_ids": [
+      "DT_1BPA001",
+      "DT_1BPA003"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "synth:장래가구추계; 전국 추계가구. REC=Y DT_1BZ0503. 장래인구추계 DT_1BPA*는 질의에서 제외 대상. HN: 장래인구추계 ≠ 가구추계.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1BZ0503",
+      "catalog:DT_1BZ05011"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E102",
+    "query": "혼인 귀화자 몇명이야",
+    "query_group": "long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "TX_11025_A020_A"
+    ],
+    "primary_gold_table_id": "TX_11025_A020_A",
+    "hard_negative_ids": [
+      "DT_1JD1616",
+      "DT_1B83A11"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "synth:귀화; 현행 혼인 귀화자(계). 남/여 분할·구연도(2007–2015)는 미포함. HN: 총조사 귀화·혼인 건수 ≠ 혼인귀화자 현황.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:TX_11025_A020_A"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E103",
+    "query": "조손가구 얼마나 돼?",
+    "query_group": "long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1JC1515"
+    ],
+    "primary_gold_table_id": "DT_1JC1515",
+    "hard_negative_ids": [
+      "DT_1SP1601",
+      "DT_1PL1502"
+    ],
+    "validation_status": "mapped_from_kosis_meta",
+    "review_confidence": "medium",
+    "review_note": "synth:조손; 전용 조손가구 표 없음. DT_1JC1515 항목 '2세대가구_조부모+미혼손자녀'가 조손. HN: 한부모·1인가구 ≠ 조손(조부모+손자녀).",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "kosis:DT_1JC1515"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E104",
+    "query": "1925년 인구총조사",
+    "query_group": "long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1IN2501",
+      "DT_1IN2502"
+    ],
+    "primary_gold_table_id": "DT_1IN2501",
+    "hard_negative_ids": [
+      "DT_1IN1502",
+      "DT_1B040A3"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "synth:역사총조사; 총조사인구(1925년) 요약 DT_1IN2501. 1925–2010 시계열 총괄 DT_1IN0001은 연도가 섞여 미포함. HN: 현행 총조사·주민등록 ≠ 1925년 총조사.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1IN2501",
+      "catalog:DT_1IN2502"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E105",
+    "query": "고령친화용품 제조업 사업체수",
+    "query_group": "long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_358005_003",
+      "DT_358005_002",
+      "DT_358005_001"
+    ],
+    "primary_gold_table_id": "DT_358005_003",
+    "hard_negative_ids": [
+      "DT_358005_010",
+      "DT_1IN2030"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "medium",
+    "review_note": "synth:고령친화; 사업체수 전용 표 없이 기업형태·유형·지역분포가 사업체 수. primary는 지역분포. HN: 종사자 분포·고령 지표 ≠ 사업체수.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_358005_003",
+      "catalog:DT_358005_002",
+      "catalog:DT_358005_001"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E106",
+    "query": "학령인구",
+    "query_group": "long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1BPA003",
+      "DT_1BPB003"
+    ],
+    "primary_gold_table_id": "DT_1BPA003",
+    "hard_negative_ids": [
+      "DT_1B04006",
+      "DT_1IN1503"
+    ],
+    "validation_status": "mapped_from_kosis_meta",
+    "review_confidence": "high",
+    "review_note": "synth:학령인구; 장래추계 연령계층 DT_1BPA003에 학령인구(6–21세 등) 항목. 시도는 DT_1BPB003. HN: 관측 연령 인구 ≠ 학령인구 추계 항목.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1BPA003",
+      "catalog:DT_1BPB003",
+      "kosis:DT_1BPA003"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E107",
+    "query": "북한출생 인구",
+    "query_group": "long_tail",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1BNOO01",
+      "DT_1BNOO02"
+    ],
+    "primary_gold_table_id": "DT_1BNOO01",
+    "hard_negative_ids": [
+      "DT_1B040A3",
+      "DT_1IN1502"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "synth:북한출생; 2000년 총조사 국내이동 표본. 북한 전체 인구(E120)와 다름. HN: 남한 총인구 ≠ 북한출생 인구.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1BNOO01",
+      "catalog:DT_1BNOO02"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E108",
+    "query": "세대수만 보고 싶어. 인구수 말고",
+    "query_group": "survey_basis",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040B3"
+    ],
+    "primary_gold_table_id": "DT_1B040B3",
+    "hard_negative_ids": [
+      "DT_1B040A3",
+      "DT_1IN1502"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "synth:세대수; 주민등록세대수 전용. 인구수 표 DT_1B040A3은 정답이 아님. HN: 인구수·총조사 가구 ≠ 세대수.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1B040B3"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E109",
+    "query": "인구수랑 세대수 같이 나오는거 있어?",
+    "query_group": "survey_basis",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040B3"
+    ],
+    "primary_gold_table_id": "DT_1B040B3",
+    "hard_negative_ids": [
+      "DT_1IN1502"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "medium",
+    "review_note": "synth:세대수; 한 표에 인구+가구는 총조사 DT_1IN1502. 주민등록은 인구(DT_1B040A3)와 세대(DT_1B040B3)가 분리. 세대≠가구. | 세대수=주민등록 DT_1B040B3. 총조사 가구 DT_1IN1502는 세대가 아님. 인구+세대 한 표는 없고 인구는 DT_1B040A3가 분리. HN: 총조사 가구는 세대가 아님.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1B040B3"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E110",
+    "query": "등록센서스 기준 시군구 인구",
+    "query_group": "survey_basis",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1IN1502"
+    ],
+    "primary_gold_table_id": "DT_1IN1502",
+    "hard_negative_ids": [
+      "DT_1B040A3",
+      "DT_1B04006"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "synth:등록센서스; 2015년 이후 전수(등록센서스) 시군구 인구. 주민등록 DT_1B040A3은 다른 조사기준. HN: 등록센서스=총조사. 주민등록은 조사 기준이 다름.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1IN1502"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E111",
+    "query": "잠정 합계출산율이랑 확정 다른거야?",
+    "query_group": "survey_basis",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B81A21",
+      "DT_1B8000G"
+    ],
+    "primary_gold_table_id": "DT_1B81A21",
+    "hard_negative_ids": [
+      "DT_1BPA101"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "medium",
+    "review_note": "synth:잠정확정; 확정 합계출산율=연간 DT_1B81A21. 월별 잠정 동향=DT_1B8000G. 잠정 전용 TFR 표는 없음. HN: 장래 합계출산율 ≠ 잠정/확정 관측.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1B81A21",
+      "catalog:DT_1B8000G"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E112",
+    "query": "강남 인구 몇 명이야?",
+    "query_group": "geo_grain",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3",
+      "DT_1IN1502"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1B04005N"
+    ],
+    "validation_status": "mapped_from_gold_queries",
+    "review_confidence": "medium",
+    "review_note": "synth:비공식지역; 강남=강남구(시군구). O004와 동일 축. 읍면동 HN은 다음 라운드. HN: 강남=강남구(시군구). 읍면동은 과잉.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1B040A3",
+      "gold:Q024"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E113",
+    "query": "영남 지역 인구 추이",
+    "query_group": "geo_grain",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1B04005N",
+      "DT_1BPB001"
+    ],
+    "validation_status": "mapped_from_gold_queries",
+    "review_confidence": "medium",
+    "review_note": "synth:비공식지역; 영남=부산·대구·울산·경북·경남. 전용 권역 표 없음. 시도 주민등록에서 합산. O007 추이. HN: 영남=경남북·부산·울산 시군구 합. 읍면동·추계는 다른 축.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1B040A3",
+      "gold:Q022"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E114",
+    "query": "시도별 population",
+    "query_group": "surface",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3",
+      "DT_1IN1502"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1B04005N",
+      "DT_1B04006"
+    ],
+    "validation_status": "mapped_from_gold_queries",
+    "review_confidence": "high",
+    "review_note": "synth:한영혼용; 시도별 인구=O001과 동일. population→주민등록 우선. HN: 시도별 총인구. 읍면동·1세별은 과잉.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1B040A3",
+      "ops:O001"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E115",
+    "query": "주미등록인구 2024",
+    "query_group": "surface",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1IN1502",
+      "DT_1B04005N"
+    ],
+    "validation_status": "mapped_from_gold_queries",
+    "review_confidence": "high",
+    "review_note": "synth:오타; 주미등록→주민등록. 2024는 시계열에 포함. | 주미등록→주민등록. 2024는 시계열에 포함. 총조사 DT_1IN1502는 조사 기준이 다름. HN: 주민등록. 총조사·읍면동은 기준/단위가 다름.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1B040A3",
+      "ops:O001"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E116",
+    "query": "합계출산률 최근 수치",
+    "query_group": "surface",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B81A21",
+      "DT_1B81A17"
+    ],
+    "primary_gold_table_id": "DT_1B81A21",
+    "hard_negative_ids": [
+      "DT_1B8000F",
+      "DT_1BPA101"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "synth:오타; 합계출산률→합계출산율. 시도 DT_1B81A21, 시군구 DT_1B81A17. HN: 조출생률·장래 합계출산율 ≠ 확정 합계출산율.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1B81A21",
+      "catalog:DT_1B81A17"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E117",
+    "query": "시도별이랑 읍면동별 같이 나와?",
+    "query_group": "ambiguous",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "synthesized_empty",
+    "review_confidence": "high",
+    "review_note": "synth:모순제약; 시도×읍면동 한 표 요구는 축이 충돌. clarify. 표 확정하지 않음.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E118",
+    "query": "왜 출산율이 떨어졌어?",
+    "query_group": "ambiguous",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "synthesized_empty",
+    "review_confidence": "high",
+    "review_note": "synth:인과; 원인 설명은 표 적중이 아님. clarify.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E119",
+    "query": "이 숫자 명이야 %야?",
+    "query_group": "ambiguous",
+    "expected_action": "clarify",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [],
+    "validation_status": "synthesized_empty",
+    "review_confidence": "high",
+    "review_note": "synth:단위; 선행 표 없는 단위 질문. clarify.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E120",
+    "query": "북한 인구는 얼마나 돼?",
+    "query_group": "out_of_domain",
+    "expected_action": "no_exact_table",
+    "gold_table_ids": [],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [
+      "DT_1BNOO01",
+      "DT_1B040A3"
+    ],
+    "validation_status": "synthesized_empty",
+    "review_confidence": "high",
+    "review_note": "synth:북한인구; 카탈로그는 북한출생(국내 거주)만. 북한 전체 인구 표 없음. no_exact_table. E107과 구분. HN: 북한 인구≠남한 내 북한출생·주민등록.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E121",
+    "query": "인구 많은 시군구 탑10",
+    "query_group": "rank",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3",
+      "DT_1IN1502"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1B04005N",
+      "DT_1B04006"
+    ],
+    "validation_status": "mapped_from_gold_queries",
+    "review_confidence": "high",
+    "review_note": "synth:순위; 시군구 인구 순위. 주민등록 DT_1B040A3. expect:quick_rank. HN: 시군구 총인구 순위. 읍면동·1세별은 과잉.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1B040A3",
+      "ops:O001"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E122",
+    "query": "합계출산율 낮은 시도 순위",
+    "query_group": "rank",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B81A21"
+    ],
+    "primary_gold_table_id": "DT_1B81A21",
+    "hard_negative_ids": [
+      "DT_1B81A17",
+      "DT_1B8000F"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "synth:순위; 시도 합계출산율 순위=DT_1B81A21. 시군구 DT_1B81A17은 질의 단위가 다름. HN: 시군구 합계출산율·조출생률 ≠ 시도 순위.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1B81A21"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E123",
+    "query": "서울 부산 대구 인구 비교해줘",
+    "query_group": "compare",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1B04006",
+      "DT_1B04005N"
+    ],
+    "validation_status": "mapped_from_gold_queries",
+    "review_confidence": "high",
+    "review_note": "synth:다지역비교; 서울·부산·대구=시도. O010/O011과 동일 표. expect:chain_compare_regions. | 서울·부산·대구=시도 총인구. DT_1B040A3만. 1세별 DT_1B04006은 불필요. expect:chain_compare_regions. HN: 시도 총인구 비교. 1세별·읍면동 불필요.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1B040A3",
+      "ops:O010"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E124",
+    "query": "대전 인구 좀 정리해줘",
+    "query_group": "briefing",
+    "expected_action": "multi_table",
+    "gold_table_ids": [
+      "DT_1B040A3",
+      "DT_1B81A21"
+    ],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [
+      "DT_1B81A17",
+      "DT_1B04005N"
+    ],
+    "validation_status": "mapped_from_gold_queries",
+    "review_confidence": "medium",
+    "review_note": "synth:브리핑; expect:chain_region_brief. 인구 도메인 표만 Gold(주민등록·합계출산율). 실업·주택 등은 브리핑 체인이 섞지만 이 셋은 인구 골드. | synth:브리핑; expect:chain_region_brief. 대전시 단위=주민등록 DT_1B040A3 + 합계출산율 DT_1B81A21. 시군구 출산율 DT_1B81A17은 제외. primary 없음. HN: 대전시 브리핑. 시군구 출산율·읍면동은 단위가 다름.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1B040A3",
+      "catalog:DT_1B81A21"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E125",
+    "query": "저출산 지표 한번에",
+    "query_group": "briefing",
+    "expected_action": "multi_table",
+    "gold_table_ids": [
+      "DT_1B81A21",
+      "DT_1B8000G",
+      "DT_1B8000F"
+    ],
+    "primary_gold_table_id": "",
+    "hard_negative_ids": [
+      "DT_1BPA101",
+      "DT_1B040A3"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "medium",
+    "review_note": "synth:정책지표; expect:chain_policy_indicator lowFertility. 합계출산율·출생·혼인 동태. exact-set 지표에는 쓰지 말 것. HN: 장래 합계출산율·총인구는 저출산 동태 지표 묶음이 아님.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1B81A21",
+      "catalog:DT_1B8000G",
+      "catalog:DT_1B8000F"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E127",
+    "query": "인구총조사 엑셀로 받아줘",
+    "query_group": "export",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1IN1502"
+    ],
+    "primary_gold_table_id": "DT_1IN1502",
+    "hard_negative_ids": [
+      "DT_1B040A3"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "medium",
+    "review_note": "synth:조사명엑셀; 인구총조사 대표 전수표. 조사 단위 엑셀이라 표가 여럿이나 현행 기본표 1개. HN: 인구총조사 ≠ 주민등록.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1IN1502"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E128",
+    "query": "장래인구추계 엑셀로 내려줘",
+    "query_group": "export",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1BPA001",
+      "DT_1BPA002",
+      "DT_1BPA003",
+      "DT_1BPA004"
+    ],
+    "primary_gold_table_id": "DT_1BPA001",
+    "hard_negative_ids": [
+      "DT_1B040A3",
+      "DT_1BZ0503"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "synth:조사명엑셀; O013과 동일 장래인구추계 전국 규모·구조·변동. 가구추계·시도 추계는 미포함. HN: 관측 인구·가구추계 ≠ 장래인구추계.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1BPA001",
+      "ops:O013"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E129",
+    "query": "주민등록인구현황",
+    "query_group": "name_lookup",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B040A3",
+      "DT_1B040B3",
+      "DT_1B04006"
+    ],
+    "primary_gold_table_id": "DT_1B040A3",
+    "hard_negative_ids": [
+      "DT_1IN1502",
+      "DT_1IN1503"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "synth:조사명; 주민등록인구현황 대표 인구수 표. 세대·1세별도 같은 조사. HN: 조사명 주민등록인구현황. 총조사는 다른 조사.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1B040A3",
+      "catalog:DT_1B040B3"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E130",
+    "query": "인구동향조사 합계출산율",
+    "query_group": "name_lookup",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1B81A21",
+      "DT_1B81A17"
+    ],
+    "primary_gold_table_id": "DT_1B81A21",
+    "hard_negative_ids": [
+      "DT_1BPA101",
+      "DT_1B8000F"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "synth:조사명; 인구동향조사 합계출산율. 시도 DT_1B81A21. HN: 장래 합계출산율·조출생률 ≠ 인구동향조사 합계출산율.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1B81A21",
+      "catalog:DT_1B81A17"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E131",
+    "query": "시도별 장래생명표",
+    "query_group": "name_lookup",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_1BPB201"
+    ],
+    "primary_gold_table_id": "DT_1BPB201",
+    "hard_negative_ids": [
+      "DT_1B44",
+      "DT_1BPA202"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "high",
+    "review_note": "synth:표명; 장래 생명표/시도 표명 일치. E093(관측 간이생명표)과 구분. HN: 관측 시도 생명표·전국 장래표 ≠ 시도별 장래생명표.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_1BPB201"
+    ],
+    "scope_category": "인구"
+  },
+  {
+    "query_id": "E132",
+    "query": "고령친화용품제조업실태조사",
+    "query_group": "name_lookup",
+    "expected_action": "single_table",
+    "gold_table_ids": [
+      "DT_358005_001",
+      "DT_358005_002",
+      "DT_358005_003"
+    ],
+    "primary_gold_table_id": "DT_358005_001",
+    "hard_negative_ids": [
+      "DT_1IN2030",
+      "DT_358005_010"
+    ],
+    "validation_status": "mapped_from_population_catalog",
+    "review_confidence": "medium",
+    "review_note": "synth:조사명; 고령친화용품제조업실태조사 사업체 표. 조사 전체라 1 hit 허용. exact-set 금지. HN: 고령 지표·종사자 표는 조사명 조회 1순위가 아님.",
+    "evidence_source": [
+      "synth:edge-query-synth-gaps",
+      "catalog:DT_358005_001"
+    ],
+    "scope_category": "인구"
+  }
+]
