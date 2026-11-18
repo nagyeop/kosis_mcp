@@ -12,7 +12,8 @@
 |------|------|
 | `KOSIS_API_KEY` | 필수 — https://kosis.kr/openapi/ |
 | `REDIS_URL` | 설정 시 Redis 캐시 (compose 기본 `redis://redis:6379/0`). 미설정이면 메모리 |
-| `CACHE_TTL_HOURS` | 기본 6 |
+| `CACHE_TTL_HOURS` | 데이터 캐시 TTL(기본 6, 검색은 최대 1시간) |
+| `KOSIS_RPM` | KOSIS 분당 호출 상한(기본 180, 키 한도 200) |
 | `PORT` | HTTP 포트 (기본 3000) |
 | `RATE_LIMIT_RPM` | IP당 분당 요청 (기본 60) |
 | `MCP_AUTH_TOKEN` | 설정 시 `/mcp` Bearer 인증 |
@@ -42,29 +43,31 @@ npx @modelcontextprotocol/inspector --cli .venv/bin/kosis-mcp --method tools/lis
 ```
 
 L1 (`scripts/ci.sh`): initialize, tools/list(14개·annotation·schema), resources/list·read, prompts/list.
-L2 (pytest): `test_extract_keyword.py`, `test_utils.py`, `tests/eval/` — 순수 Python 로직만.
+L2 (pytest): `tests/test_*.py`(키워드 추출·검색어·find·series·키워드 계층·캐시/제한기), `tests/eval/` — KOSIS는 mock.
 L3 eval (수동): 골드/ops/edge + KOSIS API + Langfuse experiment. PR gate 아님.
 
 | Dataset | 소스 | 건수 |
 |---------|------|------|
-| `population-search-gold-v1` | `gold_queries.json` | 50 |
-| `population-search-ops-gold-v1` | `ops_gold_queries.json` | 30 |
-| `population-search-edge-v1` | `edge_queries.json` | 132 |
+| `population-search-gold-v2` | `gold_queries.json` | 50 |
+| `population-search-ops-gold-v2` | `ops_gold_queries.json` | 28 |
+| `population-search-edge-v2` | `edge_queries.json` | 110 |
+
+v2: 항목마다 `scope_category`(검색 범위, runner가 find_tables·browse_statistics `category`로 전달 — browse 지표는 분야 단위). exclude 24건은 `routing_excluded_queries.json`으로 분리.
 
 ```bash
 # dataset 업로드 (최초 1회 · --dataset이 소스 JSON을 고름)
-PYTHONPATH=src .venv/bin/python scripts/eval/upload_dataset.py --dataset population-search-gold-v1
-PYTHONPATH=src .venv/bin/python scripts/eval/upload_dataset.py --dataset population-search-ops-gold-v1
-PYTHONPATH=src .venv/bin/python scripts/eval/upload_dataset.py --dataset population-search-edge-v1
+PYTHONPATH=src .venv/bin/python scripts/eval/upload_dataset.py --dataset population-search-gold-v2
+PYTHONPATH=src .venv/bin/python scripts/eval/upload_dataset.py --dataset population-search-ops-gold-v2
+PYTHONPATH=src .venv/bin/python scripts/eval/upload_dataset.py --dataset population-search-edge-v2
 
-# mode smoke (Q001 × 3)
+# tool smoke (Q001 × find_tables / quick_stats / browse_statistics)
 PYTHONPATH=src .venv/bin/python scripts/eval/smoke_modes.py
 
-# MCP baseline experiment — mode: direct_search | direct_quick | direct_list
+# MCP baseline — --tool find_tables | quick_stats | browse_statistics
 PYTHONPATH=src .venv/bin/python scripts/eval/run_experiment.py \
-  --run-id mcp-direct_search-YYYY-MM-DD \
-  --mode direct_search \
-  --dataset population-search-gold-v1
+  --run-id mcp-find_tables-YYYY-MM-DD \
+  --tool find_tables \
+  --dataset population-search-gold-v2
 ```
 
 필요 env: `KOSIS_API_KEY`, `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_BASE_URL`.  
