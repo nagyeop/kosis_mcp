@@ -22,6 +22,17 @@ TTL_EMPTY_RESULT = 60
 _KEY_PREFIX = "kosis:"
 
 
+def settle_failed(fut: asyncio.Future[Any], exc: BaseException) -> None:
+    """실패한 in-flight future 정리: 취소는 취소로, 예외는 전달하되 '미회수 예외' 로그는 남기지 않는다."""
+    if fut.done():
+        return
+    if isinstance(exc, asyncio.CancelledError):
+        fut.cancel()
+        return
+    fut.set_exception(exc)
+    fut.exception()  # 대기자가 없어도 회수된 것으로 표시
+
+
 class CacheManager:
     def __init__(self, redis_url_value: str | None = None) -> None:
         self._store: dict[str, tuple[Any, float]] = {}
@@ -97,7 +108,14 @@ class CacheManager:
 
         existing = self._inflight.get(key)
         if existing is not None:
-            return await existing  # type: ignore[return-value]
+            try:
+                return await asyncio.shield(existing)  # type: ignore[return-value]
+            except asyncio.CancelledError:
+                task = asyncio.current_task()
+                # 리더가 취소된 경우에만 직접 다시 조회한다(자신이 취소된 경우는 그대로 전파).
+                if existing.cancelled() and not (task and task.cancelling()):
+                    return await self.get_or_fetch(prefix, params, fetcher, ttl)
+                raise
 
         loop = asyncio.get_running_loop()
         fut: asyncio.Future[Any] = loop.create_future()
@@ -113,8 +131,8 @@ class CacheManager:
             await self._set(key, data, use_ttl)
             fut.set_result(data)
             return data
-        except Exception as e:
-            fut.set_exception(e)
+        except BaseException as e:
+            settle_failed(fut, e)
             raise
         finally:
             self._inflight.pop(key, None)
@@ -127,12 +145,14 @@ class CacheManager:
     async def get_statistics_data(
         self, params: dict[str, Any], fetcher: Callable[[], Awaitable[T]]
     ) -> T:
-        return await self.get_or_fetch("data", params, fetcher, TTL_STATISTICS_DATA)
+        return await self.get_or_fetch("data", params, fetcher, self._default_ttl)
 
     async def get_search_results(
         self, params: dict[str, Any], fetcher: Callable[[], Awaitable[T]]
     ) -> T:
-        return await self.get_or_fetch("search", params, fetcher, TTL_SEARCH_RESULTS)
+        return await self.get_or_fetch(
+            "search", params, fetcher, min(TTL_SEARCH_RESULTS, self._default_ttl)
+        )
 
     async def get_explanation(
         self, params: dict[str, Any], fetcher: Callable[[], Awaitable[T]]

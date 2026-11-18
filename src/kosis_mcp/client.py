@@ -3,6 +3,9 @@
 from __future__ import annotations
 
 import asyncio
+import os
+import time
+from collections import deque
 from typing import Any
 
 import httpx
@@ -16,6 +19,40 @@ class KosisApiError(Exception):
         super().__init__(message)
         self.code = code
         self.original = original
+
+
+RATE_LIMIT_MARK = "호출가능건수"
+
+
+class RateLimiter:
+    """프로세스 전역 분당 호출 제한 (KOSIS 키당 200건/분 → 기본 180)."""
+
+    def __init__(self, rpm: int, window: float = 60.0) -> None:
+        self.rpm = max(1, rpm)
+        self.window = window
+        self._calls: deque[float] = deque()
+        self._lock = asyncio.Lock()
+
+    async def acquire(self) -> None:
+        async with self._lock:
+            while True:
+                now = time.monotonic()
+                while self._calls and now - self._calls[0] >= self.window:
+                    self._calls.popleft()
+                if len(self._calls) < self.rpm:
+                    self._calls.append(now)
+                    return
+                await asyncio.sleep(self.window - (now - self._calls[0]) + 0.01)
+
+
+_limiter: RateLimiter | None = None
+
+
+def get_rate_limiter() -> RateLimiter:
+    global _limiter
+    if _limiter is None:
+        _limiter = RateLimiter(int(os.environ.get("KOSIS_RPM", "180")))
+    return _limiter
 
 
 class KosisClient:
@@ -44,9 +81,11 @@ class KosisClient:
         }
 
         last_err: Exception | None = None
+        rate_limited_once = False
         for attempt in range(max_attempts):
             is_retryable = False
             try:
+                await get_rate_limiter().acquire()
                 async with httpx.AsyncClient(timeout=timeout) as client:
                     response = await client.get(url, params=clean)
 
@@ -95,6 +134,11 @@ class KosisClient:
                 )
                 return rows
             except KosisApiError as e:
+                if RATE_LIMIT_MARK in str(e) and not rate_limited_once:
+                    # 분당 한도 초과: 창이 비워질 때까지 기다린 뒤 1회 재시도.
+                    rate_limited_once = True
+                    await asyncio.sleep(61)
+                    continue
                 if not is_retryable:
                     get_client().update_current_span(
                         input=trace_input,
